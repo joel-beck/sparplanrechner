@@ -1,10 +1,10 @@
 package calculator
 
 type InvestmentPlanRequest struct {
-	StartCapital int     `json:"startCapital" form:"startCapital" query:"startCapital"`
-	SavingsRate  int     `json:"savingsRate" form:"savingsRate" query:"savingsRate"`
-	AnnualReturn float64 `json:"annualReturn" form:"annualReturn" query:"annualReturn"`
-	Years        int     `json:"years" form:"years" query:"years"`
+	StartCapital int     `json:"startCapital" form:"startCapital"`
+	SavingsRate  int     `json:"savingsRate" form:"savingsRate"`
+	AnnualReturn float64 `json:"annualReturn" form:"annualReturn"`
+	Years        int     `json:"years" form:"years"`
 }
 
 func Sum[T int | float64](a []T) T {

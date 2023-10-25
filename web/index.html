@@ -32,6 +32,8 @@
                 name="startCapital"
                 class="form-control"
                 oninput="syncValues('startCapital', false)"
+                min="0"
+                max="1000000"
                 value="1000"
                 required
               />
@@ -54,8 +56,10 @@
                 id="savingsRate"
                 name="savingsRate"
                 class="form-control"
-                oninput="syncValues('savingsRate', false)"
+                min="0"
+                max="10000"
                 value="100"
+                oninput="syncValues('savingsRate', false)"
                 required
               />
               <input
@@ -78,8 +82,10 @@
                 id="annualReturn"
                 name="annualReturn"
                 class="form-control"
-                oninput="syncValues('annualReturn', false)"
+                min="0"
+                max="20"
                 value="5"
+                oninput="syncValues('annualReturn', false)"
                 required
               />
               <input
@@ -101,8 +107,10 @@
                 id="years"
                 name="years"
                 class="form-control"
-                oninput="syncValues('years', false)"
+                min="1"
+                max="100"
                 value="10"
+                oninput="syncValues('years', false)"
                 required
               />
               <input

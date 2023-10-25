@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/joel-beck/sparplanrechner/pkg/routes"
 	"github.com/labstack/echo/v4"
 )
@@ -8,9 +10,12 @@ import (
 func main() {
 	e := echo.New()
 
-	e.GET("/", routes.ParseTemplates)
-	e.Static("/", "web")
-	e.POST("/calculate", routes.ProcessUserInputs)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 
-	e.Logger.Fatal(e.Start(":8080"))
+	routes.InitRoutes(e)
+
+	e.Logger.Fatal(e.Start(":" + port))
 }

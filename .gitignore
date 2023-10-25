@@ -17,6 +17,9 @@
 # Go workspace file
 go.work
 
+# dotenv
+.env
+
 # sourcery
 .sourcery.yaml
 
