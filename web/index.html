@@ -32,13 +32,14 @@
                 name="initialCapital"
                 class="form-control"
                 oninput="syncValues('initialCapital', false)"
+                value="1000"
                 required
               />
               <input
                 type="range"
                 id="initialCapitalSlider"
                 min="0"
-                max="10000000"
+                max="1000000"
                 step="1000"
                 class="form-range"
                 oninput="syncValues('initialCapital', true)"
@@ -55,6 +56,7 @@
                 name="annualReturn"
                 class="form-control"
                 oninput="syncValues('annualReturn', false)"
+                value="5"
                 required
               />
               <input
@@ -77,6 +79,7 @@
                 name="years"
                 class="form-control"
                 oninput="syncValues('years', false)"
+                value="10"
                 required
               />
               <input
