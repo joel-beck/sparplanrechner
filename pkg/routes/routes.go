@@ -16,7 +16,7 @@ func InitRoutes(e *echo.Echo) {
 
 	e.GET("/", ParseTemplates)
 	e.Static("/", "web")
-	e.POST("/calculate", sendResponse)
+	e.POST("/calculate", SendResponse)
 }
 
 func ParseTemplates(c echo.Context) error {
@@ -40,25 +40,44 @@ func collectTemplateData(amounts calculator.Amounts, startCapital int) map[strin
 	}
 }
 
-func sendResponse(c echo.Context) error {
-	req := new(calculator.InvestmentPlanRequest)
+// BindRequest binds the incoming request data to the InvestmentPlanRequest struct
+func BindRequest(c echo.Context, req *calculator.InvestmentPlanRequest) error {
 	if err := c.Bind(req); err != nil {
+		return err
+	}
+	return nil
+}
+
+// ParseAndExecuteTemplate parses the HTML template and executes it with the given data
+func ParseAndExecuteTemplate(data map[string]interface{}) (string, error) {
+	t, err := template.ParseFiles("templates/result_template.html")
+	if err != nil {
+		return "", err
+	}
+
+	var tpl bytes.Buffer
+	if err := t.Execute(&tpl, data); err != nil {
+		return "", err
+	}
+
+	return tpl.String(), nil
+}
+
+// SendResponse handles the response logic
+func SendResponse(c echo.Context) error {
+	req := new(calculator.InvestmentPlanRequest)
+
+	if err := BindRequest(c, req); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid input parameters"})
 	}
 
 	amounts := calculator.CalculateAmounts(req.StartCapital, req.SavingsRate, req.AnnualReturn, req.Years)
 	data := collectTemplateData(amounts, req.StartCapital)
 
-	t, err := template.ParseFiles("templates/result_template.html")
+	result, err := ParseAndExecuteTemplate(data)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	var tpl bytes.Buffer
-	if err := t.Execute(&tpl, data); err != nil {
-		return c.String(http.StatusInternalServerError, err.Error())
-	}
-
-	result := tpl.String()
 	return c.HTML(http.StatusOK, result)
 }
