@@ -1,0 +1,28 @@
+.rate-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: no-wrap;
+  justify-content: flex-start;
+  gap: 2rem;
+  width: 100%;  /* Ensure it takes full available width */
+}
+
+.rateField {
+  flex: 0 0 auto;  /* This means the item is inflexible when the layout is flexing */
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: calc(33% - 40px);  /* Assuming you want three items per row */
+  box-sizing: border-box;
+}
+
+  #checkMark {
+    display: none;
+    color: green;
+    font-size: 24px;
+  }
+
+  #durationValidation {
+    margin-top: 20px; /* Increased for more space */
+  }
