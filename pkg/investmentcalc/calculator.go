@@ -6,15 +6,43 @@ import (
 	"strings"
 )
 
-func CalculateAmounts(initialCapital float64, annualReturn float64, years int) []float64 {
-	amounts := make([]float64, years)
+func growthFactor(annualReturn float64) float64 {
+	return 1 + (annualReturn / 100)
+}
 
-	for i := 0; i < years; i++ {
-		if i == 0 {
-			amounts[i] = initialCapital * (1 + (annualReturn / 100))
-			continue
-		}
-		amounts[i] = amounts[i-1] * (1 + (annualReturn / 100))
+func isFullYear(month int) bool {
+	return month%12 == 0
+}
+
+func calculateMonthlyReturn(annualReturn float64) float64 {
+	return (growthFactor(annualReturn) - 1) / 12
+}
+
+func updateCurrentTotal(currentTotal float64, savingsRate int, monthlyReturn float64) float64 {
+	// capital at beginning of the month
+	startCapital := currentTotal + float64(savingsRate)
+	// returns throughout this month
+	returns := startCapital * monthlyReturn
+
+	return startCapital + returns
+}
+
+func appendYearlyAmount(month int, currentTotal float64, amounts *[]float64) {
+	if isFullYear(month) {
+		*amounts = append(*amounts, currentTotal)
+	}
+}
+
+func CalculateAmounts(initialCapital int, savingsRate int, annualReturn float64, years int) []float64 {
+	totalMonths := years * 12
+	monthlyReturn := calculateMonthlyReturn(annualReturn)
+
+	amounts := []float64{}
+	currentTotal := float64(initialCapital)
+
+	for month := 1; month <= totalMonths; month++ {
+		currentTotal = updateCurrentTotal(currentTotal, savingsRate, monthlyReturn)
+		appendYearlyAmount(month, currentTotal, &amounts)
 	}
 
 	return amounts

@@ -9,7 +9,7 @@
       rel="stylesheet"
     />
     <link href="styles.css" rel="stylesheet" />
-    <script src="scripts.js"></script>
+    <script src="scripts.js" defer></script>
   </head>
   <body>
     <div class="container my-5">
@@ -24,7 +24,7 @@
           >
             <div class="mb-3">
               <label for="initialCapital" class="form-label"
-                >Startkapital:</label
+                >Startkapital (€):</label
               >
               <input
                 type="number"
@@ -43,6 +43,29 @@
                 step="1000"
                 class="form-range"
                 oninput="syncValues('initialCapital', true)"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="savingsRate" class="form-label"
+                >Monatliche Sparrate (€):</label
+              >
+              <input
+                type="number"
+                id="savingsRate"
+                name="savingsRate"
+                class="form-control"
+                oninput="syncValues('savingsRate', false)"
+                value="100"
+                required
+              />
+              <input
+                type="range"
+                id="savingsRateSlider"
+                min="0"
+                max="10000"
+                step="100"
+                class="form-range"
+                oninput="syncValues('savingsRate', true)"
               />
             </div>
             <div class="mb-3">
