@@ -1,0 +1,29 @@
+<div>
+  <div id="finalAmount">
+    <strong>Endbetrag: {{.FinalAmount}}</strong>
+  </div>
+
+  <!-- Dropdown for intermediate amounts -->
+  <details id="intermediateAmountsDetails">
+    <summary>Intermediate Amounts</summary>
+    <div id="intermediateAmounts">
+      <!-- Create a table for intermediate amounts -->
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{range $year, $amount := .IntermediateAmounts}}
+          <tr>
+            <td>{{$year}}</td>
+            <td>{{$amount}}</td>
+          </tr>
+          {{end}}
+        </tbody>
+      </table>
+    </div>
+  </details>
+</div>
