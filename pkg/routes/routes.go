@@ -20,7 +20,13 @@ func ParseTemplates(c echo.Context) error {
 }
 
 func collectTemplateData(amounts calculator.Amounts, startCapital int) map[string]interface{} {
+	years := make([]int, len(amounts.AnnualTotals))
+	for i := range years {
+		years[i] = i + 1
+	}
+
 	return map[string]interface{}{
+		"Years":          years,
 		"Total":          calculator.FormatTotalAmount(amounts.AnnualTotals),
 		"TotalPayments":  calculator.FormatTotalPayments(amounts.MonthlyPayments, startCapital),
 		"TotalReturns":   calculator.FormatTotalReturns(amounts.MonthlyReturns),
@@ -51,7 +57,7 @@ func sendHtmlResponse(c echo.Context, req *calculator.InvestmentPlanRequest) err
 func ProcessUserInputs(c echo.Context) error {
 	startCapital, err := strconv.Atoi(c.FormValue("startCapital"))
 	if err != nil {
-		return c.String(http.StatusBadRequest, "Invalid initial capital")
+		return c.String(http.StatusBadRequest, "Invalid starting capital")
 	}
 
 	savingsRate, err := strconv.Atoi(c.FormValue("savingsRate"))

@@ -52,7 +52,7 @@ func formatAmounts[T int | float64](amounts []T) map[int]string {
 }
 
 func FormatTotalAmount(annualTotals AnnualTotals) string {
-	return formatAmount(annualTotals.Sum())
+	return formatAmount(annualTotals[len(annualTotals)-1])
 }
 
 func FormatAnnualTotals(annualTotals AnnualTotals) map[int]string {

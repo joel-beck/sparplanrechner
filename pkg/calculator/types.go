@@ -21,7 +21,7 @@ func AnnualCumulativeSum[T int | float64](a []T) []T {
 
 	// only a single year of data
 	if len(a) <= 12 {
-		annualCumulativeSums[0] = Sum(a)
+		annualCumulativeSums = append(annualCumulativeSums, Sum(a))
 		return annualCumulativeSums
 	}
 
@@ -43,8 +43,8 @@ func (a *AnnualTotals) Sum() float64 {
 	return Sum(*a)
 }
 
-// MonthlyPayments holds the individual saving rates for each month. They are not cumulative, nor do they
-// include the initial capital.
+// MonthlyPayments holds the individual saving rates for each month. They are not
+// cumulative, nor do they include the starting capital.
 type MonthlyPayments []int
 
 func (e *MonthlyPayments) Sum(startCapital int) int {

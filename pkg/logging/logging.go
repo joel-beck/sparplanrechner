@@ -14,7 +14,7 @@ func LogUserInputs(c echo.Context) {
 	fmt.Println("Received user inputs:")
 	fmt.Println("----------------------")
 
-	fmt.Printf("initialCapital: %s\n", c.FormValue("initialCapital"))
+	fmt.Printf("startCapital: %s\n", c.FormValue("startCapital"))
 	fmt.Printf("annualReturn: %s\n", c.FormValue("annualReturn"))
 	fmt.Printf("years: %s\n", c.FormValue("years"))
 
