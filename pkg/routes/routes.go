@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/joel-beck/sparplanrechner/pkg/investmentcalc"
+	"github.com/joel-beck/sparplanrechner/pkg/calculator"
 	"github.com/labstack/echo/v4"
 )
 
@@ -19,20 +19,24 @@ func ParseTemplates(c echo.Context) error {
 	return tmpl.ExecuteTemplate(c.Response().Writer, "index.html", nil)
 }
 
-func sendHtmlResponse(c echo.Context, req *investmentcalc.InvestmentPlanRequest) error {
-	amounts := investmentcalc.CalculateAmounts(req.InitialCapital, req.SavingsRate, req.AnnualReturn, req.Years)
+func collectTemplateData(amounts calculator.Amounts, startCapital int) map[string]interface{} {
+	return map[string]interface{}{
+		"Total":          calculator.FormatTotalAmount(amounts.AnnualTotals),
+		"TotalPayments":  calculator.FormatTotalPayments(amounts.MonthlyPayments, startCapital),
+		"TotalReturns":   calculator.FormatTotalReturns(amounts.MonthlyReturns),
+		"AnnualTotals":   calculator.FormatAnnualTotals(amounts.AnnualTotals),
+		"AnnualPayments": calculator.FormatAnnualPayments(amounts.MonthlyPayments, startCapital),
+		"AnnualReturns":  calculator.FormatAnnualReturns(amounts.MonthlyReturns),
+	}
+}
 
-	finalAmount := investmentcalc.GetFinalAmount(amounts)
-	intermediateAmounts := investmentcalc.GetIntermediateAmounts(amounts)
+func sendHtmlResponse(c echo.Context, req *calculator.InvestmentPlanRequest) error {
+	amounts := calculator.CalculateAmounts(req.StartCapital, req.SavingsRate, req.AnnualReturn, req.Years)
+	data := collectTemplateData(amounts, req.StartCapital)
 
 	t, err := template.ParseFiles("templates/result_template.html")
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
-	}
-
-	data := map[string]interface{}{
-		"FinalAmount":         finalAmount,
-		"IntermediateAmounts": intermediateAmounts,
 	}
 
 	var tpl bytes.Buffer
@@ -44,8 +48,8 @@ func sendHtmlResponse(c echo.Context, req *investmentcalc.InvestmentPlanRequest)
 	return c.HTML(http.StatusOK, result)
 }
 
-func CalculateInvestmentPlan(c echo.Context) error {
-	initialCapital, err := strconv.Atoi(c.FormValue("initialCapital"))
+func ProcessUserInputs(c echo.Context) error {
+	startCapital, err := strconv.Atoi(c.FormValue("startCapital"))
 	if err != nil {
 		return c.String(http.StatusBadRequest, "Invalid initial capital")
 	}
@@ -65,11 +69,11 @@ func CalculateInvestmentPlan(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "Invalid number of years")
 	}
 
-	req := &investmentcalc.InvestmentPlanRequest{
-		InitialCapital: initialCapital,
-		SavingsRate:    savingsRate,
-		AnnualReturn:   annualReturn,
-		Years:          years,
+	req := &calculator.InvestmentPlanRequest{
+		StartCapital: startCapital,
+		SavingsRate:  savingsRate,
+		AnnualReturn: annualReturn,
+		Years:        years,
 	}
 
 	return sendHtmlResponse(c, req)

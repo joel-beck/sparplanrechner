@@ -10,7 +10,7 @@ func main() {
 
 	e.GET("/", routes.ParseTemplates)
 	e.Static("/", "web")
-	e.POST("/calculate", routes.CalculateInvestmentPlan)
+	e.POST("/calculate", routes.ProcessUserInputs)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }

@@ -1,5 +1,10 @@
 <div>
-  <div id="finalAmount"><strong> Endbetrag: {{.FinalAmount}} </strong></div>
+  <div id="finalAmount"><strong> Endbetrag: {{.Total}} </strong></div>
+
+  <br />
+
+  <div id="equity">Einzahlungen: {{.TotalPayments}}</div>
+  <div id="returns">Zinsen: {{.TotalReturns}}</div>
 
   <br />
 
@@ -12,14 +17,18 @@
         <thead class="table-light">
           <tr>
             <th scope="col">Jahr</th>
-            <th scope="col">Betrag</th>
+            <th scope="col">Total</th>
+            <th scope="col">Einzahlungen</th>
+            <th scope="col">Zinsen</th>
           </tr>
         </thead>
         <tbody>
-          {{range $year, $amount := .IntermediateAmounts}}
+          {{range $year := .AnnualTotals}}
           <tr>
             <td>{{$year}}</td>
-            <td>{{$amount}}</td>
+            <td>{{$.AnnualTotals[$year]}}</td>
+            <td>{{$.AnnualPayments[$year]}}</td>
+            <td>{{$.AnnualReturns[$year]}}</td>
           </tr>
           {{end}}
         </tbody>
