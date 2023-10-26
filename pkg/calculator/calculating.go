@@ -1,7 +1,6 @@
 package calculator
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -17,7 +16,6 @@ func growthFactor(annualReturnRate float64) float64 {
 // The underlying formula is (1 - inflationRate) ^ years where inflationRate is a
 // fraction.
 func inflationDiscountFactor(inflationRate float64, years float64) float64 {
-	fmt.Printf("Inflation rate: %f\n", inflationRate)
 	return math.Pow(1-(inflationRate/100), years)
 }
 
@@ -35,7 +33,6 @@ func computeInflationDiscountedTotal(
 	month int,
 ) float64 {
 	years := yearsFromMonth(month)
-	// fmt.Printf("Inflation discounted total: %f\n", currentTotal*inflationDiscountFactor(inflationRate, years))
 	return currentTotal * inflationDiscountFactor(inflationRate, years)
 }
 
@@ -60,26 +57,16 @@ func updateAmounts(
 	if isFullYear(month) {
 		amounts.AnnualTotals = append(amounts.AnnualTotals, amounts.CurrentTotal)
 
-		fmt.Printf("Annual total after %d years: %s\n", month/MonthsInYear, formatAmount(amounts.CurrentTotal))
-
 		inflationDiscountedTotal := computeInflationDiscountedTotal(
 			amounts.CurrentTotal,
 			inflationRate,
 			month,
 		)
-		fmt.Printf(
-			"Discounted annual total after %d years: %s\n",
-			month/MonthsInYear,
-			formatAmount(inflationDiscountedTotal),
-		)
-
 		amounts.InflationDiscountedAnnualTotals = append(
 			amounts.InflationDiscountedAnnualTotals,
 			inflationDiscountedTotal,
 		)
-
 	}
-
 }
 
 func CalculateAmounts(

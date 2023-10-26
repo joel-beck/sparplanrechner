@@ -1,11 +1,23 @@
 <div>
-  <div id="finalAmount"><strong> Endbetrag: {{.Total}} </strong></div>
+  <div id="finalAmount" class="d-flex justify-content-between">
+    <strong>Endbetrag:</strong>
+    <strong>{{.Total}}</strong>
+  </div>
 
   <br />
 
-  <div id="equity">Einzahlungen: {{.TotalPayments}}</div>
-  <div id="returns">Zinsen: {{.TotalReturns}}</div>
-  <div id="inflation">Inflationsbereinigt: {{.TotalInflationDiscounted}}</div>
+  <div id="equity" class="d-flex justify-content-between">
+    <span>Einzahlungen:</span>
+    <span>{{.TotalPayments}}</span>
+  </div>
+  <div id="returns" class="d-flex justify-content-between">
+    <span>Zinsen:</span>
+    <span>{{.TotalReturns}}</span>
+  </div>
+  <div id="inflation" class="d-flex justify-content-between">
+    <span>Inflationsbereinigt:</span>
+    <span>{{.TotalInflationDiscounted}}</span>
+  </div>
 
   <br />
 
