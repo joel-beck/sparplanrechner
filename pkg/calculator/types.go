@@ -1,10 +1,11 @@
 package calculator
 
-type InvestmentPlanRequest struct {
-	StartCapital int     `json:"startCapital" form:"startCapital"`
-	SavingsRate  int     `json:"savingsRate" form:"savingsRate"`
-	AnnualReturn float64 `json:"annualReturn" form:"annualReturn"`
-	Years        int     `json:"years" form:"years"`
+type UserInputs struct {
+	StartCapital  int     `json:"startCapital"  form:"startCapital"`
+	SavingsRate   int     `json:"savingsRate"   form:"savingsRate"`
+	AnnualReturn  float64 `json:"annualReturn"  form:"annualReturn"`
+	Years         int     `json:"years"         form:"years"`
+	InflationRate float64 `json:"inflationRate" form:"inflationRate"`
 }
 
 func Sum[T int | float64](a []T) T {
@@ -59,7 +60,8 @@ func (e *MonthlyPayments) AnnualCumulativeSum(startCapital int) []int {
 	return cumulativePayments
 }
 
-// MonthlyReturns holds the individual returns for each month. Just as with Payments, they are not cumulative.
+// MonthlyReturns holds the individual returns for each month. Just as with Payments,
+// they are not cumulative.
 type MonthlyReturns []float64
 
 func (r *MonthlyReturns) Sum() float64 {
@@ -71,34 +73,21 @@ func (r *MonthlyReturns) AnnualCumulativeSum() []float64 {
 }
 
 type Amounts struct {
-	CurrentTotal    float64
-	AnnualTotals    AnnualTotals
-	MonthlyPayments MonthlyPayments
-	MonthlyReturns  MonthlyReturns
+	CurrentTotal                    float64
+	AnnualTotals                    AnnualTotals
+	InflationDiscountedAnnualTotals AnnualTotals
+	MonthlyPayments                 MonthlyPayments
+	MonthlyReturns                  MonthlyReturns
 }
 
 type Totals struct {
-	totalAmount  float64
-	totalPayment int
-	totalReturns float64
-}
-
-func CalculateTotals(amounts Amounts, startCapital int) Totals {
-	return Totals{
-		totalAmount:  amounts.AnnualTotals.Sum(),
-		totalPayment: amounts.MonthlyPayments.Sum(startCapital),
-		totalReturns: amounts.MonthlyReturns.Sum(),
-	}
+	totalAmount                    float64
+	totalInflationDiscountedAmount float64
+	totalPayment                   int
+	totalReturns                   float64
 }
 
 type CumulativeAmounts struct {
 	annualPayments []int
 	annualReturns  []float64
-}
-
-func CalculateCumulativeAmounts(amounts Amounts, startCapital int) CumulativeAmounts {
-	return CumulativeAmounts{
-		annualPayments: amounts.MonthlyPayments.AnnualCumulativeSum(startCapital),
-		annualReturns:  amounts.MonthlyReturns.AnnualCumulativeSum(),
-	}
 }

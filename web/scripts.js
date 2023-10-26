@@ -14,7 +14,13 @@ function syncValues(id, isSlider) {
 
 // Attach event listeners when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
-  const formFields = ["startCapital", "savingsRate", "annualReturn", "years"];
+  const formFields = [
+    "startCapital",
+    "savingsRate",
+    "annualReturn",
+    "years",
+    "inflation",
+  ];
 
   formFields.forEach(function (field) {
     // Event listener for the number input
