@@ -15,13 +15,15 @@ func LogUserInputs(c echo.Context) {
 	fmt.Println("----------------------")
 
 	fmt.Printf("startCapital: %s\n", c.FormValue("startCapital"))
+	fmt.Printf("savingsRate: %s\n", c.FormValue("savingsRate"))
 	fmt.Printf("annualReturn: %s\n", c.FormValue("annualReturn"))
 	fmt.Printf("years: %s\n", c.FormValue("years"))
+	fmt.Printf("inflationRate: %s\n", c.FormValue("inflationRate"))
 
 	fmt.Println()
 }
 
-func LogRequest(req *calculator.InvestmentPlanRequest) {
+func LogRequest(req *calculator.UserInputs) {
 	requestLog, _ := json.MarshalIndent(req, "", "  ")
 	fmt.Printf("Received request: %s\n", requestLog)
 	fmt.Println()

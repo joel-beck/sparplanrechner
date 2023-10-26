@@ -1,15 +1,28 @@
 <div>
-  <div id="finalAmount"><strong> Endbetrag: {{.Total}} </strong></div>
+  <div id="finalAmount" class="d-flex justify-content-between">
+    <strong>Endbetrag:</strong>
+    <strong>{{.Total}}</strong>
+  </div>
 
   <br />
 
-  <div id="equity">Einzahlungen: {{.TotalPayments}}</div>
-  <div id="returns">Zinsen: {{.TotalReturns}}</div>
+  <div id="equity" class="d-flex justify-content-between">
+    <span>Einzahlungen:</span>
+    <span>{{.TotalPayments}}</span>
+  </div>
+  <div id="returns" class="d-flex justify-content-between">
+    <span>Zinsen:</span>
+    <span>{{.TotalReturns}}</span>
+  </div>
+  <div id="inflation" class="d-flex justify-content-between">
+    <span>Inflationsbereinigt:</span>
+    <span>{{.TotalInflationDiscounted}}</span>
+  </div>
 
   <br />
 
   <!-- Dropdown for intermediate amounts -->
-  <details id="intermediateAmountsDetails">
+  <details id="intermediateAmountsDetails" open>
     <summary>Zwischenbeträge</summary>
 
     <br />
@@ -23,15 +36,19 @@
             <th scope="col">Total</th>
             <th scope="col">Einzahlungen</th>
             <th scope="col">Zinsen</th>
+            <th scope="col">Inflationsbereinigt</th>
           </tr>
         </thead>
         <tbody>
           {{range $i, $year := .Years}}
           <tr>
-            <td>{{$year}}</td>
-            <td>{{index $.AnnualTotals $i}}</td>
-            <td>{{index $.AnnualPayments $i}}</td>
-            <td>{{index $.AnnualReturns $i}}</td>
+            <td class="text-end">{{$year}}</td>
+            <td class="text-end">{{index $.AnnualTotals $i}}</td>
+            <td class="text-end">{{index $.AnnualPayments $i}}</td>
+            <td class="text-end">{{index $.AnnualReturns $i}}</td>
+            <td class="text-end">
+              {{index $.AnnualInflationDiscountedTotals $i}}
+            </td>
           </tr>
           {{end}}
         </tbody>

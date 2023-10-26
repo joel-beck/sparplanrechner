@@ -30,18 +30,20 @@ func collectTemplateData(amounts calculator.Amounts, startCapital int) map[strin
 	}
 
 	return map[string]interface{}{
-		"Years":          years,
-		"Total":          calculator.FormatTotalAmount(amounts.AnnualTotals),
-		"TotalPayments":  calculator.FormatTotalPayments(amounts.MonthlyPayments, startCapital),
-		"TotalReturns":   calculator.FormatTotalReturns(amounts.MonthlyReturns),
-		"AnnualTotals":   calculator.FormatAnnualTotals(amounts.AnnualTotals),
-		"AnnualPayments": calculator.FormatAnnualPayments(amounts.MonthlyPayments, startCapital),
-		"AnnualReturns":  calculator.FormatAnnualReturns(amounts.MonthlyReturns),
+		"Years":                           years,
+		"Total":                           calculator.FormatTotalAmount(amounts.AnnualTotals),
+		"TotalInflationDiscounted":        calculator.FormatTotalAmount(amounts.InflationDiscountedAnnualTotals),
+		"TotalPayments":                   calculator.FormatTotalPayments(amounts.MonthlyPayments, startCapital),
+		"TotalReturns":                    calculator.FormatTotalReturns(amounts.MonthlyReturns),
+		"AnnualTotals":                    calculator.FormatAnnualTotals(amounts.AnnualTotals),
+		"AnnualInflationDiscountedTotals": calculator.FormatAnnualTotals(amounts.InflationDiscountedAnnualTotals),
+		"AnnualPayments":                  calculator.FormatAnnualPayments(amounts.MonthlyPayments, startCapital),
+		"AnnualReturns":                   calculator.FormatAnnualReturns(amounts.MonthlyReturns),
 	}
 }
 
 // BindRequest binds the incoming request data to the InvestmentPlanRequest struct
-func BindRequest(c echo.Context, req *calculator.InvestmentPlanRequest) error {
+func BindRequest(c echo.Context, req *calculator.UserInputs) error {
 	if err := c.Bind(req); err != nil {
 		return err
 	}
@@ -65,19 +67,31 @@ func ParseAndExecuteTemplate(data map[string]interface{}) (string, error) {
 
 // SendResponse handles the response logic
 func SendResponse(c echo.Context) error {
-	req := new(calculator.InvestmentPlanRequest)
+	req := new(calculator.UserInputs)
 
 	if err := BindRequest(c, req); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid input parameters"})
 	}
 
-	amounts := calculator.CalculateAmounts(req.StartCapital, req.SavingsRate, req.AnnualReturn, req.Years)
+	// Log User Inputs
+	c.Logger().Infof("User Inputs: %+v", req)
+
+	amounts := calculator.CalculateAmounts(
+		req.StartCapital,
+		req.SavingsRate,
+		req.AnnualReturn,
+		req.Years,
+		req.InflationRate,
+	)
 	data := collectTemplateData(amounts, req.StartCapital)
 
 	result, err := ParseAndExecuteTemplate(data)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
+
+	// Log Response Data
+	c.Logger().Infof("Response Data: %+v", data)
 
 	return c.HTML(http.StatusOK, result)
 }
