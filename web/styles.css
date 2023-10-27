@@ -9,7 +9,3 @@
   color: inherit;
   background-color: inherit;
 }
-
-button.accordion-button:focus{
-  box-shadow: inherit;
-}
