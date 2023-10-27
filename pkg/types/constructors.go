@@ -28,9 +28,14 @@ func TotalsFromIntermediates(annualIntermediateTotals AnnualIntermediateTotals) 
 func TakeoutsFromTotal(total float64, inputs UserInputs) Takeouts {
 	t := Takeouts{}
 
-	t.Annual.BeforeTax = total * inputs.TakeoutRate
+	// Takeout rate from user input is in percent, not a fraction
+	t.Annual.BeforeTax = calculator.ComputeTakeout(total, inputs.TakeoutRate)
 	t.Annual.AfterTax = calculator.SubtractTax(t.Annual.BeforeTax, inputs.Tax)
-	t.Annual.InflationDiscountedAfterTax = calculator.SubtractInflation(t.Annual.AfterTax, inputs.InflationRate, 1)
+	t.Annual.InflationDiscountedAfterTax = calculator.SubtractInflation(
+		t.Annual.AfterTax,
+		inputs.InflationRate,
+		float64(inputs.Years),
+	)
 
 	t.Monthly.BeforeTax = t.Annual.BeforeTax / calculator.MonthsInYear
 	t.Monthly.AfterTax = t.Annual.AfterTax / calculator.MonthsInYear
