@@ -1,4 +1,4 @@
-package calculator
+package types
 
 type UserInputs struct {
 	StartCapital     int     `json:"startCapital"     form:"startCapital"`

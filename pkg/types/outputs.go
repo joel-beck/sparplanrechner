@@ -1,4 +1,6 @@
-package calculator
+package types
+
+import "github.com/joel-beck/sparplanrechner/pkg/formatting"
 
 type FormattedIntermediateTotals struct {
 	AnnualTotals                    []string
@@ -9,10 +11,10 @@ type FormattedIntermediateTotals struct {
 
 func FormatIntermediateTotals(intermediateTotals AnnualIntermediateTotals) FormattedIntermediateTotals {
 	return FormattedIntermediateTotals{
-		AnnualTotals:                    formatAmounts(intermediateTotals.AnnualTotals),
-		InflationDiscountedAnnualTotals: formatAmounts(intermediateTotals.InflationDiscountedAnnualTotals),
-		AnnualPayments:                  formatAmounts(intermediateTotals.AnnualPayments),
-		AnnualReturns:                   formatAmounts(intermediateTotals.AnnualReturns),
+		AnnualTotals:                    formatting.FormatAmounts(intermediateTotals.AnnualTotals),
+		InflationDiscountedAnnualTotals: formatting.FormatAmounts(intermediateTotals.InflationDiscountedAnnualTotals),
+		AnnualPayments:                  formatting.FormatAmounts(intermediateTotals.AnnualPayments),
+		AnnualReturns:                   formatting.FormatAmounts(intermediateTotals.AnnualReturns),
 	}
 }
 
@@ -25,10 +27,10 @@ type FormattedTotals struct {
 
 func FormatTotals(totals Totals) FormattedTotals {
 	return FormattedTotals{
-		Total:                    formatAmount(totals.Total),
-		InflationDiscountedTotal: formatAmount(totals.InflationDiscountedTotal),
-		Payments:                 formatAmount(totals.Payments),
-		Returns:                  formatAmount(totals.Returns),
+		Total:                    formatting.FormatAmount(totals.Total),
+		InflationDiscountedTotal: formatting.FormatAmount(totals.InflationDiscountedTotal),
+		Payments:                 formatting.FormatAmount(totals.Payments),
+		Returns:                  formatting.FormatAmount(totals.Returns),
 	}
 }
 
@@ -52,14 +54,14 @@ type FormattedTakeouts struct {
 func FormatTakeouts(takeouts Takeouts) FormattedTakeouts {
 	return FormattedTakeouts{
 		Monthly: FormattedMonthlyTakeouts{
-			BeforeTax:                   formatAmount(takeouts.Monthly.BeforeTax),
-			AfterTax:                    formatAmount(takeouts.Monthly.AfterTax),
-			InflationDiscountedAfterTax: formatAmount(takeouts.Monthly.InflationDiscountedAfterTax),
+			BeforeTax:                   formatting.FormatAmount(takeouts.Monthly.BeforeTax),
+			AfterTax:                    formatting.FormatAmount(takeouts.Monthly.AfterTax),
+			InflationDiscountedAfterTax: formatting.FormatAmount(takeouts.Monthly.InflationDiscountedAfterTax),
 		},
 		Annual: FormattedAnnualTakeouts{
-			BeforeTax:                   formatAmount(takeouts.Annual.BeforeTax),
-			AfterTax:                    formatAmount(takeouts.Annual.AfterTax),
-			InflationDiscountedAfterTax: formatAmount(takeouts.Annual.InflationDiscountedAfterTax),
+			BeforeTax:                   formatting.FormatAmount(takeouts.Annual.BeforeTax),
+			AfterTax:                    formatting.FormatAmount(takeouts.Annual.AfterTax),
+			InflationDiscountedAfterTax: formatting.FormatAmount(takeouts.Annual.InflationDiscountedAfterTax),
 		},
 	}
 }
@@ -69,6 +71,7 @@ func CollectTemplateData(
 	totals Totals,
 	takeouts Takeouts,
 	startCapital int) map[string]interface{} {
+
 	years := make([]int, len(intermediateTotals.AnnualTotals))
 	for i := range years {
 		years[i] = i + 1

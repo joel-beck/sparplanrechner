@@ -1,4 +1,4 @@
-package calculator
+package types
 
 func LastElement[T any](a []T) T {
 	return a[len(a)-1]
@@ -82,26 +82,4 @@ type AnnualIntermediateTotals struct {
 	InflationDiscountedAnnualTotals AnnualTotals
 	AnnualPayments                  AnnualPayments
 	AnnualReturns                   AnnualReturns
-}
-
-func MonthlyToAnnualTotals(
-	annualTotals AnnualTotals,
-	inflationDiscountedAnnualTotals AnnualTotals,
-	monthlyIntermediates MonthlyIntermediateTotals,
-	startCapital int,
-) AnnualIntermediateTotals {
-	return AnnualIntermediateTotals{
-		AnnualTotals:                    annualTotals,
-		InflationDiscountedAnnualTotals: inflationDiscountedAnnualTotals,
-		AnnualPayments:                  monthlyIntermediates.MonthlyPayments.MonthlyToAnnual(startCapital),
-		AnnualReturns:                   monthlyIntermediates.MonthlyReturns.MonthlyToAnnual(),
-	}
-}
-
-type Amounts struct {
-	CurrentTotal                    float64
-	AnnualTotals                    AnnualTotals
-	InflationDiscountedAnnualTotals AnnualTotals
-	MonthlyPayments                 MonthlyPayments
-	MonthlyReturns                  MonthlyReturns
 }

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/joel-beck/sparplanrechner/pkg/calculator"
+	"github.com/joel-beck/sparplanrechner/pkg/types"
 	"github.com/labstack/echo/v4"
 )
 
@@ -23,7 +23,7 @@ func LogUserInputs(c echo.Context) {
 	fmt.Println()
 }
 
-func LogRequest(req *calculator.UserInputs) {
+func LogRequest(req *types.UserInputs) {
 	requestLog, _ := json.MarshalIndent(req, "", "  ")
 	fmt.Printf("Received request: %s\n", requestLog)
 	fmt.Println()

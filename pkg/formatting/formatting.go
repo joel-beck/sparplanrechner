@@ -1,4 +1,4 @@
-package calculator
+package formatting
 
 import (
 	"fmt"
@@ -37,15 +37,15 @@ func germanNumberFormat(f float64) string {
 	return germanFormatted
 }
 
-func formatAmount[T int | float64](amount T) string {
+func FormatAmount[T int | float64](amount T) string {
 	return germanNumberFormat(roundToTwoDecimals(float64(amount)))
 }
 
-func formatAmounts[T int | float64](amounts []T) []string {
+func FormatAmounts[T int | float64](amounts []T) []string {
 	output := make([]string, len(amounts))
 
 	for _, amount := range amounts {
-		output = append(output, formatAmount(amount))
+		output = append(output, FormatAmount(amount))
 	}
 
 	return output
