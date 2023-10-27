@@ -1,13 +1,7 @@
 package calculator
 
-type UserInputs struct {
-	StartCapital  int     `json:"startCapital"  form:"startCapital"`
-	SavingsRate   int     `json:"savingsRate"   form:"savingsRate"`
-	Years         int     `json:"years"         form:"years"`
-	AnnualReturn  float64 `json:"annualReturn"  form:"annualReturn"`
-	InflationRate float64 `json:"inflationRate" form:"inflationRate"`
-	TakeoutRate   float64 `json:"takeoutRate"   form:"takeoutRate"`
-	Tax           float64 `json:"tax"           form:"tax"`
+func LastElement[T any](a []T) T {
+	return a[len(a)-1]
 }
 
 func Sum[T int | float64](a []T) T {
@@ -42,19 +36,15 @@ func AnnualCumulativeSum[T int | float64](a []T) []T {
 // information about all previous years.
 type AnnualTotals []float64
 
-func (a *AnnualTotals) Sum() float64 {
-	return Sum(*a)
+func (a AnnualTotals) ComputeTotal() float64 {
+	return LastElement(a)
 }
 
 // MonthlyPayments holds the individual saving rates for each month. They are not
 // cumulative, nor do they include the starting capital.
 type MonthlyPayments []int
 
-func (e *MonthlyPayments) Sum(startCapital int) int {
-	return Sum(*e) + startCapital
-}
-
-func (e *MonthlyPayments) AnnualCumulativeSum(startCapital int) []int {
+func (e *MonthlyPayments) MonthlyToAnnual(startCapital int) []int {
 	cumulativePayments := AnnualCumulativeSum(*e)
 	for i := range cumulativePayments {
 		cumulativePayments[i] += startCapital
@@ -62,16 +52,50 @@ func (e *MonthlyPayments) AnnualCumulativeSum(startCapital int) []int {
 	return cumulativePayments
 }
 
+type AnnualPayments []int
+
+func (a AnnualPayments) ComputeTotal() int {
+	return LastElement(a)
+}
+
 // MonthlyReturns holds the individual returns for each month. Just as with Payments,
 // they are not cumulative.
 type MonthlyReturns []float64
 
-func (r *MonthlyReturns) Sum() float64 {
-	return Sum(*r)
+func (r *MonthlyReturns) MonthlyToAnnual() []float64 {
+	return AnnualCumulativeSum(*r)
 }
 
-func (r *MonthlyReturns) AnnualCumulativeSum() []float64 {
-	return AnnualCumulativeSum(*r)
+type AnnualReturns []float64
+
+func (a AnnualReturns) ComputeTotal() float64 {
+	return LastElement(a)
+}
+
+type MonthlyIntermediateTotals struct {
+	MonthlyPayments MonthlyPayments
+	MonthlyReturns  MonthlyReturns
+}
+
+type AnnualIntermediateTotals struct {
+	AnnualTotals                    AnnualTotals
+	InflationDiscountedAnnualTotals AnnualTotals
+	AnnualPayments                  AnnualPayments
+	AnnualReturns                   AnnualReturns
+}
+
+func MonthlyToAnnualTotals(
+	annualTotals AnnualTotals,
+	inflationDiscountedAnnualTotals AnnualTotals,
+	monthlyIntermediates MonthlyIntermediateTotals,
+	startCapital int,
+) AnnualIntermediateTotals {
+	return AnnualIntermediateTotals{
+		AnnualTotals:                    annualTotals,
+		InflationDiscountedAnnualTotals: inflationDiscountedAnnualTotals,
+		AnnualPayments:                  monthlyIntermediates.MonthlyPayments.MonthlyToAnnual(startCapital),
+		AnnualReturns:                   monthlyIntermediates.MonthlyReturns.MonthlyToAnnual(),
+	}
 }
 
 type Amounts struct {
@@ -80,16 +104,4 @@ type Amounts struct {
 	InflationDiscountedAnnualTotals AnnualTotals
 	MonthlyPayments                 MonthlyPayments
 	MonthlyReturns                  MonthlyReturns
-}
-
-type Totals struct {
-	totalAmount                    float64
-	totalInflationDiscountedAmount float64
-	totalPayment                   int
-	totalReturns                   float64
-}
-
-type CumulativeAmounts struct {
-	annualPayments []int
-	annualReturns  []float64
 }

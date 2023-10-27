@@ -111,29 +111,29 @@
             </div>
             <!-- SECTION: Rendite -->
             <div class="col-md-6">
-              <label for="annualReturn" class="form-label"
+              <label for="annualReturnRate" class="form-label"
                 >Jährliche Rendite (%):</label
               >
               <input
                 type="number"
-                id="annualReturn"
-                name="annualReturn"
+                id="annualReturnRate"
+                name="annualReturnRate"
                 class="form-control"
                 min="0"
                 max="20"
                 step="0.1"
                 value="5"
-                oninput="syncValues('annualReturn', false)"
+                oninput="syncValues('annualReturnRate', false)"
                 required
               />
               <input
                 type="range"
-                id="annualReturnSlider"
+                id="annualReturnRateSlider"
                 min="0"
                 max="20"
                 step="0.1"
                 class="form-range"
-                oninput="syncValues('annualReturn', true)"
+                oninput="syncValues('annualReturnRate', true)"
               />
             </div>
             <!-- SECTION: Inflation -->

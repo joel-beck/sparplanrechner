@@ -1,22 +1,22 @@
 <div>
   <div id="finalAmount" class="d-flex justify-content-between">
     <strong>Endbetrag:</strong>
-    <strong>{{.Total}}</strong>
+    <strong>{{.Totals.Total}}</strong>
   </div>
 
   <br />
 
   <div id="payments" class="d-flex justify-content-between">
     <span>Einzahlungen:</span>
-    <span>{{.TotalPayments}}</span>
+    <span>{{.Totals.Payments}}</span>
   </div>
   <div id="returns" class="d-flex justify-content-between">
     <span>Zinsen:</span>
-    <span>{{.TotalReturns}}</span>
+    <span>{{.Totals.Returns}}</span>
   </div>
   <div id="inflationDiscounted" class="d-flex justify-content-between">
     <span>Inflationsbereinigt:</span>
-    <span>{{.TotalInflationDiscounted}}</span>
+    <span>{{.Totals.InflationDiscountedTotal}}</span>
   </div>
 
   <br />
@@ -47,15 +47,15 @@
         <tbody class="text-end">
           <tr>
             <th scope="row" class="text-start">Jahr</th>
-            <td class="text-end">TODO</td>
-            <td class="text-end">TODO</td>
-            <td class="text-end">TODO</td>
+            <td class="text-end">{{.Takeouts.Annual.BeforeTax}}</td>
+            <td class="text-end">{{.Takeouts.Annual.AfterTax}}</td>
+            <td class="text-end">{{.Takeouts.Annual.InflationDiscountedAfterTax}}</td>
           </tr>
           <tr>
             <th scope="row" class="text-start">Monat</th>
-            <td>TODO</td>
-            <td>TODO</td>
-            <td>TODO</td>
+            <td>{{.Takeouts.Monthly.BeforeTax}}</td>
+            <td>{{.Takeouts.Monthly.AfterTax}}</td>
+            <td>{{.Takeouts.Monthly.InflationDiscountedAfterTax}}</td>
           </tr>
         </tbody>
       </table>
@@ -93,11 +93,11 @@
           {{range $i, $year := .Years}}
           <tr>
             <td class="text-end">{{$year}}</td>
-            <td class="text-end">{{index $.AnnualTotals $i}}</td>
-            <td class="text-end">{{index $.AnnualPayments $i}}</td>
-            <td class="text-end">{{index $.AnnualReturns $i}}</td>
+            <td class="text-end">{{index $.IntermediateTotals.AnnualTotals $i}}</td>
+            <td class="text-end">{{index $.IntermediateTotals.AnnualPayments $i}}</td>
+            <td class="text-end">{{index $.IntermediateTotals.AnnualReturns $i}}</td>
             <td class="text-end">
-              {{index $.AnnualInflationDiscountedTotals $i}}
+              {{index $.IntermediateTotals.InflationDiscountedAnnualTotals $i}}
             </td>
           </tr>
           {{end}}

@@ -41,36 +41,12 @@ func formatAmount[T int | float64](amount T) string {
 	return germanNumberFormat(roundToTwoDecimals(float64(amount)))
 }
 
-func formatAmounts[T int | float64](amounts []T) map[int]string {
-	yearAmountMap := make(map[int]string, len(amounts))
+func formatAmounts[T int | float64](amounts []T) []string {
+	output := make([]string, len(amounts))
 
-	for i, amount := range amounts {
-		// starts with Year 0
-		yearAmountMap[i] = formatAmount(amount)
+	for _, amount := range amounts {
+		output = append(output, formatAmount(amount))
 	}
-	return yearAmountMap
-}
 
-func FormatTotalAmount(annualTotals AnnualTotals) string {
-	return formatAmount(annualTotals[len(annualTotals)-1])
-}
-
-func FormatAnnualTotals(annualTotals AnnualTotals) map[int]string {
-	return formatAmounts(annualTotals)
-}
-
-func FormatTotalPayments(monthlyPayments MonthlyPayments, startCapital int) string {
-	return formatAmount(float64(monthlyPayments.Sum(startCapital)))
-}
-
-func FormatAnnualPayments(monthlyPayments MonthlyPayments, startCapital int) map[int]string {
-	return formatAmounts(monthlyPayments.AnnualCumulativeSum(startCapital))
-}
-
-func FormatTotalReturns(monthlyReturns MonthlyReturns) string {
-	return formatAmount(monthlyReturns.Sum())
-}
-
-func FormatAnnualReturns(monthlyReturns MonthlyReturns) map[int]string {
-	return formatAmounts(monthlyReturns.AnnualCumulativeSum())
+	return output
 }

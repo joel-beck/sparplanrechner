@@ -19,6 +19,10 @@ func inflationDiscountFactor(inflationRate float64, years float64) float64 {
 	return math.Pow(1-(inflationRate/100), years)
 }
 
+func subtractInflation(total float64, inflationRate float64, years float64) float64 {
+	return total * inflationDiscountFactor(inflationRate, years)
+}
+
 func isFullYear(month int) bool {
 	return month%MonthsInYear == 0
 }
@@ -33,7 +37,7 @@ func computeInflationDiscountedTotal(
 	month int,
 ) float64 {
 	years := yearsFromMonth(month)
-	return currentTotal * inflationDiscountFactor(inflationRate, years)
+	return subtractInflation(currentTotal, inflationRate, years)
 }
 
 func calculateMonthlyReturn(annualReturnRate float64) float64 {
@@ -42,15 +46,14 @@ func calculateMonthlyReturn(annualReturnRate float64) float64 {
 
 func updateAmounts(
 	amounts *Amounts,
-	savingsRate int,
+	inputs UserInputs,
 	monthlyReturnRate float64,
-	inflationRate float64,
 	month int,
 ) {
-	monthlyStartCapital := amounts.CurrentTotal + float64(savingsRate)
+	monthlyStartCapital := amounts.CurrentTotal + float64(inputs.SavingsRate)
 	monthlyReturns := monthlyStartCapital * monthlyReturnRate
 
-	amounts.MonthlyPayments = append(amounts.MonthlyPayments, savingsRate)
+	amounts.MonthlyPayments = append(amounts.MonthlyPayments, inputs.SavingsRate)
 	amounts.MonthlyReturns = append(amounts.MonthlyReturns, monthlyReturns)
 	amounts.CurrentTotal = monthlyStartCapital + monthlyReturns
 
@@ -59,7 +62,7 @@ func updateAmounts(
 
 		inflationDiscountedTotal := computeInflationDiscountedTotal(
 			amounts.CurrentTotal,
-			inflationRate,
+			inputs.InflationRate,
 			month,
 		)
 		amounts.InflationDiscountedAnnualTotals = append(
@@ -69,21 +72,15 @@ func updateAmounts(
 	}
 }
 
-func CalculateAmounts(
-	startCapital int,
-	savingsRate int,
-	annualReturnRate float64,
-	years int,
-	inflationRate float64,
-) Amounts {
-	totalMonths := years * MonthsInYear
-	monthlyReturn := calculateMonthlyReturn(annualReturnRate)
+func CalculateAmounts(inputs UserInputs) Amounts {
+	totalMonths := inputs.Years * MonthsInYear
+	monthlyReturn := calculateMonthlyReturn(inputs.AnnualReturnRate)
 
 	amounts := Amounts{}
-	amounts.CurrentTotal = float64(startCapital)
+	amounts.CurrentTotal = float64(inputs.StartCapital)
 
 	for month := 1; month <= totalMonths; month++ {
-		updateAmounts(&amounts, savingsRate, monthlyReturn, inflationRate, month)
+		updateAmounts(&amounts, inputs, monthlyReturn, month)
 	}
 
 	return amounts
