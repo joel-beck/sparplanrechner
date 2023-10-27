@@ -3,9 +3,11 @@ package calculator
 type UserInputs struct {
 	StartCapital  int     `json:"startCapital"  form:"startCapital"`
 	SavingsRate   int     `json:"savingsRate"   form:"savingsRate"`
-	AnnualReturn  float64 `json:"annualReturn"  form:"annualReturn"`
 	Years         int     `json:"years"         form:"years"`
+	AnnualReturn  float64 `json:"annualReturn"  form:"annualReturn"`
 	InflationRate float64 `json:"inflationRate" form:"inflationRate"`
+	TakeoutRate   float64 `json:"takeoutRate"   form:"takeoutRate"`
+	Tax           float64 `json:"tax"           form:"tax"`
 }
 
 func Sum[T int | float64](a []T) T {

@@ -6,7 +6,7 @@
 
   <br />
 
-  <div id="equity" class="d-flex justify-content-between">
+  <div id="payments" class="d-flex justify-content-between">
     <span>Einzahlungen:</span>
     <span>{{.TotalPayments}}</span>
   </div>
@@ -14,29 +14,66 @@
     <span>Zinsen:</span>
     <span>{{.TotalReturns}}</span>
   </div>
-  <div id="inflation" class="d-flex justify-content-between">
+  <div id="inflationDiscounted" class="d-flex justify-content-between">
     <span>Inflationsbereinigt:</span>
     <span>{{.TotalInflationDiscounted}}</span>
   </div>
 
   <br />
 
-  <!-- Dropdown for intermediate amounts -->
-  <details id="intermediateAmountsDetails" open>
-    <summary>Zwischenbeträge</summary>
+   <!-- BOOKMARK: Dropdown -->
+   <details id="takeoutDropdown" open>
+     <summary>Entnahmen</summary>
+
+     <br />
+
+     <!-- make table width smaller than full page width -->
+     <!-- <div id="takeouts" class="col-8"> -->
+       <!-- BOOKMARK: Table -->
+       <table class="table table-striped table-hover table-bordered">
+         <thead class="table-light">
+           <th scope="col"></th>
+           <th scope="col" class="text-end">Brutto</th>
+           <th scope="col" class="text-end">Netto</th>
+           <th scope="col" class="text-end">Inflationsbereinigt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Jahr</th>
+            <td class="text-end">TODO</td>
+            <td class="text-end">TODO</td>
+            <td class="text-end">TODO</td>
+          </tr>
+          <tr>
+            <th scope="row">Monat</th>
+            <td class="text-end">TODO</td>
+            <td class="text-end">TODO</td>
+            <td class="text-end">TODO</td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- </div> -->
+    </details>
 
     <br />
 
-    <div id="intermediateAmounts">
-      <!-- Create a table for intermediate amounts using Bootstrap -->
-      <table class="table table-striped table-hover table-bordered">
-        <thead class="table-light">
+    <!-- BOOKMARK: Dropdown -->
+    <details id="intermediateAmountsDropdown" open>
+      <summary>Zwischenbeträge</summary>
+
+      <br />
+
+      <div id="intermediateAmounts">
+        <!-- BOOKMARK: Table -->
+        <table class="table table-striped table-hover table-bordered">
+          <thead class="table-light">
           <tr>
-            <th scope="col">Jahr</th>
-            <th scope="col">Total</th>
-            <th scope="col">Einzahlungen</th>
-            <th scope="col">Zinsen</th>
-            <th scope="col">Inflationsbereinigt</th>
+            <th scope="col" class="text-end">Jahr</th>
+            <th scope="col" class="text-end">Total</th>
+            <th scope="col" class="text-end">Einzahlungen</th>
+            <th scope="col" class="text-end">Zinsen</th>
+            <th scope="col" class="text-end">Inflationsbereinigt</th>
           </tr>
         </thead>
         <tbody>

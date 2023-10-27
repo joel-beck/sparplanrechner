@@ -12,18 +12,21 @@
     <script src="scripts.js" defer></script>
   </head>
   <body>
-    <div class="container my-5">
+    <div class="container">
+      <!-- form is centered on page -->
       <div class="row justify-content-center">
-        <div class="col-4">
+        <!-- form width = half of page width -->
+        <div class="col-6">
           <h1 class="mb-4 text-center">Sparplanrechner</h1>
           <form
             hx-post="/calculate"
             hx-swap="innerHTML"
             hx-target="#result"
             enctype="application/x-www-form-urlencoded"
+            class="row g-3 needs-validation"
           >
             <!-- SECTION: Startkapital -->
-            <div class="mb-3">
+            <div class="col-12">
               <label for="startCapital" class="form-label"
                 >Startkapital (€):</label
               >
@@ -49,7 +52,7 @@
               />
             </div>
             <!-- SECTION: Sparrate -->
-            <div class="mb-3">
+            <div class="col-12">
               <label for="savingsRate" class="form-label"
                 >Monatliche Sparrate (€):</label
               >
@@ -74,8 +77,34 @@
                 oninput="syncValues('savingsRate', true)"
               />
             </div>
+            <!-- SECTION: Anlagezeitraum -->
+            <div class="col-12">
+              <label for="years" class="form-label"
+                >Anlagezeitraum (Jahre):</label
+              >
+              <input
+                type="number"
+                id="years"
+                name="years"
+                class="form-control"
+                min="1"
+                max="100"
+                value="10"
+                oninput="syncValues('years', false)"
+                required
+              />
+              <input
+                type="range"
+                id="yearsSlider"
+                min="1"
+                max="100"
+                step="1"
+                class="form-range"
+                oninput="syncValues('years', true)"
+              />
+            </div>
             <!-- SECTION: Rendite -->
-            <div class="mb-3">
+            <div class="col-md-6">
               <label for="annualReturn" class="form-label"
                 >Jährliche Rendite (%):</label
               >
@@ -101,34 +130,8 @@
                 oninput="syncValues('annualReturn', true)"
               />
             </div>
-            <!-- SECTION: Anlagezeitraum -->
-            <div class="mb-3">
-              <label for="years" class="form-label"
-                >Anlagezeitraum (Jahre):</label
-              >
-              <input
-                type="number"
-                id="years"
-                name="years"
-                class="form-control"
-                min="1"
-                max="100"
-                value="10"
-                oninput="syncValues('years', false)"
-                required
-              />
-              <input
-                type="range"
-                id="yearsSlider"
-                min="1"
-                max="100"
-                step="1"
-                class="form-range"
-                oninput="syncValues('years', true)"
-              />
-            </div>
             <!-- SECTION: Inflation -->
-            <div class="mb-3">
+            <div class="col-md-6">
               <label for="inflationRate" class="form-label"
                 >Jährliche Inflation (%):</label
               >
@@ -152,6 +155,58 @@
                 step="0.1"
                 class="form-range"
                 oninput="syncValues('inflationRate', true)"
+              />
+            </div>
+            <!-- SECTION: Entnahme -->
+            <div class="col-md-6">
+              <label for="takeoutRate" class="form-label"
+                >Jährliche Entnahmerate (%):</label
+              >
+              <input
+                type="number"
+                id="takeoutRate"
+                name="takeoutRate"
+                class="form-control"
+                min="0"
+                max="10"
+                step="0.1"
+                value="3.5"
+                oninput="syncValues('takeoutRate', false)"
+                required
+              />
+              <input
+                type="range"
+                id="takeoutRateSlider"
+                min="0"
+                max="10"
+                step="0.1"
+                class="form-range"
+                oninput="syncValues('takeoutRate', true)"
+              />
+            </div>
+            <!-- SECTION: Steuer -->
+            <div class="col-md-6">
+              <label for="tax" class="form-label">Steuer (%):</label>
+              <input
+                type="number"
+                id="tax"
+                name="tax"
+                class="form-control"
+                min="0"
+                max="50"
+                step="1"
+                value="25"
+                oninput="syncValues('tax', false)"
+                required
+              />
+              <input
+                type="range"
+                id="taxSlider"
+                min="0"
+                max="50"
+                step="1"
+                class="form-range"
+                oninput="syncValues('tax', true)"
               />
             </div>
             <!--  BOOKMARK: Submit Button -->
