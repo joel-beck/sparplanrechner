@@ -42,7 +42,7 @@ func FormatAmount[T int | float64](amount T) string {
 }
 
 func FormatAmounts[T int | float64](amounts []T) []string {
-	output := make([]string, len(amounts))
+	output := []string{}
 
 	for _, amount := range amounts {
 		output = append(output, FormatAmount(amount))
