@@ -19,7 +19,9 @@ document.addEventListener("DOMContentLoaded", function () {
     "savingsRate",
     "annualReturn",
     "years",
-    "inflation",
+    "inflationRate",
+    "takeoutRate",
+    "tax",
   ];
 
   formFields.forEach(function (field) {
