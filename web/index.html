@@ -21,8 +21,8 @@
 
       <!-- form is centered on page -->
       <div class="row justify-content-center">
-        <!-- form width = half of page width -->
-        <div class="col-6">
+        <!-- form width = 7/12 of page width -->
+        <div class="col-7">
           <h1 class="mb-4 text-center">Sparplanrechner</h1>
           <form
             hx-post="/calculate"
@@ -40,11 +40,11 @@
                 type="number"
                 id="startCapital"
                 name="startCapital"
-                class="form-control"
-                oninput="syncValues('startCapital', false)"
                 min="0"
                 max="1000000"
                 value="1000"
+                class="form-control"
+                oninput="syncValues('startCapital', false)"
                 required
               />
               <input
