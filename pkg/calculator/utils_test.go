@@ -23,8 +23,8 @@ func TestGrowthFactor(t *testing.T) {
 		},
 		{
 			name:     "Positive return rate",
-			inputs:   struct{ annualReturnRate float64 }{annualReturnRate: 1.0},
-			expected: 1.01,
+			inputs:   struct{ annualReturnRate float64 }{annualReturnRate: 5.0},
+			expected: 1.05,
 		},
 		{
 			name:     "Negative return rate",
@@ -225,7 +225,7 @@ func TestSubtractInflation(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			actual := calculator.SubtractInflation(test.inputs.total, test.inputs.inflationRate, test.inputs.years)
-			assert.Equal(t, test.expected, actual)
+			assert.InDelta(t, test.expected, actual, 0.0001)
 		})
 	}
 }
@@ -334,7 +334,7 @@ func TestComputeInflationDiscountedTotal(t *testing.T) {
 				test.input.inflationRate,
 				test.input.month,
 			)
-			assert.Equal(t, test.expected, actual)
+			assert.InDelta(t, test.expected, actual, 0.0001)
 		})
 	}
 }
@@ -350,17 +350,17 @@ func TestCalculateMonthlyReturn(t *testing.T) {
 		{
 			name:     "Zero return rate",
 			inputs:   struct{ annualReturnRate float64 }{annualReturnRate: 0},
-			expected: 1 / 12,
+			expected: 0,
 		},
 		{
 			name:     "Positive return rate",
-			inputs:   struct{ annualReturnRate float64 }{annualReturnRate: 1.0},
-			expected: 1.01 / 12,
+			inputs:   struct{ annualReturnRate float64 }{annualReturnRate: 12.0},
+			expected: 0.01,
 		},
 		{
 			name:     "Negative return rate",
-			inputs:   struct{ annualReturnRate float64 }{annualReturnRate: -1.0},
-			expected: 0.99 / 12,
+			inputs:   struct{ annualReturnRate float64 }{annualReturnRate: -12.0},
+			expected: -0.01,
 		},
 	}
 

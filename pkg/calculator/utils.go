@@ -58,5 +58,5 @@ func ComputeInflationDiscountedTotal(
 }
 
 func CalculateMonthlyReturn(annualReturnRate float64) float64 {
-	return (GrowthFactor(annualReturnRate) - 1) / MonthsInYear
+	return (annualReturnRate / 100) / MonthsInYear
 }
