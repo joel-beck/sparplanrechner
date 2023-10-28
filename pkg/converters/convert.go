@@ -1,23 +1,12 @@
-package types
+package converters
 
-import "github.com/joel-beck/sparplanrechner/pkg/calculator"
+import (
+	"github.com/joel-beck/sparplanrechner/pkg/calculator"
+	"github.com/joel-beck/sparplanrechner/pkg/types"
+)
 
-func MonthlyToAnnualTotals(
-	annualTotals AnnualTotals,
-	inflationDiscountedAnnualTotals AnnualTotals,
-	monthlyIntermediates MonthlyIntermediateTotals,
-	startCapital int,
-) AnnualIntermediateTotals {
-	return AnnualIntermediateTotals{
-		AnnualTotals:                    annualTotals,
-		InflationDiscountedAnnualTotals: inflationDiscountedAnnualTotals,
-		AnnualPayments:                  monthlyIntermediates.MonthlyPayments.MonthlyToAnnual(startCapital),
-		AnnualReturns:                   monthlyIntermediates.MonthlyReturns.MonthlyToAnnual(),
-	}
-}
-
-func TotalsFromIntermediates(annualIntermediateTotals AnnualIntermediateTotals) Totals {
-	return Totals{
+func TotalsFromIntermediates(annualIntermediateTotals types.AnnualIntermediateTotals) types.Totals {
+	return types.Totals{
 		Total:                    annualIntermediateTotals.AnnualTotals.ComputeTotal(),
 		InflationDiscountedTotal: annualIntermediateTotals.InflationDiscountedAnnualTotals.ComputeTotal(),
 		Payments:                 annualIntermediateTotals.AnnualPayments.ComputeTotal(),
@@ -25,8 +14,8 @@ func TotalsFromIntermediates(annualIntermediateTotals AnnualIntermediateTotals) 
 	}
 }
 
-func TakeoutsFromTotal(total float64, inputs UserInputs) Takeouts {
-	t := Takeouts{}
+func TakeoutsFromTotal(total float64, inputs types.UserInputs) types.Takeouts {
+	t := types.Takeouts{}
 
 	// Takeout rate from user input is in percent, not a fraction
 	t.Annual.BeforeTax = calculator.ComputeTakeout(total, inputs.TakeoutRate)
