@@ -1,7 +1,22 @@
 package types
 
-func LastElement[T any](a []T) T {
-	return a[len(a)-1]
+import "errors"
+
+func LastElement[T any](a []T) (T, error) {
+	if len(a) == 0 {
+		var zero T
+		return zero, errors.New("cannot get last element of empty slice")
+	}
+	return a[len(a)-1], nil
+}
+
+func ComputeTotal[T int | float64](a []T) T {
+	last, err := LastElement(a)
+	// return total of 0, if slice is empty
+	if err != nil {
+		return 0
+	}
+	return last
 }
 
 func Sum[T int | float64](a []T) T {
@@ -12,24 +27,24 @@ func Sum[T int | float64](a []T) T {
 	return sum
 }
 
-func AnnualCumulativeSum[T int | float64](a []T) []T {
+func AnnualCumulativeSums[T int | float64](a []T) []T {
 	var sum T
-	var annualCumulativeSums []T
+	var annualSums []T
 
 	// only a single year of data
 	if len(a) <= 12 {
-		annualCumulativeSums = append(annualCumulativeSums, Sum(a))
-		return annualCumulativeSums
+		annualSums = append(annualSums, Sum(a))
+		return annualSums
 	}
 
 	for month, amount := range a {
 		sum += amount
 
 		if (month+1)%12 == 0 {
-			annualCumulativeSums = append(annualCumulativeSums, sum)
+			annualSums = append(annualSums, sum)
 		}
 	}
-	return annualCumulativeSums
+	return annualSums
 }
 
 // AnnualTotals holds the total amounts at the end of each year. Each value includes
@@ -37,7 +52,7 @@ func AnnualCumulativeSum[T int | float64](a []T) []T {
 type AnnualTotals []float64
 
 func (a AnnualTotals) ComputeTotal() float64 {
-	return LastElement(a)
+	return ComputeTotal(a)
 }
 
 // MonthlyPayments holds the individual saving rates for each month. They are not
@@ -45,17 +60,17 @@ func (a AnnualTotals) ComputeTotal() float64 {
 type MonthlyPayments []int
 
 func (e *MonthlyPayments) MonthlyToAnnual(startCapital int) []int {
-	cumulativePayments := AnnualCumulativeSum(*e)
-	for i := range cumulativePayments {
-		cumulativePayments[i] += startCapital
+	annualPayments := AnnualCumulativeSums(*e)
+	for i := range annualPayments {
+		annualPayments[i] += startCapital
 	}
-	return cumulativePayments
+	return annualPayments
 }
 
 type AnnualPayments []int
 
 func (a AnnualPayments) ComputeTotal() int {
-	return LastElement(a)
+	return ComputeTotal(a)
 }
 
 // MonthlyReturns holds the individual returns for each month. Just as with Payments,
@@ -63,13 +78,13 @@ func (a AnnualPayments) ComputeTotal() int {
 type MonthlyReturns []float64
 
 func (r *MonthlyReturns) MonthlyToAnnual() []float64 {
-	return AnnualCumulativeSum(*r)
+	return AnnualCumulativeSums(*r)
 }
 
 type AnnualReturns []float64
 
 func (a AnnualReturns) ComputeTotal() float64 {
-	return LastElement(a)
+	return ComputeTotal(a)
 }
 
 type MonthlyIntermediateTotals struct {
