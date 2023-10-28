@@ -4,25 +4,49 @@ import (
 	"github.com/joel-beck/sparplanrechner/pkg/types"
 )
 
+func ZeroYearsOutput() types.AnnualIntermediateTotals {
+	return types.AnnualIntermediateTotals{
+		AnnualTotals:                    types.AnnualTotals{},
+		InflationDiscountedAnnualTotals: types.AnnualTotals{},
+		AnnualPayments:                  types.AnnualPayments{},
+		AnnualReturns:                   types.AnnualReturns{},
+	}
+}
+
+func initializeTotals() (types.MonthlyIntermediateTotals, types.AnnualIntermediateTotals) {
+	return types.MonthlyIntermediateTotals{
+			MonthlyPayments: types.MonthlyPayments{},
+			MonthlyReturns:  types.MonthlyReturns{},
+		},
+		types.AnnualIntermediateTotals{
+			AnnualTotals:                    types.AnnualTotals{},
+			InflationDiscountedAnnualTotals: types.AnnualTotals{},
+			AnnualPayments:                  types.AnnualPayments{},
+			AnnualReturns:                   types.AnnualReturns{},
+		}
+}
+
 func UpdateIntermediateTotals(
 	inputs types.UserInputs,
 	monthlyTotals *types.MonthlyIntermediateTotals,
 	annualTotals *types.AnnualIntermediateTotals,
-	currentTotal float64,
+	currentTotal *float64,
 	monthlyReturnRate float64,
 	month int,
 ) {
-	monthlyStartCapital := currentTotal + float64(inputs.SavingsRate)
+	monthlyStartCapital := *currentTotal + float64(inputs.SavingsRate)
 	monthlyReturns := monthlyStartCapital * monthlyReturnRate
 
 	monthlyTotals.MonthlyPayments = append(monthlyTotals.MonthlyPayments, inputs.SavingsRate)
 	monthlyTotals.MonthlyReturns = append(monthlyTotals.MonthlyReturns, monthlyReturns)
+	// assumes "monatliche Verzinsung", i.e. interest is compounded monthly
+	*currentTotal = monthlyStartCapital + monthlyReturns
 
 	if IsFullYear(month) {
-		annualTotals.AnnualTotals = append(annualTotals.AnnualTotals, currentTotal)
+		annualTotals.AnnualTotals = append(annualTotals.AnnualTotals, *currentTotal)
 
 		inflationDiscountedTotal := ComputeInflationDiscountedTotal(
-			currentTotal,
+			*currentTotal,
 			inputs.InflationRate,
 			month,
 		)
@@ -48,11 +72,14 @@ func MonthlyToAnnualTotals(
 }
 
 func ComputeAnnualTotals(inputs types.UserInputs) types.AnnualIntermediateTotals {
+	if inputs.Years == 0 {
+		return ZeroYearsOutput()
+	}
+
 	totalMonths := inputs.Years * MonthsInYear
 	monthlyReturn := CalculateMonthlyReturn(inputs.AnnualReturnRate)
 
-	monthlyTotals := types.MonthlyIntermediateTotals{}
-	annualTotals := types.AnnualIntermediateTotals{}
+	monthlyTotals, annualTotals := initializeTotals()
 	currentTotal := float64(inputs.StartCapital)
 
 	for month := 1; month <= totalMonths; month++ {
@@ -60,7 +87,7 @@ func ComputeAnnualTotals(inputs types.UserInputs) types.AnnualIntermediateTotals
 			inputs,
 			&monthlyTotals,
 			&annualTotals,
-			currentTotal,
+			&currentTotal,
 			monthlyReturn,
 			month,
 		)
