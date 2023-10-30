@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <title>Sparplanrechner</title>
-    <script src="https://unpkg.com/htmx.org@1.6.1"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.6.1" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      defer></script>
     <script src="scripts.js" defer></script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
+      rel="stylesheet" />
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="styles.css" rel="stylesheet" />
   </head>
+
   <body>
     <div class="container mt-4">
       <!-- Navigation bar currently not required -->
@@ -25,199 +28,153 @@
 
       <!-- form is centered on page -->
       <div class="row justify-content-center">
-        <!-- form width = 7/12 of page width -->
-        <div class="col-7">
+        <!-- form width changes based on screen size -->
+        <!-- col-lg-7: large screens (Laptops, Desktops), col-md-8: medium screens
+        (Tablets), col-12: small screens (Smartphones) -->
+        <div class="col-lg-7 col-md-8 col-12">
           <h1 class="mb-4 text-center">Sparplanrechner</h1>
-          <form
-            hx-post="/calculate"
-            hx-swap="innerHTML"
-            hx-target="#result"
+          <form hx-post="/calculate" hx-swap="innerHTML" hx-target="#result"
             enctype="application/x-www-form-urlencoded"
-            class="row g-3 needs-validation"
-          >
+            class="row g-3 needs-validation">
             <!-- SECTION: Startkapital -->
-            <div class="col-12">
-              <label for="startCapital" class="form-label"
-                >Startkapital (€):</label
-              >
-              <input
-                type="number"
-                id="startCapital"
-                name="startCapital"
-                min="0"
-                max="1000000"
-                value="1000"
-                class="form-control"
-                oninput="syncValues('startCapital', false)"
-                required
-              />
-              <input
-                type="range"
-                id="startCapitalSlider"
-                min="0"
-                max="1000000"
-                step="1000"
-                class="form-range"
-                oninput="syncValues('startCapital', true)"
-              />
+            <div class="col-12 position-relative">
+              <label for="startCapital" class="form-label">
+                <strong>
+                  Startkapital
+                </strong>
+                (€)
+              </label>
+              <i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
+                title="Startkapital zu Beginn des Anlagezeitraums." data-bs-html="true"
+                data-bs-placement="top" style="right: 20px; cursor: pointer;"></i>
+
+              <input type="number" id="startCapital" name="startCapital" min="0"
+                max="1000000" value="1000" class="form-control"
+                oninput="syncValues('startCapital', false)" required />
+
+              <input type="range" id="startCapitalSlider" min="0" max="1000000"
+                step="1000" class="form-range"
+                oninput="syncValues('startCapital', true)" />
             </div>
             <!-- SECTION: Sparrate -->
-            <div class="col-12">
-              <label for="savingsRate" class="form-label"
-                >Monatliche Sparrate (€):</label
-              >
-              <input
-                type="number"
-                id="savingsRate"
-                name="savingsRate"
-                class="form-control"
-                min="0"
-                max="10000"
-                value="100"
-                oninput="syncValues('savingsRate', false)"
-                required
-              />
-              <input
-                type="range"
-                id="savingsRateSlider"
-                min="0"
-                max="10000"
-                step="100"
-                class="form-range"
-                oninput="syncValues('savingsRate', true)"
-              />
+            <div class="col-12 position-relative">
+              <label for="savingsRate" class="form-label">
+                <strong>
+                  Monatliche Sparrate
+                </strong>
+                (€)
+              </label>
+              <i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
+                title="Monatlicher Sparbetrag über den gesamten Anlagezeitraum."
+                data-bs-html="true" data-bs-placement="top"
+                style="right: 20px; cursor: pointer;"></i>
+
+              <input type="number" id="savingsRate" name="savingsRate"
+                class="form-control" min="0" max="10000" value="100"
+                oninput="syncValues('savingsRate', false)" required />
+
+              <input type="range" id="savingsRateSlider" min="0" max="10000" step="100"
+                class="form-range" oninput="syncValues('savingsRate', true)" />
             </div>
             <!-- SECTION: Anlagezeitraum -->
-            <div class="col-12">
-              <label for="years" class="form-label"
-                >Anlagezeitraum (Jahre):</label
-              >
-              <input
-                type="number"
-                id="years"
-                name="years"
-                class="form-control"
-                min="1"
-                max="100"
-                value="10"
-                oninput="syncValues('years', false)"
-                required
-              />
-              <input
-                type="range"
-                id="yearsSlider"
-                min="1"
-                max="100"
-                step="1"
-                class="form-range"
-                oninput="syncValues('years', true)"
-              />
+            <div class="col-12 position-relative">
+              <label for="years" class="form-label">
+                <strong>
+                  Anlagezeitraum
+                </strong>
+                (Jahre)
+              </label>
+              <i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
+                title="Wie lange soll das Geld angelegt werden? Der Sparplan läuft über den gesamten Anlagezeitraum."
+                data-bs-html="true" data-bs-placement="top"
+                style="right: 20px; cursor: pointer;"></i>
+
+              <input type="number" id="years" name="years" class="form-control" min="1"
+                max="100" value="10" oninput="syncValues('years', false)" required />
+
+              <input type="range" id="yearsSlider" min="1" max="100" step="1"
+                class="form-range" oninput="syncValues('years', true)" />
             </div>
             <!-- SECTION: Rendite -->
-            <div class="col-md-6">
-              <label for="annualReturnRate" class="form-label"
-                >Jährliche Rendite (%):</label
-              >
-              <input
-                type="number"
-                id="annualReturnRate"
-                name="annualReturnRate"
-                class="form-control"
-                min="0"
-                max="20"
-                step="0.1"
-                value="5"
-                oninput="syncValues('annualReturnRate', false)"
-                required
-              />
-              <input
-                type="range"
-                id="annualReturnRateSlider"
-                min="0"
-                max="20"
-                step="0.1"
-                class="form-range"
-                oninput="syncValues('annualReturnRate', true)"
-              />
+            <div class="col-md-6 position-relative">
+              <label for="annualReturnRate" class="form-label">
+                <strong>
+                  Jährliche Rendite
+                </strong>
+                (%)
+              </label>
+              <i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
+                title="Durchschnittliche jährliche Rendite über den gesamten Anlagezeitraum."
+                data-bs-html="true" data-bs-placement="top"
+                style="right: 20px; cursor: pointer;"></i>
+
+              <input type="number" id="annualReturnRate" name="annualReturnRate"
+                class="form-control" min="0" max="20" step="0.1" value="5"
+                oninput="syncValues('annualReturnRate', false)" required />
+
+              <input type="range" id="annualReturnRateSlider" min="0" max="20"
+                step="0.1" class="form-range"
+                oninput="syncValues('annualReturnRate', true)" />
             </div>
             <!-- SECTION: Inflation -->
-            <div class="col-md-6">
-              <label for="inflationRate" class="form-label"
-                >Jährliche Inflation (%):</label
-              >
-              <input
-                type="number"
-                id="inflationRate"
-                name="inflationRate"
-                class="form-control"
-                min="0"
-                max="10"
-                step="0.1"
-                value="2"
-                oninput="syncValues('inflationRate', false)"
-                required
-              />
-              <input
-                type="range"
-                id="inflationRateSlider"
-                min="0"
-                max="10"
-                step="0.1"
-                class="form-range"
-                oninput="syncValues('inflationRate', true)"
-              />
+            <div class="col-md-6 position-relative">
+              <label for="inflationRate" class="form-label">
+                <strong>
+                  Jährliche Inflation
+                </strong>
+                (%)
+              </label>
+              <i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
+                title="Durchschnittliche jährliche Inflation über den gesamten Anlagezeitraum."
+                data-bs-html="true" data-bs-placement="top"
+                style="right: 20px; cursor: pointer;"></i>
+
+              <input type="number" id="inflationRate" name="inflationRate"
+                class="form-control" min="0" max="10" step="0.1" value="2"
+                oninput="syncValues('inflationRate', false)" required />
+
+              <input type="range" id="inflationRateSlider" min="0" max="10" step="0.1"
+                class="form-range" oninput="syncValues('inflationRate', true)" />
             </div>
             <!-- SECTION: Entnahme -->
-            <div class="col-md-6">
-              <label for="takeoutRate" class="form-label"
-                >Jährliche Entnahmerate (%):</label
-              >
-              <input
-                type="number"
-                id="takeoutRate"
-                name="takeoutRate"
-                class="form-control"
-                min="0"
-                max="10"
-                step="0.1"
-                value="3.5"
-                oninput="syncValues('takeoutRate', false)"
-                required
-              />
-              <input
-                type="range"
-                id="takeoutRateSlider"
-                min="0"
-                max="10"
-                step="0.1"
-                class="form-range"
-                oninput="syncValues('takeoutRate', true)"
-              />
+            <div class="col-md-6 position-relative">
+              <label for="takeoutRate" class="form-label">
+                <strong>
+                  Jährliche Entnahmerate
+                </strong>
+                (%)
+              </label>
+              <i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
+                title="Wie viel Prozent des Gesamtkapitals sollen jährlich nach der Ansparphase aus dem Depot ausgezahlt werden?"
+                data-bs-html="true" data-bs-placement="top"
+                style="right: 20px; cursor: pointer;"></i>
+
+              <input type="number" id="takeoutRate" name="takeoutRate"
+                class="form-control" min="0" max="10" step="0.1" value="3.5"
+                oninput="syncValues('takeoutRate', false)" required />
+
+              <input type="range" id="takeoutRateSlider" min="0" max="10" step="0.1"
+                class="form-range" oninput="syncValues('takeoutRate', true)" />
             </div>
             <!-- SECTION: Steuer -->
-            <div class="col-md-6">
-              <label for="tax" class="form-label">Steuer (%):</label>
-              <input
-                type="number"
-                id="tax"
-                name="tax"
-                class="form-control"
-                min="0"
-                max="50"
-                step="1"
-                value="25"
-                oninput="syncValues('tax', false)"
-                required
-              />
-              <input
-                type="range"
-                id="taxSlider"
-                min="0"
-                max="50"
-                step="1"
-                class="form-range"
-                oninput="syncValues('tax', true)"
-              />
+            <div class="col-md-6 position-relative">
+              <label for="tax" class="form-label">
+                <strong>
+                  Steuer
+                </strong>
+                (%)
+              </label>
+              <i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
+                title="Durchschnittliche jährliche Steuerlast während des Entnahmezeitraums. Vereint Kapitalertragssteuer, Solidaritätszuschlag und Kirchensteuer. Wird vereinfacht für den gesamten Entnahmebetrag (inklusive eigener Einzahlungen) und ohne Freibeträge berechnet."
+                data-bs-html="true" data-bs-placement="top"
+                style="right: 20px; cursor: pointer;"></i>
+
+              <input type="number" id="tax" name="tax" class="form-control" min="0"
+                max="50" step="1" value="25" oninput="syncValues('tax', false)"
+                required />
+
+              <input type="range" id="taxSlider" min="0" max="50" step="1"
+                class="form-range" oninput="syncValues('tax', true)" />
             </div>
             <!--  BOOKMARK: Submit Button -->
             <div class="text-center">
@@ -229,13 +186,11 @@
           <div id="result" class="mt-4"></div>
         </div>
       </div>
-      <footer class="text-center mt-4">
+      <!-- `mb-4` adds margin between footer and page end -->
+      <footer class="text-center mt-4 mb-4">
         <p>© 2023 Joel Beck, All rights reserved.</p>
         <div>
-          <a
-            href="https://github.com/joel-beck/sparplanrechner"
-            target="_blank"
-          >
+          <a href="https://github.com/joel-beck/sparplanrechner" target="_blank">
             <!-- setting style in external CSS does not work here -->
             <i class="fab fa-github github-icon" style="font-size: 1.5rem"></i>
           </a>
@@ -243,4 +198,5 @@
       </footer>
     </div>
   </body>
+
 </html>
