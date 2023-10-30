@@ -1,14 +1,13 @@
-.footer {
-    /* add whitespace between footer and page end */
-    padding: 1em 0;
-    background: #f9f9f9;
-  }
-
 /* remove background color from accordion dropdowns */
 .accordion-button:not(.collapsed) {
   color: inherit;
   background-color: inherit;
 }
+
+.position-relative i {
+  z-index: 2; /* Make sure the icon appears above the input field */
+}
+
 
 /* make GitHub icon larger */
 /* .github-icon {
