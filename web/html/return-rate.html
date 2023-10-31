@@ -1,0 +1,17 @@
+<label for="annualReturnRate" class="form-label mb-0">
+    <strong>Jährliche Rendite</strong> (%)
+</label>
+
+<i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
+    title="Durchschnittliche jährliche Rendite über den gesamten Anlagezeitraum."
+    data-bs-html="true" data-bs-placement="top"
+    style="right: 20px; cursor: pointer;"></i>
+
+<input type="number" id="annualReturnRate" name="annualReturnRate" class="form-control"
+    min="0" max="10" step="0.1" value="5" required />
+
+<!-- contained in flex column to align side-by-side sliders -->
+<div class="mt-auto">
+    <input type="range" id="annualReturnRateSlider" min="0" max="10" step="0.1"
+        value="5" class="form-range" />
+</div>
