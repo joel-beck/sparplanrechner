@@ -1,0 +1,20 @@
+<div class="col-md-6 position-relative">
+
+    <label for="tax" class="form-label">
+        <strong>
+            Steuer
+        </strong>
+        (%)
+    </label>
+
+    <i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
+        title="Durchschnittliche jährliche Steuerlast während des Entnahmezeitraums. Vereint Kapitalertragssteuer, Solidaritätszuschlag und Kirchensteuer. Wird vereinfacht für den gesamten Entnahmebetrag (inklusive eigener Einzahlungen) und ohne Freibeträge berechnet."
+        data-bs-html="true" data-bs-placement="top"
+        style="right: 20px; cursor: pointer;"></i>
+
+    <input type="number" id="tax" name="tax" class="form-control" min="0" max="50"
+        step="1" value="25" required />
+
+    <input type="range" id="taxSlider" min="0" max="50" step="1" value="25"
+        class="form-range" />
+</div>

@@ -1,5 +1,7 @@
 "use strict";
 
+import { injectHTMLFiles } from "./compile.js";
+
 /**
  * Validates a number that's formatted in the German numbering system, ensuring it's within a given range.
  *
@@ -57,7 +59,7 @@ function validateForm(formId, elementId, min, max) {
  * @param {string} id - The ID of the number input.
  * @param {boolean} isSlider - Whether the function is called from slider input.
  */
-function syncValues(id, isSlider) {
+export function syncValues(id, isSlider) {
   const numberInput = document.getElementById(id);
   const sliderInput = document.getElementById(`${id}Slider`);
 
@@ -120,8 +122,8 @@ function initializeTooltips() {
   const tooltipTriggerList = [].slice.call(
     document.querySelectorAll('[data-bs-toggle="tooltip"]')
   );
-  const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl);
+  tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+    new bootstrap.Tooltip(tooltipTriggerEl);
   });
 }
 
@@ -165,7 +167,7 @@ function formatNumericInputs(formFields) {
 /**
  * Attaches event listeners when the DOM is fully loaded.
  */
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
   const sliderFields = [
     "savingsRate",
     "years",
@@ -176,8 +178,11 @@ document.addEventListener("DOMContentLoaded", function () {
   ];
   const formFields = sliderFields.concat(["startCapital"]);
 
+  // Inject HTML content into the page
+  await injectHTMLFiles();
+
   syncSliders(sliderFields);
   initializeInflationToggle();
   initializeTooltips();
-  formatNumericInputs(formFields);
+  // formatNumericInputs(formFields);
 });

@@ -1,3 +1,5 @@
+// Credits for this file go to https://dev.to/andreygermanov/modular-html-19o6
+
 /**
  * Fetches an HTML content from a given path
  *
@@ -51,11 +53,27 @@ function processScripts(elem) {
  * @param {string} filePath - Path to the HTML file
  * @param {HTMLElement} elem - The HTML element to inject the content into
  */
-async function injectHTML(filePath, elem) {
+async function injectHTMLFile(filePath, elem) {
   try {
     const html = await fetchHTML(filePath);
     setElementHTML(elem, html);
-    processScripts(elem);
+
+    // Re-inject all <script> tags to ensure they are executed
+    elem.querySelectorAll("script").forEach((script) => {
+      // Create a new empty <script> tag
+      const newScript = document.createElement("script");
+
+      // Copy attributes of existing script tag to the new one
+      Array.from(script.attributes).forEach((attr) =>
+        newScript.setAttribute(attr.name, attr.value)
+      );
+
+      // Inject content of existing script tag to the new one
+      newScript.appendChild(document.createTextNode(script.innerHTML));
+
+      // Replace existing script tag with the new one
+      script.parentNode.replaceChild(newScript, script);
+    });
   } catch (err) {
     console.error(err.message);
   }
@@ -67,12 +85,10 @@ async function injectHTML(filePath, elem) {
  * This function injects the content of the file specified in the "include" attribute
  * into the corresponding HTML element.
  */
-function injectAll() {
-  document.querySelectorAll("div[include]").forEach((elem) => {
+export async function injectHTMLFiles() {
+  const elements = Array.from(document.querySelectorAll("div[include]"));
+  for (const elem of elements) {
     const filePath = elem.getAttribute("include");
-    injectHTML(filePath, elem);
-  });
+    await injectHTMLFile(filePath, elem);
+  }
 }
-
-// Execute the injection
-injectAll();
