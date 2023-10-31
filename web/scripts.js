@@ -95,24 +95,26 @@ function syncSliders(formFields) {
 }
 
 /**
- * Initializes a checkbox to enable or disable inflation inputs.
+ * Initializes a checkbox to enable or disable associated inputs.
+ *
+ * @param {string} checkboxId - The ID of the checkbox that will control the state of the fields.
+ * @param {Array} controlledIds - An array of IDs for fields that should be controlled by the checkbox.
  */
-function initializeInflationToggle() {
-  const enableInflationCheckbox = document.getElementById("enableInflation");
-  const inflationInput = document.getElementById("inflationRate");
-  const inflationSlider = document.getElementById("inflationRateSlider");
+function initializeCheckboxToggle(checkboxId, controlledIds) {
+  const checkbox = document.getElementById(checkboxId);
+  const controlledElements = controlledIds.map((id) =>
+    document.getElementById(id)
+  );
 
-  const toggleInflationDisabledState = () => {
-    const isChecked = enableInflationCheckbox.checked;
-    inflationInput.disabled = !isChecked;
-    inflationSlider.disabled = !isChecked;
+  const toggleDisabledState = () => {
+    const isChecked = checkbox.checked;
+    controlledElements.forEach((el) => {
+      el.disabled = !isChecked;
+    });
   };
 
-  toggleInflationDisabledState();
-  enableInflationCheckbox.addEventListener(
-    "change",
-    toggleInflationDisabledState
-  );
+  toggleDisabledState();
+  checkbox.addEventListener("change", toggleDisabledState);
 }
 
 /**
@@ -182,7 +184,17 @@ document.addEventListener("DOMContentLoaded", async function () {
   await injectHTMLFiles();
 
   syncSliders(sliderFields);
-  initializeInflationToggle();
   initializeTooltips();
+
+  initializeCheckboxToggle("enableInflation", [
+    "inflationRate",
+    "inflationRateSlider",
+  ]);
+  initializeCheckboxToggle("enableTax", ["tax", "taxSlider"]);
+  initializeCheckboxToggle("enableTakeout", [
+    "takeoutRate",
+    "takeoutRateSlider",
+  ]);
+
   // formatNumericInputs(formFields);
 });
