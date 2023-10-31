@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+  <!-- SECTION: Header -->
+
   <head>
     <meta charset="UTF-8" name="viewport"
       content="width=device-width, initial-scale=1.0" />
@@ -20,6 +22,8 @@
     <link href="styles.css" rel="stylesheet" />
   </head>
 
+  <!-- SECTION: Body -->
+
   <body>
     <div class="container mt-4">
       <!-- Navigation bar currently not required -->
@@ -29,15 +33,21 @@
 
       <!-- form is centered on page -->
       <div class="row justify-content-center">
+        <h1 class="mb-4 text-center">Sparplanrechner</h1>
+        <p class="mb-5 text-center">
+          Berechne den zukünftigen Wert deines Depots (nominal & real) basierend auf
+          deinem Startkapital, deiner monatlichen Sparrate und der Dauer des
+          Anlagezeitraums.
+        </p>
+        <!-- SECTION: Form -->
         <!-- form width changes based on screen size -->
         <!-- col-lg-7: large screens (Laptops, Desktops), col-md-8: medium screens
         (Tablets), col-12: small screens (Smartphones) -->
         <div class="col-lg-7 col-md-8 col-12">
-          <h1 class="mb-4 text-center">Sparplanrechner</h1>
           <form hx-post="/calculate" hx-swap="innerHTML" hx-target="#result"
             enctype="application/x-www-form-urlencoded"
             class="row g-3 needs-validation">
-            <!-- SECTION: Startkapital -->
+            <!-- SUBSECTION: Startkapital -->
             <div class="col-12 position-relative">
               <label for="startCapital" class="form-label">
                 <strong>
@@ -50,14 +60,11 @@
                 data-bs-placement="top" style="right: 20px; cursor: pointer;"></i>
 
               <input type="number" id="startCapital" name="startCapital" min="0"
-                max="1000000" value="1000" class="form-control"
+                max="1000000" placeholder="z.B. 1000" class="form-control"
                 oninput="syncValues('startCapital', false)" required />
 
-              <input type="range" id="startCapitalSlider" min="0" max="1000000"
-                step="1000" class="form-range"
-                oninput="syncValues('startCapital', true)" />
             </div>
-            <!-- SECTION: Sparrate -->
+            <!-- SUBSECTION: Sparrate -->
             <div class="col-12 position-relative">
               <label for="savingsRate" class="form-label">
                 <strong>
@@ -75,9 +82,10 @@
                 oninput="syncValues('savingsRate', false)" required />
 
               <input type="range" id="savingsRateSlider" min="0" max="10000" step="100"
-                class="form-range" oninput="syncValues('savingsRate', true)" />
+                value="100" class="form-range"
+                oninput="syncValues('savingsRate', true)" />
             </div>
-            <!-- SECTION: Anlagezeitraum -->
+            <!-- SUBSECTION: Anlagezeitraum -->
             <div class="col-12 position-relative">
               <label for="years" class="form-label">
                 <strong>
@@ -93,10 +101,10 @@
               <input type="number" id="years" name="years" class="form-control" min="1"
                 max="100" value="10" oninput="syncValues('years', false)" required />
 
-              <input type="range" id="yearsSlider" min="1" max="100" step="1"
+              <input type="range" id="yearsSlider" min="1" max="100" step="1" value="10"
                 class="form-range" oninput="syncValues('years', true)" />
             </div>
-            <!-- SECTION: Rendite -->
+            <!-- SUBSECTION: Rendite -->
             <div class="col-md-6 position-relative">
               <label for="annualReturnRate" class="form-label">
                 <strong>
@@ -114,10 +122,15 @@
                 oninput="syncValues('annualReturnRate', false)" required />
 
               <input type="range" id="annualReturnRateSlider" min="0" max="20"
-                step="0.1" class="form-range"
+                step="0.1" value="5" class="form-range"
                 oninput="syncValues('annualReturnRate', true)" />
             </div>
-            <!-- SECTION: Inflation -->
+            <!-- SUBSECTION: Inflation -->
+            <div class="col-md-6">
+              <input type="checkbox" id="enableInflation" checked>
+              <label for="enableInflation">Inflation berücksichtigen</label>
+            </div>
+
             <div class="col-md-6 position-relative">
               <label for="inflationRate" class="form-label">
                 <strong>
@@ -126,7 +139,7 @@
                 (%)
               </label>
               <i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
-                title="Durchschnittliche jährliche Inflation über den gesamten Anlagezeitraum."
+                title="Durchschnittliche jährliche Inflation über den gesamten Anlagezeitraum. Die durchschnittliche jährliche Inflation über die letzten 20 Jahre (2004-2023) beträgt in Deutschland ca. 2%."
                 data-bs-html="true" data-bs-placement="top"
                 style="right: 20px; cursor: pointer;"></i>
 
@@ -135,9 +148,10 @@
                 oninput="syncValues('inflationRate', false)" required />
 
               <input type="range" id="inflationRateSlider" min="0" max="10" step="0.1"
-                class="form-range" oninput="syncValues('inflationRate', true)" />
+                value="2" class="form-range"
+                oninput="syncValues('inflationRate', true)" />
             </div>
-            <!-- SECTION: Entnahme -->
+            <!-- SUBSECTION: Entnahme -->
             <div class="col-md-6 position-relative">
               <label for="takeoutRate" class="form-label">
                 <strong>
@@ -155,9 +169,10 @@
                 oninput="syncValues('takeoutRate', false)" required />
 
               <input type="range" id="takeoutRateSlider" min="0" max="10" step="0.1"
-                class="form-range" oninput="syncValues('takeoutRate', true)" />
+                value="3.5" class="form-range"
+                oninput="syncValues('takeoutRate', true)" />
             </div>
-            <!-- SECTION: Steuer -->
+            <!-- SUBSECTION: Steuer -->
             <div class="col-md-6 position-relative">
               <label for="tax" class="form-label">
                 <strong>
@@ -174,21 +189,23 @@
                 max="50" step="1" value="25" oninput="syncValues('tax', false)"
                 required />
 
-              <input type="range" id="taxSlider" min="0" max="50" step="1"
+              <input type="range" id="taxSlider" min="0" max="50" step="1" value="25"
                 class="form-range" oninput="syncValues('tax', true)" />
             </div>
-            <!--  BOOKMARK: Submit Button -->
-            <div class="text-center">
-              <button type="submit" class="btn btn-outline-primary">
-                Go! 🚀
+            <!--   SUBSECTION: Submit Button -->
+            <div class="d-grid gap-2 col-8 mx-auto">
+              <button type="submit" class="btn btn-lg btn-primary">
+                Berechnen
               </button>
             </div>
           </form>
+          SUBSECTION: HTMX data is inserted here
           <div id="result" class="mt-4"></div>
         </div>
       </div>
+      SUBSECTION: Footer
       <!-- `mb-4` adds margin between footer and page end -->
-      <footer class="text-center mt-4 mb-4">
+      <footer class="text-center mt-4 mb-4 mt-5">
         <p>© 2023 Joel Beck, All rights reserved.</p>
         <div>
           <a href="https://github.com/joel-beck/sparplanrechner" target="_blank">
