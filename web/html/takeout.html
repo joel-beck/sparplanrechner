@@ -1,28 +1,25 @@
-<div class="col-md-6 position-relative">
-    <div class="d-flex align-items-center mb-2">
+<label for="takeoutRate" class="form-label mb-0">
+    <strong>
+        Jährliche Entnahmerate
+    </strong>
+    (%)
+</label>
 
-        <label for="takeoutRate" class="form-label mb-0">
-            <strong>
-                Jährliche Entnahmerate
-            </strong>
-            (%)
-        </label>
+<i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
+    title="Wie viel Prozent des Gesamtkapitals sollen jährlich nach der Ansparphase aus dem Depot ausgezahlt werden?"
+    data-bs-html="true" data-bs-placement="top"
+    style="right: 20px; cursor: pointer;"></i>
 
-        <i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
-            title="Wie viel Prozent des Gesamtkapitals sollen jährlich nach der Ansparphase aus dem Depot ausgezahlt werden?"
-            data-bs-html="true" data-bs-placement="top"
-            style="right: 20px; cursor: pointer;"></i>
+<div class="input-group">
+    <div class="input-group-text">
+        <input class="form-check-input mt-0" type="checkbox" id="enableTakeout" checked
+            aria-label="Enable takeout input">
     </div>
+    <input type="number" id="takeoutRate" name="takeoutRate" class="form-control"
+        min="0" max="10" step="0.1" value="3.5" required />
+</div>
 
-    <div class="input-group mb-3">
-        <div class="input-group-text">
-            <input class="form-check-input mt-0" type="checkbox" id="enableTakeout"
-                checked aria-label="Enable takeout input">
-        </div>
-        <input type="number" id="takeoutRate" name="takeoutRate" class="form-control"
-            min="0" max="10" step="0.1" value="3.5" required />
-    </div>
-
+<div class="mt-auto">
     <input type="range" id="takeoutRateSlider" min="0" max="10" step="0.1" value="3.5"
         class="form-range" />
 </div>

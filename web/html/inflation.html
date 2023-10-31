@@ -1,25 +1,22 @@
-<div class="col-md-6 position-relative">
-    <div class="d-flex align-items-center mb-2">
+<label for="inflationRate" class="form-label mb-0">
+    <strong>Jährliche Inflation</strong> (%)
+</label>
 
-        <label for="inflationRate" class="form-label mb-0">
-            <strong>Jährliche Inflation</strong> (%)
-        </label>
+<i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
+    title="Durchschnittliche jährliche Inflation über den gesamten Anlagezeitraum. Die durchschnittliche jährliche Inflation über die letzten 20 Jahre (2004-2023) betrug in Deutschland ca. 2%."
+    data-bs-html="true" data-bs-placement="top"
+    style="right: 20px; cursor: pointer;"></i>
 
-        <i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
-            title="Durchschnittliche jährliche Inflation über den gesamten Anlagezeitraum. Die durchschnittliche jährliche Inflation über die letzten 20 Jahre (2004-2023) betrug in Deutschland ca. 2%."
-            data-bs-html="true" data-bs-placement="top"
-            style="right: 20px; cursor: pointer;"></i>
+<div class="input-group">
+    <div class="input-group-text">
+        <input class="form-check-input mt-0" type="checkbox" id="enableInflation"
+            checked aria-label="Enable inflation rate input">
     </div>
+    <input type="number" id="inflationRate" name="inflationRate" class="form-control"
+        min="0" max="10" step="0.1" value="2" required />
+</div>
 
-    <div class="input-group mb-3">
-        <div class="input-group-text">
-            <input class="form-check-input mt-0" type="checkbox" id="enableInflation"
-                checked aria-label="Enable inflation rate input">
-        </div>
-        <input type="number" id="inflationRate" name="inflationRate"
-            class="form-control" min="0" max="10" step="0.1" value="2" required />
-    </div>
-
+<div class="mt-auto">
     <input type="range" id="inflationRateSlider" min="0" max="10" step="0.1" value="2"
-        class="form-range mt-2" />
+        class="form-range" />
 </div>

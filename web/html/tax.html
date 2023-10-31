@@ -1,28 +1,25 @@
-<div class="col-md-6 position-relative">
-    <div class="d-flex align-items-center mb-2">
+<label for="tax" class="form-label mb-0">
+    <strong>
+        Steuer
+    </strong>
+    (%)
+</label>
 
-        <label for="tax" class="form-label mb-0">
-            <strong>
-                Steuer
-            </strong>
-            (%)
-        </label>
+<i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
+    title="Durchschnittliche jährliche Steuerlast während des Entnahmezeitraums. Vereint Kapitalertragssteuer, Solidaritätszuschlag und Kirchensteuer. Wird vereinfacht für den gesamten Entnahmebetrag (inklusive eigener Einzahlungen) und ohne Freibeträge berechnet."
+    data-bs-html="true" data-bs-placement="top"
+    style="right: 20px; cursor: pointer;"></i>
 
-        <i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
-            title="Durchschnittliche jährliche Steuerlast während des Entnahmezeitraums. Vereint Kapitalertragssteuer, Solidaritätszuschlag und Kirchensteuer. Wird vereinfacht für den gesamten Entnahmebetrag (inklusive eigener Einzahlungen) und ohne Freibeträge berechnet."
-            data-bs-html="true" data-bs-placement="top"
-            style="right: 20px; cursor: pointer;"></i>
+<div class="input-group">
+    <div class="input-group-text">
+        <input class="form-check-input mt-0" type="checkbox" id="enableTax" checked
+            aria-label="Enable tax input">
     </div>
+    <input type="number" id="tax" name="tax" class="form-control" min="0" max="50"
+        step="1" value="25" aria-label="Tax rate" required />
+</div>
 
-    <div class="input-group mb-3">
-        <div class="input-group-text">
-            <input class="form-check-input mt-0" type="checkbox" id="enableTax" checked
-                aria-label="Enable tax input">
-        </div>
-        <input type="number" id="tax" name="tax" class="form-control" min="0" max="50"
-            step="1" value="25" aria-label="Tax rate" required />
-    </div>
-
+<div class="mt-auto">
     <input type="range" id="taxSlider" min="0" max="50" step="1" value="25"
         class="form-range" />
 </div>

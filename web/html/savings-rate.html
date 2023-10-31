@@ -1,20 +1,16 @@
-<div class="col-12 position-relative">
+<label for="savingsRate" class="form-label">
+    <strong>
+        Monatliche Sparrate
+    </strong>
+    (€)
+</label>
 
-    <label for="savingsRate" class="form-label">
-        <strong>
-            Monatliche Sparrate
-        </strong>
-        (€)
-    </label>
+<i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
+    title="Monatlicher Sparbetrag über den gesamten Anlagezeitraum." data-bs-html="true"
+    data-bs-placement="top" style="right: 20px; cursor: pointer;"></i>
 
-    <i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
-        title="Monatlicher Sparbetrag über den gesamten Anlagezeitraum."
-        data-bs-html="true" data-bs-placement="top"
-        style="right: 20px; cursor: pointer;"></i>
+<input type="number" id="savingsRate" name="savingsRate" class="form-control" min="0"
+    max="10000" value="100" required />
 
-    <input type="number" id="savingsRate" name="savingsRate" class="form-control"
-        min="0" max="10000" value="100" required />
-
-    <input type="range" id="savingsRateSlider" min="0" max="10000" step="100"
-        value="100" class="form-range" />
-</div>
+<input type="range" id="savingsRateSlider" min="0" max="10000" step="100" value="100"
+    class="form-range" />

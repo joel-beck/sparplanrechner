@@ -1,20 +1,17 @@
-<div class="col-12 position-relative">
+<label for="years" class="form-label">
+    <strong>
+        Anlagezeitraum
+    </strong>
+    (Jahre)
+</label>
 
-    <label for="years" class="form-label">
-        <strong>
-            Anlagezeitraum
-        </strong>
-        (Jahre)
-    </label>
+<i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
+    title="Wie lange soll das Geld angelegt werden? Der Sparplan läuft über den gesamten Anlagezeitraum."
+    data-bs-html="true" data-bs-placement="top"
+    style="right: 20px; cursor: pointer;"></i>
 
-    <i class="bi bi-info-circle position-absolute" data-bs-toggle="tooltip"
-        title="Wie lange soll das Geld angelegt werden? Der Sparplan läuft über den gesamten Anlagezeitraum."
-        data-bs-html="true" data-bs-placement="top"
-        style="right: 20px; cursor: pointer;"></i>
+<input type="number" id="years" name="years" class="form-control" min="1" max="100"
+    value="10" required />
 
-    <input type="number" id="years" name="years" class="form-control" min="1" max="100"
-        value="10" required />
-
-    <input type="range" id="yearsSlider" min="1" max="100" step="1" value="10"
-        class="form-range" />
-</div>
+<input type="range" id="yearsSlider" min="1" max="100" step="1" value="10"
+    class="form-range" />
