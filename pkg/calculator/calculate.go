@@ -71,10 +71,30 @@ func MonthlyToAnnualTotals(
 	}
 }
 
+func ProcessCheckboxes(inputs types.UserInputs) types.UserInputs {
+	if !inputs.InflationRateCheckbox {
+		inputs.InflationRate = 0
+	}
+
+	if !inputs.TakeoutRateCheckbox {
+		inputs.TakeoutRate = 0
+		// tax is only relevant if takeout rate is non-zero
+		inputs.Tax = 0
+	}
+
+	if !inputs.TaxCheckbox {
+		inputs.Tax = 0
+	}
+
+	return inputs
+}
+
 func ComputeAnnualTotals(inputs types.UserInputs) types.AnnualIntermediateTotals {
 	if inputs.Years == 0 {
 		return ZeroYearsOutput()
 	}
+
+	inputs = ProcessCheckboxes(inputs)
 
 	totalMonths := inputs.Years * MonthsInYear
 	monthlyReturn := CalculateMonthlyReturn(inputs.AnnualReturnRate)

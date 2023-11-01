@@ -186,12 +186,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   syncSliders(sliderFields);
   initializeTooltips();
 
-  initializeCheckboxToggle("enableInflation", [
+  initializeCheckboxToggle("inflationRateCheckbox", [
     "inflationRate",
     "inflationRateSlider",
   ]);
-  initializeCheckboxToggle("enableTax", ["tax", "taxSlider"]);
-  initializeCheckboxToggle("enableTakeout", [
+  initializeCheckboxToggle("taxCheckbox", ["tax", "taxSlider"]);
+  initializeCheckboxToggle("takeoutRateCheckbox", [
     "takeoutRate",
     "takeoutRateSlider",
   ]);
