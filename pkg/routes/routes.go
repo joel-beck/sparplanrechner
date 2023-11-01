@@ -8,18 +8,24 @@ import (
 
 	"github.com/joel-beck/sparplanrechner/pkg/calculator"
 	"github.com/joel-beck/sparplanrechner/pkg/converters"
+	"github.com/joel-beck/sparplanrechner/pkg/middleware"
 	"github.com/joel-beck/sparplanrechner/pkg/types"
 	"github.com/labstack/echo/v4"
+	"github.com/rs/zerolog/log"
 )
 
 var tmpl *template.Template
 
 func logUserInputs(c echo.Context, inputs types.UserInputs) {
-	c.Logger().Infof("User Inputs: %+v", inputs)
+	log.Debug().
+		Interface("user_inputs", inputs).
+		Msg("User Inputs")
 }
 
 func logResponse(c echo.Context, templateData map[string]interface{}) {
-	c.Logger().Infof("Response Data: %+v", templateData)
+	log.Debug().
+		Interface("response_data", templateData).
+		Msg("Response Data")
 }
 
 // BindRequest binds the incoming request data to the UserInputs struct
@@ -95,6 +101,8 @@ func SendResponse(c echo.Context) error {
 
 func InitRoutes(e *echo.Echo) {
 	tmpl = template.Must(template.ParseFiles("web/index.html", "templates/results.html"))
+
+	e.Use(middleware.ZerologMiddleware())
 
 	e.GET("/", executeTemplate)
 	e.Static("/", "web")

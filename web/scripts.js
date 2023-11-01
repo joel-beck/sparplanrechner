@@ -95,6 +95,18 @@ function syncSliders(formFields) {
 }
 
 /**
+ * Initializes Bootstrap tooltips for elements with data-bs-toggle="tooltip" attributes.
+ */
+function initializeTooltips() {
+  const tooltipTriggerList = [].slice.call(
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  );
+  tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+    new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+}
+
+/**
  * Initializes a checkbox to enable or disable associated inputs.
  *
  * @param {string} checkboxId - The ID of the checkbox that will control the state of the fields.
@@ -118,14 +130,19 @@ function initializeCheckboxToggle(checkboxId, controlledIds) {
 }
 
 /**
- * Initializes Bootstrap tooltips for elements with data-bs-toggle="tooltip" attributes.
+ * Initializes a checkbox to have its value set to "true" or "false" upon form submission.
+ *
+ * @param {string} formId - The ID of the form containing the checkbox.
+ * @param {Array} checkboxIds - An array of IDs for checkboxes whose values should be set to "true" or "false".
  */
-function initializeTooltips() {
-  const tooltipTriggerList = [].slice.call(
-    document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  );
-  tooltipTriggerList.forEach(function (tooltipTriggerEl) {
-    new bootstrap.Tooltip(tooltipTriggerEl);
+function initializeCheckboxBooleanValue(formId, checkboxIds) {
+  const form = document.getElementById(formId);
+  const checkboxes = checkboxIds.map((id) => document.getElementById(id));
+
+  form.addEventListener("submit", function () {
+    checkboxes.forEach((checkbox) => {
+      checkbox.value = checkbox.checked ? "true" : "false";
+    });
   });
 }
 
@@ -194,6 +211,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   initializeCheckboxToggle("takeoutRateCheckbox", [
     "takeoutRate",
     "takeoutRateSlider",
+  ]);
+
+  initializeCheckboxBooleanValue("form", [
+    "inflationRateCheckbox",
+    "takeoutRateCheckbox",
+    "taxCheckbox",
   ]);
 
   // formatNumericInputs(formFields);
