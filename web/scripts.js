@@ -130,19 +130,38 @@ function initializeCheckboxToggle(checkboxId, controlledIds) {
 }
 
 /**
- * Initializes a checkbox to have its value set to "true" or "false" upon form submission.
+ * Sets the value of the checkbox to "true" or "false" based on its checked state.
+ *
+ * @param {HTMLInputElement} checkbox - The checkbox element.
+ */
+function setCheckboxBooleanValue(checkbox) {
+  checkbox.value = checkbox.checked ? "true" : "false";
+}
+
+/**
+ * Initializes a checkbox to have its value set to "true" or "false" upon change and
+ * form submission.
  *
  * @param {string} formId - The ID of the form containing the checkbox.
- * @param {Array} checkboxIds - An array of IDs for checkboxes whose values should be set to "true" or "false".
+ * @param {Array} checkboxIds - An array of IDs for checkboxes whose values should be
+ * set to "true" or "false".
  */
 function initializeCheckboxBooleanValue(formId, checkboxIds) {
   const form = document.getElementById(formId);
   const checkboxes = checkboxIds.map((id) => document.getElementById(id));
 
-  form.addEventListener("submit", function () {
-    checkboxes.forEach((checkbox) => {
-      checkbox.value = checkbox.checked ? "true" : "false";
-    });
+  // Initialize checkbox value based on its default checked state
+  checkboxes.forEach(setCheckboxBooleanValue);
+
+  // Update checkbox value on change and form submission
+  checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", () =>
+      setCheckboxBooleanValue(checkbox)
+    );
+  });
+
+  form.addEventListener("submit", () => {
+    checkboxes.forEach(setCheckboxBooleanValue);
   });
 }
 
