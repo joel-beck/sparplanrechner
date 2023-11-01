@@ -93,10 +93,44 @@ func TestTakeoutsFromTotal(t *testing.T) {
 			}{
 				total: 10000,
 				user: types.UserInputs{
-					TakeoutRate:   3.0,
-					Tax:           25.0,
-					InflationRate: 2.0,
-					Years:         1},
+					Years:                 1,
+					InflationRate:         2.0,
+					InflationRateCheckbox: true,
+					TakeoutRate:           3.0,
+					TakeoutRateCheckbox:   true,
+					Tax:                   25.0,
+					TaxCheckbox:           true,
+				},
+			},
+			expected: types.Takeouts{
+				Monthly: types.MonthlyTakeouts{
+					BeforeTax:                   25,
+					AfterTax:                    18.75,
+					InflationDiscountedAfterTax: 18.375,
+				},
+				Annual: types.AnnualTakeouts{
+					BeforeTax:                   300,
+					AfterTax:                    225,
+					InflationDiscountedAfterTax: 220.5,
+				},
+			},
+		},
+		{
+			name: "Default inputs",
+			inputs: struct {
+				total float64
+				user  types.UserInputs
+			}{
+				total: 10000,
+				user: types.UserInputs{
+					Years:                 1,
+					InflationRate:         2.0,
+					InflationRateCheckbox: true,
+					TakeoutRate:           3.0,
+					TakeoutRateCheckbox:   true,
+					Tax:                   25.0,
+					TaxCheckbox:           true,
+				},
 			},
 			expected: types.Takeouts{
 				Monthly: types.MonthlyTakeouts{

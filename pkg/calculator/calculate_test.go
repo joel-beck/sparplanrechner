@@ -138,13 +138,16 @@ func TestComputeAnnualTotals(t *testing.T) {
 		{
 			name: "Zero Years",
 			inputs: types.UserInputs{
-				StartCapital:     1000,
-				SavingsRate:      0,
-				Years:            0,
-				AnnualReturnRate: 0,
-				InflationRate:    0,
-				TakeoutRate:      0,
-				Tax:              0,
+				StartCapital:          1000,
+				SavingsRate:           0,
+				Years:                 0,
+				AnnualReturnRate:      0,
+				InflationRate:         0,
+				InflationRateCheckbox: true,
+				TakeoutRate:           0,
+				TakeoutRateCheckbox:   true,
+				Tax:                   0,
+				TaxCheckbox:           true,
 			},
 			expected: types.AnnualIntermediateTotals{
 				AnnualTotals:                    types.AnnualTotals{},
@@ -156,13 +159,16 @@ func TestComputeAnnualTotals(t *testing.T) {
 		{
 			name: "Only start capital",
 			inputs: types.UserInputs{
-				StartCapital:     1000,
-				SavingsRate:      0,
-				Years:            1,
-				AnnualReturnRate: 0,
-				InflationRate:    0,
-				TakeoutRate:      0,
-				Tax:              0,
+				StartCapital:          1000,
+				SavingsRate:           0,
+				Years:                 1,
+				AnnualReturnRate:      0,
+				InflationRate:         0,
+				InflationRateCheckbox: true,
+				TakeoutRate:           0,
+				TakeoutRateCheckbox:   true,
+				Tax:                   0,
+				TaxCheckbox:           true,
 			},
 			expected: types.AnnualIntermediateTotals{
 				AnnualTotals:                    types.AnnualTotals{1000},
@@ -174,13 +180,16 @@ func TestComputeAnnualTotals(t *testing.T) {
 		{
 			name: "Start capital and savings rate",
 			inputs: types.UserInputs{
-				StartCapital:     1000,
-				SavingsRate:      100,
-				Years:            1,
-				AnnualReturnRate: 0,
-				InflationRate:    0,
-				TakeoutRate:      0,
-				Tax:              0,
+				StartCapital:          1000,
+				SavingsRate:           100,
+				Years:                 1,
+				AnnualReturnRate:      0,
+				InflationRate:         0,
+				InflationRateCheckbox: true,
+				TakeoutRate:           0,
+				TakeoutRateCheckbox:   true,
+				Tax:                   0,
+				TaxCheckbox:           true,
 			},
 			expected: types.AnnualIntermediateTotals{
 				AnnualTotals:                    types.AnnualTotals{2200},
@@ -192,13 +201,16 @@ func TestComputeAnnualTotals(t *testing.T) {
 		{
 			name: "Start capital and inflation rate",
 			inputs: types.UserInputs{
-				StartCapital:     1000,
-				SavingsRate:      0,
-				Years:            1,
-				AnnualReturnRate: 0,
-				InflationRate:    2,
-				TakeoutRate:      0,
-				Tax:              0,
+				StartCapital:          1000,
+				SavingsRate:           0,
+				Years:                 1,
+				AnnualReturnRate:      0,
+				InflationRate:         2,
+				InflationRateCheckbox: true,
+				TakeoutRate:           0,
+				TakeoutRateCheckbox:   true,
+				Tax:                   0,
+				TaxCheckbox:           true,
 			},
 			expected: types.AnnualIntermediateTotals{
 				AnnualTotals:                    types.AnnualTotals{1000},
@@ -210,13 +222,16 @@ func TestComputeAnnualTotals(t *testing.T) {
 		{
 			name: "Saving rate and inflation rate",
 			inputs: types.UserInputs{
-				StartCapital:     1000,
-				SavingsRate:      100,
-				Years:            1,
-				AnnualReturnRate: 0,
-				InflationRate:    2,
-				TakeoutRate:      0,
-				Tax:              0,
+				StartCapital:          1000,
+				SavingsRate:           100,
+				Years:                 1,
+				AnnualReturnRate:      0,
+				InflationRate:         2,
+				InflationRateCheckbox: true,
+				TakeoutRate:           0,
+				TakeoutRateCheckbox:   true,
+				Tax:                   0,
+				TaxCheckbox:           true,
 			},
 			expected: types.AnnualIntermediateTotals{
 				AnnualTotals:                    types.AnnualTotals{2200},
@@ -235,6 +250,157 @@ func TestComputeAnnualTotals(t *testing.T) {
 	}
 }
 
+func TestProcessCheckboxes(t *testing.T) {
+	tests := []struct {
+		name     string
+		inputs   types.UserInputs
+		expected types.UserInputs
+	}{
+		{
+			name: "All checkboxes checked",
+			inputs: types.UserInputs{
+				StartCapital:          1000,
+				SavingsRate:           100,
+				Years:                 1,
+				AnnualReturnRate:      5,
+				InflationRate:         2,
+				InflationRateCheckbox: true,
+				TakeoutRate:           3,
+				TakeoutRateCheckbox:   true,
+				Tax:                   25,
+				TaxCheckbox:           true,
+			},
+			expected: types.UserInputs{
+				StartCapital:          1000,
+				SavingsRate:           100,
+				Years:                 1,
+				AnnualReturnRate:      5,
+				InflationRate:         2,
+				InflationRateCheckbox: true,
+				TakeoutRate:           3,
+				TakeoutRateCheckbox:   true,
+				Tax:                   25,
+				TaxCheckbox:           true,
+			},
+		},
+		{
+			name: "Inflation rate checkbox disables inflation rate",
+			inputs: types.UserInputs{
+				StartCapital:          1000,
+				SavingsRate:           100,
+				Years:                 1,
+				AnnualReturnRate:      5,
+				InflationRate:         2,
+				InflationRateCheckbox: false,
+				TakeoutRate:           3,
+				TakeoutRateCheckbox:   true,
+				Tax:                   25,
+				TaxCheckbox:           true,
+			},
+			expected: types.UserInputs{
+				StartCapital:          1000,
+				SavingsRate:           100,
+				Years:                 1,
+				AnnualReturnRate:      5,
+				InflationRate:         0,
+				InflationRateCheckbox: false,
+				TakeoutRate:           3,
+				TakeoutRateCheckbox:   true,
+				Tax:                   25,
+				TaxCheckbox:           true,
+			},
+		},
+		{
+			name: "Takeout rate checkbox disables takeout rate and tax",
+			inputs: types.UserInputs{
+				StartCapital:          1000,
+				SavingsRate:           100,
+				Years:                 1,
+				AnnualReturnRate:      5,
+				InflationRate:         2,
+				InflationRateCheckbox: true,
+				TakeoutRate:           3,
+				TakeoutRateCheckbox:   false,
+				Tax:                   25,
+				TaxCheckbox:           true,
+			},
+			expected: types.UserInputs{
+				StartCapital:          1000,
+				SavingsRate:           100,
+				Years:                 1,
+				AnnualReturnRate:      5,
+				InflationRate:         2,
+				InflationRateCheckbox: true,
+				TakeoutRate:           0,
+				TakeoutRateCheckbox:   false,
+				Tax:                   0,
+				TaxCheckbox:           true,
+			},
+		},
+		{
+			name: "Tax checkbox disables tax",
+			inputs: types.UserInputs{
+				StartCapital:          1000,
+				SavingsRate:           100,
+				Years:                 1,
+				AnnualReturnRate:      5,
+				InflationRate:         2,
+				InflationRateCheckbox: true,
+				TakeoutRate:           3,
+				TakeoutRateCheckbox:   true,
+				Tax:                   25,
+				TaxCheckbox:           false,
+			},
+			expected: types.UserInputs{
+				StartCapital:          1000,
+				SavingsRate:           100,
+				Years:                 1,
+				AnnualReturnRate:      5,
+				InflationRate:         2,
+				InflationRateCheckbox: true,
+				TakeoutRate:           3,
+				TakeoutRateCheckbox:   true,
+				Tax:                   0,
+				TaxCheckbox:           false,
+			},
+		},
+		{
+			name: "All checkboxes unchecked",
+			inputs: types.UserInputs{
+				StartCapital:          1000,
+				SavingsRate:           100,
+				Years:                 1,
+				AnnualReturnRate:      5,
+				InflationRate:         2,
+				InflationRateCheckbox: false,
+				TakeoutRate:           3,
+				TakeoutRateCheckbox:   false,
+				Tax:                   25,
+				TaxCheckbox:           false,
+			},
+			expected: types.UserInputs{
+				StartCapital:          1000,
+				SavingsRate:           100,
+				Years:                 1,
+				AnnualReturnRate:      5,
+				InflationRate:         0,
+				InflationRateCheckbox: false,
+				TakeoutRate:           0,
+				TakeoutRateCheckbox:   false,
+				Tax:                   0,
+				TaxCheckbox:           false,
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := calculator.ProcessCheckboxes(tt.inputs)
+			assert.Equal(t, tt.expected, actual)
+		})
+	}
+}
+
 func TestComputeAnnualTotals_ReturnRate(t *testing.T) {
 	tests := []struct {
 		name        string
@@ -248,13 +414,16 @@ func TestComputeAnnualTotals_ReturnRate(t *testing.T) {
 		{
 			name: "Annual interest compounding is lower bound to monthly interest compounding",
 			inputs: types.UserInputs{
-				StartCapital:     1000,
-				SavingsRate:      0,
-				Years:            1,
-				AnnualReturnRate: 5,
-				InflationRate:    0,
-				TakeoutRate:      0,
-				Tax:              0,
+				StartCapital:          1000,
+				SavingsRate:           0,
+				Years:                 1,
+				AnnualReturnRate:      5,
+				InflationRate:         0,
+				InflationRateCheckbox: true,
+				TakeoutRate:           0,
+				TakeoutRateCheckbox:   true,
+				Tax:                   0,
+				TaxCheckbox:           true,
 			},
 			lowerBounds: struct {
 				annualTotals                    float64
@@ -283,13 +452,16 @@ func TestComputeAnnualTotals_MultipleYears(t *testing.T) {
 		{
 			name: "Saving rate and inflation rate for two years",
 			inputs: types.UserInputs{
-				StartCapital:     1000,
-				SavingsRate:      100,
-				Years:            2,
-				AnnualReturnRate: 0,
-				InflationRate:    2,
-				TakeoutRate:      0,
-				Tax:              0,
+				StartCapital:          1000,
+				SavingsRate:           100,
+				Years:                 2,
+				AnnualReturnRate:      0,
+				InflationRate:         2,
+				InflationRateCheckbox: true,
+				TakeoutRate:           0,
+				TakeoutRateCheckbox:   true,
+				Tax:                   0,
+				TaxCheckbox:           true,
 			},
 			expected: types.AnnualIntermediateTotals{
 				AnnualTotals:                    types.AnnualTotals{2200, 3400},
