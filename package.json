@@ -1,0 +1,16 @@
+{
+  "name": "sparplanrechner",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest",
+    "prettier": "^3.1.0",
+    "prettier-plugin-tailwindcss": "^0.5.7",
+    "tailwindcss": "^3.3.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "tailwind": "bun tailwindcss -i ./web/src/styles.css -o ./web/dist/styles.css --watch"
+  }
+}

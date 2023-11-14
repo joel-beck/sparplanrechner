@@ -1,0 +1,38 @@
+<div class="flex flex-col">
+  <div class="flex justify-between">
+    <label for="savingsRate" class="mb-1 font-bold">
+      Monatliche Sparrate
+      <div class="inline font-normal">(€)</div>
+    </label>
+
+    <i
+      class="bi bi-info-circle position-absolute"
+      data-bs-toggle="tooltip"
+      title="Monatlicher Sparbetrag über den gesamten Anlagezeitraum."
+      data-bs-html="true"
+      data-bs-placement="top"
+      style="right: 20px; cursor: pointer"
+    ></i>
+  </div>
+
+  <input
+    type="number"
+    id="savingsRate"
+    name="savingsRate"
+    class="form-input w-full rounded-md border-gray-300 px-4 py-2"
+    min="0"
+    max="10000"
+    value="100"
+    required
+  />
+
+  <input
+    type="range"
+    id="savingsRateSlider"
+    min="0"
+    max="10000"
+    step="100"
+    value="100"
+    class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-blue-600"
+  />
+</div>

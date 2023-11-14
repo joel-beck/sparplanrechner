@@ -1,0 +1,47 @@
+<div class="flex flex-col">
+  <div class="flex justify-between">
+    <label for="takeoutRate" class="mb-1 font-bold">
+      Jährliche Entnahmerate
+      <div class="inline font-normal">(%)</div>
+    </label>
+
+    <i
+      class="bi bi-info-circle cursor-pointer"
+      data-bs-toggle="tooltip"
+      title="Wie viel Prozent des Gesamtkapitals sollen jährlich nach der Ansparphase aus dem Depot ausgezahlt werden?"
+      data-bs-html="true"
+      data-bs-placement="top"
+    ></i>
+  </div>
+
+  <div class="flex items-center space-x-2">
+    <input
+      type="checkbox"
+      id="takeoutRateCheckbox"
+      name="takeoutRateCheckbox"
+      class="form-checkbox h-5 w-5"
+      aria-label="Enable takeout input"
+      checked
+    />
+    <input
+      type="number"
+      id="takeoutRate"
+      name="takeoutRate"
+      class="form-input w-full rounded-md border-gray-300 px-4 py-2"
+      min="0"
+      max="10"
+      step="0.1"
+      value="3.5"
+      required
+    />
+  </div>
+  <input
+    type="range"
+    id="takeoutRateSlider"
+    min="0"
+    max="10"
+    step="0.1"
+    value="3.5"
+    class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-blue-600"
+  />
+</div>
