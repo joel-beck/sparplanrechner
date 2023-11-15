@@ -1,6 +1,5 @@
 {
   "name": "sparplanrechner",
-  "type": "module",
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/container-queries": "^0.1.1",
@@ -16,5 +15,6 @@
   },
   "scripts": {
     "tailwind": "bun tailwindcss -i ./web/css/src/styles.css -o ./web/css/dist/styles.css --watch"
-  }
+  },
+  "type": "module"
 }
