@@ -1,4 +1,4 @@
-<div class="flex flex-col">
+<div class="flex w-full flex-col rounded border bg-gray-100 p-3">
   <div class="flex justify-between">
     <label for="years" class="mb-1 font-bold">
       Anlagezeitraum
@@ -6,7 +6,7 @@
     </label>
 
     <i
-      class="bi bi-info-circle cursor-pointer"
+      class="bi bi-info-circle cursor-pointer pr-4"
       data-bs-toggle="tooltip"
       title="Wie lange soll das Geld angelegt werden? Der Sparplan läuft über den gesamten Anlagezeitraum."
       data-bs-html="true"
@@ -18,7 +18,7 @@
     type="number"
     id="years"
     name="years"
-    class="form-input w-full rounded-md border-gray-300 px-4 py-2"
+    class="form-input w-full rounded-md border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500"
     min="1"
     max="100"
     value="10"
@@ -32,6 +32,6 @@
     max="100"
     step="1"
     value="10"
-    class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-blue-600"
+    class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-blue-500"
   />
 </div>
