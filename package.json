@@ -15,6 +15,6 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "tailwind": "bun tailwindcss -i ./web/src/styles.css -o ./web/dist/styles.css --watch"
+    "tailwind": "bun tailwindcss -i ./web/css/src/styles.css -o ./web/css/dist/styles.css --watch"
   }
 }

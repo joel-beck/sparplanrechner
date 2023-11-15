@@ -100,11 +100,11 @@ func SendResponse(c echo.Context) error {
 }
 
 func InitRoutes(e *echo.Echo) {
-	tmpl = template.Must(template.ParseFiles("web/src/index.html", "templates/results.html"))
+	tmpl = template.Must(template.ParseFiles("web/index.html", "templates/results.html"))
 
 	e.Use(middleware.ZerologMiddleware())
 
 	e.GET("/", executeTemplate)
-	e.Static("/", "web/src")
+	e.Static("/", "web")
 	e.POST("/calculate", SendResponse)
 }
