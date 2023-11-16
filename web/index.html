@@ -55,10 +55,14 @@
     <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
   </head>
 
-  <body class="mx-auto min-h-screen bg-slate-50">
+  <body
+    class="bg-color-bg-light text-color-text-light dark:bg-color-bg-dark dark:text-color-text-dark mx-auto min-h-screen"
+  >
     <header class="mx-auto mb-4 mt-4 w-full md:w-10/12 lg:w-8/12" id="header">
       <h1 class="mb-4 text-center text-3xl font-medium">Sparplanrechner</h1>
-      <p class="text-center text-base text-gray-800">
+      <p
+        class="text-color-text-light dark:text-color-text-dark text-center text-base"
+      >
         Berechne den zukünftigen Wert deines Depots (nominal & real) basierend
         auf deinem Startkapital, deiner monatlichen Sparrate und der Dauer des
         Anlagezeitraums.
@@ -78,17 +82,17 @@
         class="needs-validation flex flex-wrap gap-3"
       >
         <fieldset
-          class="mb-3 flex w-full flex-col rounded border bg-gray-100 p-2"
+          class="bg-color-form-light dark:bg-color-form-dark mb-3 flex w-full flex-col rounded border px-6 pb-3 pt-2"
           id="startCapitalSection"
         >
           <div class="flex justify-between">
-            <label for="startCapital" class="mb-1 font-bold">
+            <label for="startCapital" class="mb-1 font-bold text-black">
               Startkapital
-              <div class="inline font-normal">(€)</div>
+              <span class="font-normal">(€)</span>
             </label>
 
             <i
-              class="bi bi-info-circle cursor-pointer pr-6"
+              class="bi bi-info-circle cursor-pointer pr-6 text-black"
               data-bs-toggle="tooltip"
               title="Startkapital zu Beginn des Anlagezeitraums."
               data-bs-html="true"
@@ -102,24 +106,24 @@
             name="startCapital"
             min="0"
             placeholder="z.B. 10000"
-            class="form-input w-full rounded-md border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500"
+            class="focus:ring-color-accent-light dark:focus:ring-color-accent-dark form-input w-full rounded-md border-gray-300 px-4 py-2 text-black focus:ring-2"
             required
             autofocus
           />
         </fieldset>
 
         <fieldset
-          class="mb-3 flex w-full flex-col rounded border bg-gray-100 p-2"
+          class="bg-color-form-light dark:bg-color-form-dark mb-3 flex w-full flex-col rounded border px-6 pb-3 pt-2"
           id="savingsRateSection"
         >
           <div class="flex justify-between">
-            <label for="savingsRate" class="mb-1 font-bold">
+            <label for="savingsRate" class="mb-1 font-bold text-black">
               Monatliche Sparrate
-              <div class="inline font-normal">(€)</div>
+              <span class="font-normal">(€)</span>
             </label>
 
             <i
-              class="bi bi-info-circle cursor-pointer pr-6"
+              class="bi bi-info-circle cursor-pointer pr-6 text-black"
               data-bs-toggle="tooltip"
               title="Monatlicher Sparbetrag über den gesamten Anlagezeitraum."
               data-bs-html="true"
@@ -131,7 +135,7 @@
             type="number"
             id="savingsRate"
             name="savingsRate"
-            class="form-input w-full rounded-md border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500"
+            class="focus:ring-color-accent-light dark:focus:ring-color-accent-dark form-input w-full rounded-md border-gray-300 px-4 py-2 text-black focus:ring-2"
             min="0"
             max="10000"
             value="100"
@@ -145,22 +149,22 @@
             max="10000"
             step="100"
             value="100"
-            class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-blue-500"
+            class="bg-color-accent-light dark:bg-color-accent-dark mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg"
           />
         </fieldset>
 
         <fieldset
-          class="mb-3 flex w-full flex-col rounded border bg-gray-100 p-2"
+          class="bg-color-form-light dark:bg-color-form-dark borderpx-6 mb-3 flex w-full flex-col rounded px-6 pb-3 pt-2"
           id="yearsSection"
         >
           <div class="flex justify-between">
-            <label for="years" class="mb-1 font-bold">
+            <label for="years" class="mb-1 font-bold text-black">
               Anlagezeitraum
-              <div class="inline font-normal">(Jahre)</div>
+              <span class="font-normal">(Jahre)</span>
             </label>
 
             <i
-              class="bi bi-info-circle cursor-pointer pr-6"
+              class="bi bi-info-circle cursor-pointer pr-6 text-black"
               data-bs-toggle="tooltip"
               title="Wie lange soll das Geld angelegt werden? Der Sparplan läuft über den gesamten Anlagezeitraum."
               data-bs-html="true"
@@ -172,7 +176,7 @@
             type="number"
             id="years"
             name="years"
-            class="form-input w-full rounded-md border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500"
+            class="focus:ring-color-accent-light dark:focus:ring-color-accent-dark form-input w-full rounded-md border-gray-300 px-4 py-2 text-black focus:ring-2"
             min="1"
             max="100"
             value="10"
@@ -186,23 +190,23 @@
             max="100"
             step="1"
             value="10"
-            class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-blue-500"
+            class="bg-color-accent-light dark:bg-color-accent-dark mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg"
           />
         </fieldset>
 
         <fieldset
-          class="mb-3 mt-4 grid w-full grid-cols-1 rounded border bg-gray-100 p-3 md:grid-cols-2"
+          class="bg-color-form-light dark:bg-color-form-dark mb-3 mt-4 grid w-full grid-cols-1 rounded border px-1 py-2 md:grid-cols-2"
           id="returnRateInflationRateSection"
         >
           <article class="flex flex-col px-4" id="returnRateSection">
             <div class="flex justify-between">
-              <label for="annualReturnRate" class="mb-1 font-bold">
+              <label for="annualReturnRate" class="mb-1 font-bold text-black">
                 Jährliche Rendite
-                <div class="inline font-normal">(%)</div>
+                <span class="font-normal">(%)</span>
               </label>
 
               <i
-                class="bi bi-info-circle cursor-pointer pr-6"
+                class="bi bi-info-circle cursor-pointer pr-6 text-black"
                 data-bs-toggle="tooltip"
                 title="Durchschnittliche jährliche Rendite über den gesamten Anlagezeitraum."
                 data-bs-html="true"
@@ -214,7 +218,7 @@
               type="number"
               id="annualReturnRate"
               name="annualReturnRate"
-              class="form-input w-full rounded-md border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500"
+              class="focus:ring-color-accent-light dark:focus:ring-color-accent-dark form-input w-full rounded-md border-gray-300 px-4 py-2 text-black focus:ring-2"
               min="0"
               max="10"
               step="0.1"
@@ -222,7 +226,6 @@
               required
             />
 
-            <!-- contained in flex column to align side-by-side sliders -->
             <div class="mt-auto">
               <input
                 type="range"
@@ -231,20 +234,20 @@
                 max="10"
                 step="0.1"
                 value="5"
-                class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-blue-500"
+                class="bg-color-accent-light dark:bg-color-accent-dark mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg"
               />
             </div>
           </article>
 
           <article class="flex flex-col px-4" id="inflationRateSection">
             <div class="flex justify-between">
-              <label for="inflationRate" class="mb-1 font-bold">
+              <label for="inflationRate" class="mb-1 pl-7 font-bold text-black">
                 Jährliche Inflation
-                <div class="inline font-normal">(%)</div>
+                <span class="font-normal">(%)</span>
               </label>
 
               <i
-                class="bi bi-info-circle cursor-pointer pr-6"
+                class="bi bi-info-circle cursor-pointer pr-6 text-black"
                 data-bs-toggle="tooltip"
                 title="Durchschnittliche jährliche Inflation über den gesamten Anlagezeitraum. Die durchschnittliche jährliche Inflation über die letzten 20 Jahre (2004-2023) betrug in Deutschland ca. 2%."
                 data-bs-html="true"
@@ -257,7 +260,7 @@
                 type="checkbox"
                 id="inflationRateCheckbox"
                 name="inflationRateCheckbox"
-                class="form-checkbox h-5 w-5 cursor-pointer rounded-md border-gray-300 checked:border-transparent checked:bg-blue-500"
+                class="checked:bg-color-accent-light dark:checked:bg-color-accent-dark form-checkbox h-5 w-5 cursor-pointer rounded-md border-gray-300 checked:border-transparent"
                 aria-label="Enable inflation rate input"
                 checked
               />
@@ -265,7 +268,7 @@
                 type="number"
                 id="inflationRate"
                 name="inflationRate"
-                class="form-input w-full rounded-md border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500"
+                class="focus:ring-color-accent-light dark:focus:ring-color-accent-dark form-input w-full rounded-md border-gray-300 px-4 py-2 text-black focus:ring-2"
                 min="0"
                 max="10"
                 step="0.1"
@@ -282,25 +285,25 @@
                 max="10"
                 step="0.1"
                 value="2"
-                class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-blue-500"
+                class="bg-color-accent-light dark:bg-color-accent-dark mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg"
               />
             </div>
           </article>
         </fieldset>
 
         <fieldset
-          class="mb-3 mt-4 grid w-full grid-cols-1 rounded border bg-gray-100 p-3 md:grid-cols-2"
+          class="bg-color-form-light dark:bg-color-form-dark mb-3 mt-4 grid w-full grid-cols-1 rounded border px-1 pb-3 pt-2 md:grid-cols-2"
           id="takeoutTaxSection"
         >
           <article class="flex flex-col px-4" id="takeoutSection">
             <div class="flex justify-between">
-              <label for="takeoutRate" class="mb-1 font-bold">
+              <label for="takeoutRate" class="mb-1 pl-7 font-bold text-black">
                 Jährliche Entnahmerate
-                <div class="inline font-normal">(%)</div>
+                <span class="font-normal">(%)</span>
               </label>
 
               <i
-                class="bi bi-info-circle cursor-pointer pr-6"
+                class="bi bi-info-circle cursor-pointer pr-6 text-black"
                 data-bs-toggle="tooltip"
                 title="Wie viel Prozent des Gesamtkapitals sollen jährlich nach der Ansparphase aus dem Depot ausgezahlt werden?"
                 data-bs-html="true"
@@ -313,7 +316,7 @@
                 type="checkbox"
                 id="takeoutRateCheckbox"
                 name="takeoutRateCheckbox"
-                class="form-checkbox h-5 w-5 cursor-pointer rounded-md border-gray-300 checked:border-transparent checked:bg-blue-500"
+                class="checked:bg-color-accent-light dark:checked:bg-color-accent-dark form-checkbox h-5 w-5 cursor-pointer rounded-md border-gray-300 checked:border-transparent"
                 aria-label="Enable takeout input"
                 checked
               />
@@ -321,7 +324,7 @@
                 type="number"
                 id="takeoutRate"
                 name="takeoutRate"
-                class="form-input w-full rounded-md border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500"
+                class="focus:ring-color-accent-light dark:focus:ring-color-accent-dark form-input w-full rounded-md border-gray-300 px-4 py-2 text-black focus:ring-2"
                 min="0"
                 max="10"
                 step="0.1"
@@ -336,18 +339,18 @@
               max="10"
               step="0.1"
               value="3.5"
-              class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-blue-500"
+              class="bg-color-accent-light dark:bg-color-accent-dark mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg"
             />
           </article>
 
           <article class="flex flex-col px-4" id="taxSection">
             <div class="flex justify-between">
-              <label for="tax" class="mb-1 font-bold">
+              <label for="tax" class="mb-1 pl-7 font-bold text-black">
                 Steuer
-                <div class="inline font-normal">(%)</div>
+                <span class="font-normal">(%)</span>
               </label>
               <i
-                class="bi bi-info-circle cursor-pointer pr-6"
+                class="bi bi-info-circle cursor-pointer pr-6 text-black"
                 data-bs-toggle="tooltip"
                 title="Durchschnittliche jährliche Steuerlast während des Entnahmezeitraums. Vereint Kapitalertragssteuer, Solidaritätszuschlag und Kirchensteuer. Wird vereinfacht für den gesamten Entnahmebetrag (inklusive eigener Einzahlungen) und ohne Freibeträge berechnet."
                 data-bs-html="true"
@@ -359,7 +362,7 @@
                 type="checkbox"
                 id="taxCheckbox"
                 name="taxCheckbox"
-                class="form-checkbox h-5 w-5 cursor-pointer rounded-md border-gray-300 checked:border-transparent checked:bg-blue-500"
+                class="checked:bg-color-accent-light dark:checked:bg-color-accent-dark form-checkbox h-5 w-5 cursor-pointer rounded-md border-gray-300 checked:border-transparent"
                 aria-label="Enable tax input"
                 checked
               />
@@ -367,7 +370,7 @@
                 type="number"
                 id="tax"
                 name="tax"
-                class="form-input w-full rounded-md border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500"
+                class="focus:ring-color-accent-light dark:focus:ring-color-accent-dark form-input w-full rounded-md border-gray-300 px-4 py-2 text-black focus:ring-2"
                 min="0"
                 max="50"
                 step="1"
@@ -382,7 +385,7 @@
               max="50"
               step="1"
               value="25"
-              class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-blue-500"
+              class="bg-color-accent-light dark:bg-color-accent-dark mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg"
             />
           </article>
         </fieldset>
@@ -393,7 +396,7 @@
         >
           <button
             type="submit"
-            class="rounded-xl bg-blue-500 px-10 py-2 text-lg font-bold text-white hover:bg-blue-700"
+            class="bg-color-accent-light rounded-xl px-10 py-2 text-lg font-bold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             Berechnen
           </button>
@@ -405,7 +408,9 @@
     </main>
 
     <footer class="mb-2 mt-4 text-center" id="footer">
-      <p class="mb-2 text-center text-base text-gray-700">
+      <p
+        class="text-color-text-light dark:text-color-text-dark mb-2 text-center text-base"
+      >
         © 2023 Joel Beck |
         <a
           href="https://github.com/joel-beck/sparplanrechner/blob/main/LICENSE.md"
@@ -419,11 +424,11 @@
           target="_blank"
           class="mr-3"
         >
-          <i class="fab fa-github text-3xl text-black"></i>
+          <i class="fab fa-github bg-white text-3xl text-black"></i>
         </a>
 
         <a href="https://www.linkedin.com/in/joelbeck07" target="_blank">
-          <i class="fab fa-linkedin text-3xl text-blue-600"></i>
+          <i class="fab fa-linkedin bg-white text-3xl text-blue-600"></i>
         </a>
       </div>
     </footer>
