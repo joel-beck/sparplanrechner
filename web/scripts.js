@@ -1,6 +1,6 @@
 "use strict";
 
-import { injectHTMLFiles } from "./compile.js";
+// import { injectHTMLFiles } from "./compile.js";
 
 /**
  * Validates a number that's formatted in the German numbering system, ensuring it's within a given range.
@@ -14,18 +14,18 @@ function validateGermanNumberInRange(inputValue, min, max) {
   const germanNumberRegex = /^(\d+|\d{1,3}(\.\d{3})*),\d{2}$/;
   if (!germanNumberRegex.test(inputValue)) {
     alert(
-      'Invalid format. The number must be in German format, e.g., "123.456,78"'
+      'Invalid format. The number must be in German format, e.g., "123.456,78"',
     );
     return false;
   }
   const standardNumber = parseFloat(
-    inputValue.replace(/\./g, "").replace(",", ".")
+    inputValue.replace(/\./g, "").replace(",", "."),
   );
   if (standardNumber < min || standardNumber > max) {
     alert(
       `The number must be between ${min.toLocaleString(
-        "de-DE"
-      )} and ${max.toLocaleString("de-DE")}`
+        "de-DE",
+      )} and ${max.toLocaleString("de-DE")}`,
     );
     return false;
   }
@@ -99,7 +99,7 @@ function syncSliders(formFields) {
  */
 function initializeTooltips() {
   const tooltipTriggerList = [].slice.call(
-    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    document.querySelectorAll('[data-bs-toggle="tooltip"]'),
   );
   tooltipTriggerList.forEach(function (tooltipTriggerEl) {
     new bootstrap.Tooltip(tooltipTriggerEl);
@@ -115,7 +115,7 @@ function initializeTooltips() {
 function initializeCheckboxToggle(checkboxId, controlledIds) {
   const checkbox = document.getElementById(checkboxId);
   const controlledElements = controlledIds.map((id) =>
-    document.getElementById(id)
+    document.getElementById(id),
   );
 
   const toggleDisabledState = () => {
@@ -156,7 +156,7 @@ function initializeCheckboxBooleanValue(formId, checkboxIds) {
   // Update checkbox value on change and form submission
   checkboxes.forEach((checkbox) => {
     checkbox.addEventListener("change", () =>
-      setCheckboxBooleanValue(checkbox)
+      setCheckboxBooleanValue(checkbox),
     );
   });
 
@@ -202,6 +202,35 @@ function formatNumericInputs(formFields) {
   });
 }
 
+function switchTheme(darkIcon, lightIcon, isDarkmode) {
+  const switchToggle = document.querySelector("#themeToggle");
+
+  console.log(switchToggle.classList);
+
+  if (isDarkmode) {
+    switchToggle.classList.remove("bg-yellow-500", "-translate-x-2");
+    switchToggle.classList.add("bg-gray-700", "translate-x-2");
+
+    setTimeout(() => {
+      switchToggle.innerHTML = darkIcon;
+    }, 250);
+    return;
+  }
+
+  switchToggle.classList.add("bg-yellow-500", "-translate-x-2");
+  switchToggle.classList.remove("bg-gray-700", "translate-x-2");
+
+  setTimeout(() => {
+    switchToggle.innerHTML = lightIcon;
+  }, 250);
+}
+
+function toggleTheme(darkIcon, lightIcon, isDarkmode) {
+  isDarkmode = !isDarkmode;
+  localStorage.setItem("isDarkmode", isDarkmode);
+  switchTheme(darkIcon, lightIcon, isDarkmode);
+}
+
 /**
  * Attaches event listeners when the DOM is fully loaded.
  */
@@ -214,10 +243,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     "takeoutRate",
     "tax",
   ];
-  const formFields = sliderFields.concat(["startCapital"]);
+  // const formFields = sliderFields.concat(["startCapital"]);
 
   // Inject HTML content into the page
-  await injectHTMLFiles();
+  // await injectHTMLFiles();
 
   syncSliders(sliderFields);
   initializeTooltips();
@@ -237,6 +266,30 @@ document.addEventListener("DOMContentLoaded", async function () {
     "takeoutRateCheckbox",
     "taxCheckbox",
   ]);
+
+  const darkIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+</svg>`;
+
+  const lightIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+</svg>`;
+
+  const switchToggle = document.querySelector("#themeToggle");
+
+  if (switchToggle) {
+    let isDarkmode = localStorage.getItem("isDarkmode") === "true";
+
+    // Initialize theme based on stored preference
+    switchTheme(darkIcon, lightIcon, isDarkmode);
+
+    // Event listener for changing the theme
+    switchToggle.addEventListener("click", function () {
+      toggleTheme(darkIcon, lightIcon, isDarkmode);
+    });
+  } else {
+    console.error("Theme toggle switch not found!");
+  }
 
   // formatNumericInputs(formFields);
 });
