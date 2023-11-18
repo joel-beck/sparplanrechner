@@ -212,7 +212,7 @@ function showLightIcon(themeToggle, lightIcon) {
 
   setTimeout(() => {
     themeToggle.innerHTML = lightIcon;
-  }, 250);
+  }, 100);
 }
 
 function showDarkIcon(themeToggle, darkIcon) {
@@ -221,7 +221,7 @@ function showDarkIcon(themeToggle, darkIcon) {
 
   setTimeout(() => {
     themeToggle.innerHTML = darkIcon;
-  }, 250);
+  }, 100);
 }
 
 function setInitialTheme(themeToggle, darkIcon, lightIcon) {
