@@ -5,8 +5,8 @@ function prefersSystemDarkmode() {
 }
 
 function showLightIcon(themeToggle, lightIcon) {
-  themeToggle.classList.add("bg-yellow-500", "-translate-x-2");
-  themeToggle.classList.remove("bg-gray-700", "translate-x-2");
+  themeToggle.classList.add("bg-yellow-500", "-translate-x-3");
+  themeToggle.classList.remove("bg-gray-700", "translate-x-3");
 
   setTimeout(() => {
     themeToggle.innerHTML = lightIcon;
@@ -19,8 +19,8 @@ function setLightmode() {
 }
 
 function showDarkIcon(themeToggle, darkIcon) {
-  themeToggle.classList.add("bg-gray-700", "translate-x-2");
-  themeToggle.classList.remove("bg-yellow-500", "-translate-x-2");
+  themeToggle.classList.add("bg-gray-700", "translate-x-3");
+  themeToggle.classList.remove("bg-yellow-500", "-translate-x-3");
 
   setTimeout(() => {
     themeToggle.innerHTML = darkIcon;
