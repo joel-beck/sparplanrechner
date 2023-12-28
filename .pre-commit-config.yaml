@@ -1,0 +1,41 @@
+# run `pre-commit autoupdate` to update tags (`rev`) to the latest versions
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+        args: ["--maxkb=10000"]
+        stages: [commit]
+      - id: check-ast
+        stages: [commit]
+      - id: check-docstring-first
+        stages: [commit]
+      - id: check-json
+        stages: [commit]
+      - id: check-merge-conflict
+        stages: [commit]
+      - id: check-toml
+        stages: [commit]
+      - id: check-yaml
+        # does not raise error for lines starting with !!
+        args: ["--unsafe"]
+        stages: [commit]
+      - id: debug-statements
+        stages: [commit]
+      - id: detect-private-key
+        stages: [commit]
+      - id: end-of-file-fixer
+        stages: [commit]
+      - id: name-tests-test
+        # test files start with test_ instead of ending with _test
+        args: [-h]
+        stages: [commit]
+      - id: trailing-whitespace
+        stages: [commit]
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        additional_dependencies: [prettier-plugin-tailwindcss@^0.5.7]
+        stages: [commit]
+        args: ["--write", "--config .prettierrc.yaml"]

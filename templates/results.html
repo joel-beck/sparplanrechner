@@ -1,125 +1,153 @@
-<div>
-  <div id="finalAmount" class="flex justify-content-between">
-    <strong>Endbetrag:</strong>
-    <strong>{{.Totals.Total}}</strong>
-  </div>
+<section class="flex flex-col">
+    <div id="finalAmount" class="flex justify-between">
+        <strong>Endbetrag:</strong>
+        <strong>{{.Totals.Total}}</strong>
+    </div>
 
-  <br />
+    <br />
 
-  <div id="payments" class="flex justify-content-between">
-    <span>Einzahlungen:</span>
-    <span>{{.Totals.Payments}}</span>
-  </div>
-  <div id="returns" class="flex justify-content-between">
-    <span>Zinsen:</span>
-    <span>{{.Totals.Returns}}</span>
-  </div>
-  <div id="inflationDiscounted" class="flex justify-content-between">
-    <span>Inflationsbereinigt:</span>
-    <span>{{.Totals.InflationDiscountedTotal}}</span>
-  </div>
+    <div id="payments" class="flex justify-between">
+        <span>Einzahlungen:</span>
+        <span>{{.Totals.Payments}}</span>
+    </div>
 
-  <br />
+    <div id="returns" class="flex justify-between">
+        <span>Zinsen:</span>
+        <span>{{.Totals.Returns}}</span>
+    </div>
 
-  <!-- BOOKMARK: Dropdown -->
-  <div class="accordion" id="takeoutsAccordion">
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="takeoutsHeading">
-        <!-- Dropdown button shows up (open) by default, change to
+    <div id="inflationDiscounted" class="flex justify-between">
+        <span>Inflationsbereinigt:</span>
+        <span>{{.Totals.InflationDiscountedTotal}}</span>
+    </div>
+
+    <br />
+
+    <!-- BOOKMARK: Dropdown -->
+    <div class="accordion" id="takeoutsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header bg-red-500" id="takeoutsHeading">
+                <!-- Dropdown button shows up (open) by default, change to
       `class="accordion-button collapsed"` to show up closed by default -->
-        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-          data-bs-target="#takeoutsCollapse" aria-expanded="false"
-          aria-controls="takeoutsCollapse">
-          Auszahlungen
-        </button>
-      </h2>
-      <!-- Dropdown open by default, change to `class="accordion-collapse collapse"` to
+                <button
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#takeoutsCollapse"
+                    aria-expanded="false"
+                    aria-controls="takeoutsCollapse"
+                >
+                    Auszahlungen
+                </button>
+            </h2>
+            <!-- Dropdown open by default, change to `class="accordion-collapse collapse"` to
     show up closed by default -->
-      <div id="takeoutsCollapse" class="accordion-collapse collapse show"
-        data-bs-parent="#takeoutsAccordion">
-        <div class="accordion-body">
-          <!-- BOOKMARK: Table -->
-          <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 table-auto">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th scope="col" class="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
-                  <th scope="col" class="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Brutto</th>
-                  <th scope="col" class="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Netto</th>
-                  <th scope="col" class="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Inflationsbereinigt</th>
-                </tr>
-              </thead>
-              <tbody class="bg-white divide-y divide-gray-200 text-right">
-                <tr>
-                  <th scope="row" class="text-start">Jahr</th>
-                  <td class="text-end">{{.Takeouts.Annual.BeforeTax}}</td>
-                  <td class="text-end">{{.Takeouts.Annual.AfterTax}}</td>
-                  <td class="text-end">{{.Takeouts.Annual.InflationDiscountedAfterTax}}
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row" class="text-start">Monat</th>
-                  <td>{{.Takeouts.Monthly.BeforeTax}}</td>
-                  <td>{{.Takeouts.Monthly.AfterTax}}</td>
-                  <td>{{.Takeouts.Monthly.InflationDiscountedAfterTax}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+            <div id="takeoutsCollapse" class="accordion-collapse show collapse" data-bs-parent="#takeoutsAccordion">
+                <div class="accordion-body">
+                    <!-- BOOKMARK: Table -->
+                    <div class="table-responsive">
+                        <table class="table-striped table-hover table-bordered table">
+                            <thead class="table-light text-right">
+                                <tr>
+                                    <th
+                                        scope="col"
+                                        class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500"
+                                    ></th>
+                                    <th
+                                        scope="col"
+                                        class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500"
+                                    >
+                                        Brutto
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500"
+                                    >
+                                        Netto
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500"
+                                    >
+                                        Inflationsbereinigt
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 bg-white text-right">
+                                <tr>
+                                    <th scope="row" class="text-start">Jahr</th>
+                                    <td class="text-end">{{.Takeouts.Annual.BeforeTax}}</td>
+                                    <td class="text-end">{{.Takeouts.Annual.AfterTax}}</td>
+                                    <td class="text-end">{{.Takeouts.Annual.InflationDiscountedAfterTax}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="text-start">Monat</th>
+                                    <td>{{.Takeouts.Monthly.BeforeTax}}</td>
+                                    <td>{{.Takeouts.Monthly.AfterTax}}</td>
+                                    <td>{{.Takeouts.Monthly.InflationDiscountedAfterTax}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <br />
+    <br />
 
-  <!-- BOOKMARK: Dropdown -->
-  <div class="accordion" id="intermediateAmountsAccordion">
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="intermediateAmountsHeading">
-        <!-- Dropdown button shows down (closed) by default -->
-        <button class="accordion-button collapsed" type="button"
-          data-bs-toggle="collapse" data-bs-target="#intermediateAmountsCollapse"
-          aria-expanded="false" aria-controls="intermediateAmountsCollapse">
-          Zwischenbeträge
-        </button>
-      </h2>
-      <!-- Dropdown closed by default -->
-      <div id="intermediateAmountsCollapse" class="accordion-collapse collapse"
-        data-bs-parent="#intermediateAmountsAccordion">
-        <div class="accordion-body">
-          <!-- BOOKMARK: Table -->
-          <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 table-auto">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th scope="col" class="text-end">Jahr</th>
-                  <th scope="col" class="text-end">Total</th>
-                  <th scope="col" class="text-end">Einzahlungen</th>
-                  <th scope="col" class="text-end">Zinsen</th>
-                  <th scope="col" class="text-end">Inflationsbereinigt</th>
-                </tr>
-              </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
-                {{range $i, $year := .Years}}
-                <tr>
-                  <td class="text-end">{{$year}}</td>
-                  <td class="text-end">{{index $.IntermediateTotals.AnnualTotals $i}}
-                  </td>
-                  <td class="text-end">{{index $.IntermediateTotals.AnnualPayments $i}}
-                  </td>
-                  <td class="text-end">{{index $.IntermediateTotals.AnnualReturns $i}}
-                  </td>
-                  <td class="text-end">
-                    {{index $.IntermediateTotals.InflationDiscountedAnnualTotals $i}}
-                  </td>
-                </tr>
-                {{end}}
-              </tbody>
-            </table>
-          </div>
+    <!-- BOOKMARK: Dropdown -->
+    <div class="accordion" id="intermediateAmountsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="intermediateAmountsHeading">
+                <!-- Dropdown button shows down (closed) by default -->
+                <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#intermediateAmountsCollapse"
+                    aria-expanded="false"
+                    aria-controls="intermediateAmountsCollapse"
+                >
+                    Zwischenbeträge
+                </button>
+            </h2>
+            <!-- Dropdown closed by default -->
+            <div
+                id="intermediateAmountsCollapse"
+                class="accordion-collapse collapse"
+                data-bs-parent="#intermediateAmountsAccordion"
+            >
+                <div class="accordion-body">
+                    <!-- BOOKMARK: Table -->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full table-auto divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="text-end">Jahr</th>
+                                    <th scope="col" class="text-end">Total</th>
+                                    <th scope="col" class="text-end">Einzahlungen</th>
+                                    <th scope="col" class="text-end">Zinsen</th>
+                                    <th scope="col" class="text-end">Inflationsbereinigt</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 bg-white">
+                                {{range $i, $year := .Years}}
+                                <tr>
+                                    <td class="text-end">{{$year}}</td>
+                                    <td class="text-end">{{index $.IntermediateTotals.AnnualTotals $i}}</td>
+                                    <td class="text-end">{{index $.IntermediateTotals.AnnualPayments $i}}</td>
+                                    <td class="text-end">{{index $.IntermediateTotals.AnnualReturns $i}}</td>
+                                    <td class="text-end">
+                                        {{index $.IntermediateTotals.InflationDiscountedAnnualTotals $i}}
+                                    </td>
+                                </tr>
+                                {{end}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
+</section>

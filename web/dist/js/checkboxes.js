@@ -7,20 +7,20 @@
  * @param {Array} controlledIds - An array of IDs for fields that should be controlled by the checkbox.
  */
 export function initializeCheckboxToggle(checkboxId, controlledIds) {
-  const checkbox = document.getElementById(checkboxId);
-  const controlledElements = controlledIds.map((id) =>
-    document.getElementById(id),
-  );
+    const checkbox = document.getElementById(checkboxId);
+    const controlledElements = controlledIds.map((id) =>
+        document.getElementById(id),
+    );
 
-  const toggleDisabledState = () => {
-    const isChecked = checkbox.checked;
-    controlledElements.forEach((el) => {
-      el.disabled = !isChecked;
-    });
-  };
+    const toggleDisabledState = () => {
+        const isChecked = checkbox.checked;
+        controlledElements.forEach((el) => {
+            el.disabled = !isChecked;
+        });
+    };
 
-  toggleDisabledState();
-  checkbox.addEventListener("change", toggleDisabledState);
+    toggleDisabledState();
+    checkbox.addEventListener("change", toggleDisabledState);
 }
 
 /**
@@ -29,7 +29,7 @@ export function initializeCheckboxToggle(checkboxId, controlledIds) {
  * @param {HTMLInputElement} checkbox - The checkbox element.
  */
 function setCheckboxBooleanValue(checkbox) {
-  checkbox.value = checkbox.checked ? "true" : "false";
+    checkbox.value = checkbox.checked ? "true" : "false";
 }
 
 /**
@@ -41,20 +41,20 @@ function setCheckboxBooleanValue(checkbox) {
  * set to "true" or "false".
  */
 export function initializeCheckboxBooleanValue(formId, checkboxIds) {
-  const form = document.getElementById(formId);
-  const checkboxes = checkboxIds.map((id) => document.getElementById(id));
+    const form = document.getElementById(formId);
+    const checkboxes = checkboxIds.map((id) => document.getElementById(id));
 
-  // Initialize checkbox value based on its default checked state
-  checkboxes.forEach(setCheckboxBooleanValue);
-
-  // Update checkbox value on change and form submission
-  checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener("change", () =>
-      setCheckboxBooleanValue(checkbox),
-    );
-  });
-
-  form.addEventListener("submit", () => {
+    // Initialize checkbox value based on its default checked state
     checkboxes.forEach(setCheckboxBooleanValue);
-  });
+
+    // Update checkbox value on change and form submission
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener("change", () =>
+            setCheckboxBooleanValue(checkbox),
+        );
+    });
+
+    form.addEventListener("submit", () => {
+        checkboxes.forEach(setCheckboxBooleanValue);
+    });
 }
