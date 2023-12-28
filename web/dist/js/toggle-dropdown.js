@@ -1,5 +1,10 @@
 "use-strict";
 
+/**
+ * Toggles the visibility of a table container and updates the icon accordingly.
+ * @param {HTMLElement} tableContainer - The table container element to collapse or expand.
+ * @param {HTMLElement} icon - The icon element to update based on the visibility state.
+ */
 export function collapseTable(tableContainer, icon) {
     tableContainer.classList.toggle("hidden");
 

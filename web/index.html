@@ -18,12 +18,12 @@
         <link rel="canonical" href="https://sparplanrechner.onrender.com" />
         <title>Sparplanrechner - Investment Calculator</title>
         <!-- HTMX -->
-        <!-- <script
+        <script
             defer
             src="https://unpkg.com/htmx.org@1.9.6"
             integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
             crossorigin="anonymous"
-        ></script> -->
+        ></script>
         <!-- Bootstrap 5 -->
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
@@ -47,7 +47,7 @@
         class="min-h-screen bg-color-bg-light font-body text-color-text-light dark:bg-color-bg-dark dark:text-color-text-dark"
     >
         <header class="sticky top-0 z-10 bg-color-accent-light text-white dark:bg-color-accent-dark" id="header">
-            <section class="mx-auto flex max-w-2xl items-center justify-between p-4 md:max-w-3xl lg:max-w-4xl">
+            <section class="mx-auto flex max-w-2xl items-center justify-between p-4 md:max-w-2xl lg:max-w-3xl">
                 <h1 class="text-3xl font-medium">
                     <a href="#" class="hover:text-black"> Sparplanrechner </a>
                 </h1>
@@ -75,19 +75,6 @@
                             </svg>
                         </div>
                     </button>
-                    <a href="https://github.com/joel-beck/sparplanrechner" target="_blank" class="mr-1">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="30"
-                            height="30"
-                            class="bi bi-github fill-white hover:fill-black"
-                            viewBox="0 0 16 16"
-                        >
-                            <path
-                                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-                            />
-                        </svg>
-                    </a>
                 </div>
             </section>
         </header>
@@ -102,16 +89,15 @@
         <hr class="mx-auto mb-4 mt-4 max-w-md pb-4 md:max-w-lg lg:max-w-xl" />
 
         <main class="mx-auto flex max-w-xl flex-col justify-center md:max-w-2xl lg:max-w-3xl" id="main">
-            <!-- <form
+            <form
                 id="form"
                 hx-post="/calculate"
                 hx-swap="innerHTML"
-                hx-target="#result"
+                hx-target="#htmx-result"
                 enctype="application/x-www-form-urlencoded"
                 class="needs-validation flex flex-wrap gap-3"
                 hx-trigger="submit"
-            > -->
-            <form id="form" enctype="application/x-www-form-urlencoded" class="needs-validation flex flex-wrap gap-3">
+            >
                 <fieldset
                     class="mb-3 flex w-full flex-col rounded border bg-color-form-light px-6 pb-3 pt-2 dark:bg-color-form-dark"
                     id="startCapitalSection"
@@ -432,139 +418,7 @@
             </form>
 
             <!-- BOOKMARK: HTMX result -->
-            <!-- <div id="result"> -->
-            <!-- TODO: Remove -->
-
-            <section class="flex flex-col pt-4">
-                <div id="finalAmount" class="flex justify-between">
-                    <strong>Endbetrag:</strong>
-                    <strong>1000</strong>
-                </div>
-
-                <br />
-
-                <div id="payments" class="flex justify-between">
-                    <span>Einzahlungen:</span>
-                    <span>10000</span>
-                </div>
-
-                <div id="returns" class="flex justify-between">
-                    <span>Zinsen:</span>
-                    <span>10000</span>
-                </div>
-
-                <div id="inflationDiscounted" class="flex justify-between">
-                    <span>Inflationsbereinigt:</span>
-                    <span>100000</span>
-                </div>
-
-                <br />
-
-                <!-- BOOKMARK: Takeouts Dropdown -->
-                <div
-                    id="takeoutsDropdown"
-                    class="dropdown rounded border border-gray-200 bg-color-form-light dark:bg-color-form-dark"
-                >
-                    <button
-                        class="button align-items-center flex w-full justify-between px-4 pb-2 pt-2 focus:outline-none"
-                        type="button"
-                        id="takeoutsButton"
-                    >
-                        <h2 id="takeoutsHeading" class="text-left font-bold text-black">Auszahlungen</h2>
-                        <i
-                            class="fas fa-chevron-up dropdown-icon text-black"
-                            id="takeoutsChevron"
-                            aria-hidden="true"
-                        ></i>
-                    </button>
-
-                    <!-- BOOKMARK: Takeouts Table -->
-                    <div class="table-container px-4 pb-3 pt-1" id="takeoutsTableContainer">
-                        <table
-                            class="min-w-full table-auto border-separate divide-y divide-gray-200 overflow-hidden rounded-md border"
-                            id="takeoutsTable"
-                        >
-                            <thead class="bg-white">
-                                <tr>
-                                    <th scope="col" class="px-6 py-2 text-right font-bold text-black"></th>
-                                    <th scope="col" class="px-6 py-2 text-right font-bold text-black">Brutto</th>
-                                    <th scope="col" class="px-6 py-2 text-right font-bold text-black">Netto</th>
-                                    <th scope="col" class="px-6 py-2 text-right font-bold text-black">
-                                        Inflationsbereinigt
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200 bg-white">
-                                <tr>
-                                    <td class="px-6 py-3 text-left font-bold text-black">Jahr</td>
-                                    <td class="px-6 py-3 text-right text-black">10</td>
-                                    <td class="px-6 py-3 text-right text-black">10</td>
-                                    <td class="px-6 py-3 text-right text-black">10</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-3 text-left font-bold text-black">Monat</td>
-                                    <td class="px-6 py-3 text-right text-black">10</td>
-                                    <td class="px-6 py-3 text-right text-black">10</td>
-                                    <td class="px-6 py-3 text-right text-black">10</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <br />
-
-                <!-- BOOKMARK: Intermediate Amounts Dropdown -->
-                <div
-                    class="dropdown rounded border border-gray-200 bg-color-form-light dark:bg-color-form-dark"
-                    id="intermediateAmountsDropdown"
-                >
-                    <button
-                        class="button align-items-center flex w-full justify-between px-4 pb-2 pt-2 focus:outline-none"
-                        type="button"
-                        id="intermediateAmountsButton"
-                    >
-                        <h2 id="intermediateAmountsHeading" class="text-left font-bold text-black">Zwischenbeträge</h2>
-                        <i
-                            class="fas fa-chevron-down dropdown-icon text-black"
-                            id="takeoutsChevron"
-                            aria-hidden="true"
-                        ></i>
-                    </button>
-
-                    <!-- BOOKMARK: Intermediate Amounts Table -->
-                    <div class="table-container hidden px-4 pb-3 pt-1" id="intermediateAmountsTableContainer">
-                        <table
-                            class="min-w-full table-auto border-separate divide-y divide-gray-200 overflow-hidden rounded-md border"
-                            id="intermediateAmountsTable"
-                        >
-                            <thead class="bg-white">
-                                <tr>
-                                    <th scope="col" class="px-6 py-2 text-right font-bold text-black">Jahr</th>
-                                    <th scope="col" class="px-6 py-2 text-right font-bold text-black">Total</th>
-                                    <th scope="col" class="px-6 py-2 text-right font-bold text-black">Einzahlungen</th>
-                                    <th scope="col" class="px-6 py-2 text-right font-bold text-black">Zinsen</th>
-                                    <th scope="col" class="px-6 py-2 text-right font-bold text-black">
-                                        Inflationsbereinigt
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200 bg-white">
-                                <tr>
-                                    <td class="px-6 py-3 text-right text-black">1000</td>
-                                    <td class="px-6 py-3 text-right text-black">1000</td>
-                                    <td class="px-6 py-3 text-right text-black">1000</td>
-                                    <td class="px-6 py-3 text-right text-black">1000</td>
-                                    <td class="px-6 py-3 text-right text-black">1000</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- TODO: End Remove -->
-            <!-- </div> -->
+            <div id="htmx-result"></div>
         </main>
 
         <footer class="mb-2 mt-4 text-center" id="footer">
