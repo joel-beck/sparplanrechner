@@ -32,28 +32,28 @@ function setDarkmode() {
     document.documentElement.classList.add("dark");
 }
 
-export function setInitialTheme(themeToggle, darkIcon, lightIcon) {
+export function setInitialTheme(themeToggleIcon, darkIcon, lightIcon) {
     if (prefersSystemDarkmode()) {
         setDarkmode();
-        showDarkIcon(themeToggle, darkIcon);
+        showDarkIcon(themeToggleIcon, darkIcon);
         return;
     }
 
     setLightmode();
-    showLightIcon(themeToggle, lightIcon);
+    showLightIcon(themeToggleIcon, lightIcon);
 }
 
 function isDarkmode() {
     return localStorage.getItem("isDarkmode") === "true";
 }
 
-export function toggleTheme(themeToggle, darkIcon, lightIcon) {
+export function toggleTheme(themeToggleIcon, darkIcon, lightIcon) {
     if (isDarkmode()) {
         setLightmode();
-        showLightIcon(themeToggle, lightIcon);
+        showLightIcon(themeToggleIcon, lightIcon);
         return;
     }
 
     setDarkmode();
-    showDarkIcon(themeToggle, darkIcon);
+    showDarkIcon(themeToggleIcon, darkIcon);
 }

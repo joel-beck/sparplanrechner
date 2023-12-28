@@ -7,13 +7,17 @@ import {
 import { setInitialTheme, toggleTheme } from "./js/dark-mode.js";
 import { syncSliders } from "./js/sync-sliders.js";
 import { collapseTable } from "./js/toggle-dropdown.js";
-import { initializeTooltips } from "./js/tooltips.js";
+import { hideTooltip, showTooltip } from "./js/tooltips.js";
+
+function runStartupContent(darkIcon, lightIcon, themeToggleIcon) {
+    setInitialTheme(themeToggleIcon, darkIcon, lightIcon);
+}
 
 /**
  * Runs the dynamic content of the application.
  * This function initializes various components and event listeners.
  */
-function runDynamicContent() {
+function runDynamicContent(darkIcon, lightIcon, themeToggleIcon) {
     const sliderFields = [
         "savingsRate",
         "years",
@@ -23,8 +27,6 @@ function runDynamicContent() {
         "tax",
     ];
     syncSliders(sliderFields);
-
-    initializeTooltips();
 
     initializeCheckboxToggle("inflationRateCheckbox", [
         "inflationRate",
@@ -42,17 +44,6 @@ function runDynamicContent() {
         "taxCheckbox",
     ]);
 
-    const darkIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-</svg>`;
-
-    const lightIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-</svg>`;
-
-    const themeToggleIcon = document.querySelector("#themeToggleIcon");
-    setInitialTheme(themeToggleIcon, darkIcon, lightIcon);
-
     const themeToggleButton = document.querySelector("#themeToggleButton");
     themeToggleButton.addEventListener("click", () => {
         toggleTheme(themeToggleIcon, darkIcon, lightIcon);
@@ -68,6 +59,17 @@ function runDynamicContent() {
             collapseTable(tableContainer, icon);
         });
     });
+
+    const tooltips = document.querySelectorAll(".tooltip");
+    tooltips.forEach(function (tooltip) {
+        tooltip.addEventListener("mouseenter", () => {
+            showTooltip(tooltip);
+        });
+
+        tooltip.addEventListener("mouseleave", () => {
+            hideTooltip(tooltip);
+        });
+    });
 }
 
 /**
@@ -75,16 +77,24 @@ function runDynamicContent() {
  * This function ensures that the dynamic content is executed at the appropriate times.
  */
 function main() {
-    const eventListeners = [
-        "DOMContentLoaded", // Run on initial page load
-        "htmx:afterOnLoad", // Run on htmx page reload
-    ];
+    const darkIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+</svg>`;
+
+    const lightIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+</svg>`;
+
+    const themeToggleIcon = document.querySelector("#themeToggleIcon");
 
     // TODO: Theme Toggle Button only works on initial DOM load, not on htmx page reload!
-    eventListeners.forEach(function (eventListener) {
-        document.addEventListener(eventListener, () => {
-            runDynamicContent();
-        });
+    document.addEventListener("DOMContentLoaded", () => {
+        runStartupContent(darkIcon, lightIcon, themeToggleIcon);
+        runDynamicContent(darkIcon, lightIcon, themeToggleIcon);
+    });
+
+    document.addEventListener("htmx:afterOnLoad", () => {
+        runDynamicContent(darkIcon, lightIcon, themeToggleIcon);
     });
 }
 
