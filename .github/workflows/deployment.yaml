@@ -1,15 +1,13 @@
 name: Deploy to Docker Hub
 
 on:
-  workflow_run:
-    workflows: ["Testing"]
-    types:
-      - completed
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
