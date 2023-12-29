@@ -39,10 +39,10 @@
     >
         <header class="sticky top-0 z-10 bg-color-accent-light text-white dark:bg-color-accent-dark" id="header">
             <section class="mx-auto flex max-w-2xl items-center justify-between p-4 md:max-w-2xl lg:max-w-3xl">
-                <h1 class="text-3xl font-medium">
+                <h1 class="pl-2 text-3xl font-medium">
                     <a href="#" class="hover:text-black"> Sparplanrechner </a>
                 </h1>
-                <div class="flex items-center gap-6">
+                <div id="themeToggleContainer" class="pr-3" aria-label="Toggle dark mode">
                     <button
                         class="flex h-5 w-8 items-center rounded-full bg-white focus:outline-none"
                         id="themeToggleButton"
@@ -78,10 +78,10 @@
         </article>
 
         <hr
-            class="mx-auto mb-4 mt-4 border-color-text-light pb-4 dark:border-color-text-dark sm:max-w-sm md:max-w-lg lg:max-w-xl"
+            class="mx-auto mb-4 mt-4 max-w-xs border-color-text-light pb-4 dark:border-color-text-dark md:max-w-md lg:max-w-lg"
         />
 
-        <main class="mx-auto flex max-w-xl flex-col justify-center md:max-w-2xl lg:max-w-3xl" id="main">
+        <main class="mx-auto flex max-w-lg flex-col justify-center md:max-w-2xl lg:max-w-3xl" id="main">
             <form
                 id="form"
                 hx-post="/calculate"
@@ -103,7 +103,7 @@
 
                         <div class="tooltip relative flex items-center justify-center pr-2">
                             <div
-                                class="tooltip-text absolute bottom-full hidden w-max max-w-xs rounded-md bg-black px-2 py-1 text-xs text-white"
+                                class="tooltip-text absolute bottom-full hidden w-max max-w-fit rounded-md bg-black px-2 py-1 text-xs text-white lg:max-w-xs"
                                 id="startCapitalTooltip"
                             >
                                 Startkapital zu Beginn des Anlagezeitraums.
@@ -136,7 +136,7 @@
 
                         <div class="tooltip relative flex items-center justify-center pr-2">
                             <div
-                                class="tooltip-text absolute bottom-full hidden w-max max-w-xs rounded-md bg-black px-2 py-1 text-xs text-white"
+                                class="tooltip-text absolute bottom-full hidden w-max max-w-fit rounded-md bg-black px-2 py-1 text-xs text-white lg:max-w-xs"
                                 id="savingsRateTooltip"
                             >
                                 Monatlicher Sparbetrag über den Anlagezeitraum.
@@ -179,7 +179,7 @@
 
                         <div class="tooltip relative flex items-center justify-center pr-2">
                             <div
-                                class="tooltip-text absolute bottom-full hidden w-max max-w-xs rounded-md bg-black px-2 py-1 text-xs text-white"
+                                class="tooltip-text absolute bottom-full hidden w-max max-w-fit rounded-md bg-black px-2 py-1 text-xs text-white lg:max-w-xs"
                                 id="yearsTooltip"
                             >
                                 Startkapital und Sparplanrate werden über den gesamten Anlagezeitraum investiert.
@@ -223,7 +223,7 @@
 
                             <div class="tooltip relative flex items-center justify-center pr-2">
                                 <div
-                                    class="tooltip-text absolute bottom-full hidden w-max max-w-xs rounded-md bg-black px-2 py-1 text-xs text-white"
+                                    class="tooltip-text absolute bottom-full hidden w-max max-w-fit rounded-md bg-black px-2 py-1 text-xs text-white lg:max-w-xs"
                                     id="annualReturnRateTooltip"
                                 >
                                     Durchschnittliche jährliche Rendite über den Anlagezeitraum.
@@ -266,7 +266,7 @@
 
                             <div class="tooltip relative flex items-center justify-center pr-2">
                                 <div
-                                    class="tooltip-text absolute bottom-full hidden w-max max-w-xs rounded-md bg-black px-2 py-1 text-xs text-white"
+                                    class="tooltip-text absolute bottom-full hidden w-max max-w-fit rounded-md bg-black px-2 py-1 text-xs text-white lg:max-w-xs"
                                     id="inflationRateTooltip"
                                 >
                                     Durchschnittliche jährliche Inflation über den Anlagezeitraum. Diese betrug in den
@@ -325,7 +325,7 @@
 
                             <div class="tooltip relative flex items-center justify-center pr-2">
                                 <div
-                                    class="tooltip-text absolute bottom-full hidden w-max max-w-xs rounded-md bg-black px-2 py-1 text-xs text-white"
+                                    class="tooltip-text absolute bottom-full hidden w-max max-w-fit rounded-md bg-black px-2 py-1 text-xs text-white lg:max-w-xs"
                                     id="takeoutRateTooltip"
                                 >
                                     Jährliche prozentuale Auszahlung des Gesamtkapitals nach der Ansparphase.
@@ -374,7 +374,7 @@
                             </label>
                             <div class="tooltip relative flex items-center justify-center pr-2">
                                 <div
-                                    class="tooltip-text absolute bottom-full hidden w-max max-w-xs rounded-md bg-black px-2 py-1 text-xs text-white"
+                                    class="tooltip-text absolute bottom-full hidden w-max max-w-fit rounded-md bg-black px-2 py-1 text-xs text-white lg:max-w-xs"
                                     id="taxTooltip"
                                 >
                                     Durchschnittliche jährliche Steuerlast während des Entnahmezeitraums. Vereint
