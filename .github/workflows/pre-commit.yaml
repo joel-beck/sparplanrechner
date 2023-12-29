@@ -20,5 +20,8 @@ jobs:
       - name: Install Pre-Commit
         run: pip install pre-commit
 
+      - name: Install Pre-Commit Hooks
+        run: pre-commit install
+
       - name: Run Pre-Commit
         run: pre-commit run --all-files
