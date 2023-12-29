@@ -1,0 +1,23 @@
+name: Testing
+
+on:
+  workflow_run:
+    workflows: ["Pre-Commit Checks"]
+    types:
+      - completed
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "^1.21"
+
+      - name: Run tests
+        run: go test ./...
