@@ -8,7 +8,7 @@ start:
 
 watch:
 	@echo "Starting the app in watch mode..."
-	go run main.go -watch
+	air
 
 build:
 	@echo "Building the app..."
