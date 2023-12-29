@@ -20,7 +20,6 @@ func TakeoutsFromTotal(total float64, inputs types.UserInputs) types.Takeouts {
 	// Takeout rate from user input is in percent, not a fraction
 	t.Annual.BeforeTax, _ = calculator.ComputeTakeout(total, inputs.TakeoutRate)
 
-	// TODO: Compute tax only on the returns, not the total
 	t.Annual.AfterTax, _ = calculator.SubtractTax(t.Annual.BeforeTax, inputs.Tax)
 	t.Annual.InflationDiscountedAfterTax = calculator.SubtractInflation(
 		t.Annual.AfterTax,
