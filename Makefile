@@ -24,7 +24,7 @@ test:
 
 prettier:
 	@echo "Running prettier..."
-	prettier --write .
+	prettier --write "**/*.{js,jsx,ts,tsx,css,html,yml,yaml,json,md}"
 
 pre:
 	@echo "Running pre-commit..."
