@@ -7,6 +7,14 @@ import { syncSliders } from "../src/scripts/sync-sliders";
 import { collapseTable } from "../src/scripts/toggle-dropdown";
 import { hideTooltip, showTooltip } from "../src/scripts/tooltips";
 
+/**
+ * Initializes the theme of the application upon startup.
+ * Sets the initial theme based on the user's preference or default settings.
+ *
+ * @param {string} darkIcon - SVG markup for the dark mode icon.
+ * @param {string} lightIcon - SVG markup for the light mode icon.
+ * @param {HTMLElement} themeToggleIcon - The HTML element representing the theme toggle icon.
+ */
 function runStartupContent(
     darkIcon: string,
     lightIcon: string,
@@ -16,14 +24,10 @@ function runStartupContent(
 }
 
 /**
- * Runs the dynamic content of the application.
- * This function initializes various components and event listeners.
+ * Initializes dynamic content and functionality after an htmx swap.
+ * Sets up sliders, checkbox toggles, and dropdowns for the application.
  */
-function runDynamicContent(
-    darkIcon: string,
-    lightIcon: string,
-    themeToggleIcon: HTMLElement,
-): void {
+function runAfterSwap(): void {
     const sliderFields: string[] = [
         "savingsRate",
         "years",
@@ -49,13 +53,6 @@ function runDynamicContent(
         "takeoutRateCheckbox",
         "taxCheckbox",
     ]);
-
-    const themeToggleButton = document.querySelector(
-        "#themeToggleButton",
-    ) as HTMLElement;
-    themeToggleButton.addEventListener("click", () => {
-        toggleTheme(themeToggleIcon, darkIcon, lightIcon);
-    });
 
     const dropdowns = document.querySelectorAll(".dropdown");
     dropdowns.forEach(function (dropdown) {
@@ -83,8 +80,29 @@ function runDynamicContent(
 }
 
 /**
- * Attaches event listeners for page load and htmx page reload.
- * This function ensures that the dynamic content is executed at the appropriate times.
+ * Sets up theme toggle functionality after page load or htmx reload.
+ * Attaches an event listener to the theme toggle button for toggling the theme.
+ *
+ * @param {string} darkIcon - SVG markup for the dark mode icon.
+ * @param {string} lightIcon - SVG markup for the light mode icon.
+ * @param {HTMLElement} themeToggleIcon - The HTML element representing the theme toggle icon.
+ */
+function runAfterOnLoad(
+    darkIcon: string,
+    lightIcon: string,
+    themeToggleIcon: HTMLElement,
+): void {
+    const themeToggleButton = document.querySelector(
+        "#themeToggleButton",
+    ) as HTMLElement;
+    themeToggleButton.addEventListener("click", () => {
+        toggleTheme(themeToggleIcon, darkIcon, lightIcon);
+    });
+}
+
+/**
+ * Main function to initialize the application.
+ * Attaches event listeners for page load and htmx page reload to ensure that the dynamic content is executed at the appropriate times.
  */
 function main(): void {
     const darkIcon: string = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -99,14 +117,18 @@ function main(): void {
         "#themeToggleIcon",
     ) as HTMLElement;
 
-    // TODO: Theme Toggle Button only works on initial DOM load, not on htmx page reload!
     document.addEventListener("DOMContentLoaded", () => {
         runStartupContent(darkIcon, lightIcon, themeToggleIcon);
-        runDynamicContent(darkIcon, lightIcon, themeToggleIcon);
+        runAfterSwap();
+        runAfterOnLoad(darkIcon, lightIcon, themeToggleIcon);
     });
 
-    document.addEventListener("htmx:afterOnLoad", () => {
-        runDynamicContent(darkIcon, lightIcon, themeToggleIcon);
+    document.addEventListener("htmx:AfterOnLoad", () => {
+        runAfterOnLoad(darkIcon, lightIcon, themeToggleIcon);
+    });
+
+    document.addEventListener("htmx:afterSwap", () => {
+        runAfterSwap();
     });
 }
 
