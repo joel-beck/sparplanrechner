@@ -4,16 +4,15 @@ Dieses Projekt enthält den Source Code für einen deutschsprachigen Sparplanrec
 
 Nutzer können die Berechnung anhand der folgenden Parameter individualisieren:
 
-- Startkapital
-- Monatliche Sparrate
-- Erwartete jährliche Rendite
-- Anlagedauer
-- Erwartete jährliche Inflationsrate
-- Gewünschte jährliche Entnahmerate am Ende des Anlagezeitraums
-- Erwarteter Steuersatz auf die Kapitalerträge
+-   Startkapital
+-   Monatliche Sparrate
+-   Erwartete jährliche Rendite
+-   Anlagedauer
+-   Erwartete jährliche Inflationsrate
+-   Gewünschte jährliche Entnahmerate am Ende des Anlagezeitraums
+-   Erwarteter Steuersatz auf die Kapitalerträge
 
 Der Sparplanrechner ermittelt dann das erwartete Endkapital, jährliche und monatliche Entnahmebeträge (Brutto, Netto und Netto + inflationsbereinigt) sowie Zwischenbeträge für jedes Jahr des Anlagezeitraums.
-
 
 ## Motivation & Projektziele 🎯
 
@@ -25,18 +24,15 @@ Die [offensichtliche Lösung](https://xkcd.com/927/) bestand also darin, einen e
 
 Das Ziel dieses Projekts ist es, mittelfristig den besten kostenlosen deutschsprachigen Sparplanrechner zur Verfügung zu stellen. Dazu sollen kontinuierlich neue Features hinzugefügt und die User Experience stetig verbessert werden.
 
-
 ## Development & Deployment 👨‍💻
 
 Das Frontend des Sparplanrechners wurde mit Bootstrap 5, Javascript und HTMX entwickelt, das Backend ist in Go geschrieben.
 Die Web Applikation wird als Docker Container auf [Render](https://render.com/) gehostet.
 Bei jedem Pull Request auf den `main` Branch wird mit GitHub Actions automatisch ein neues Docker Image auf Docker Hub gepusht. Das Update des Docker Images triggert anschließend ein neues Deployment auf Render.
 
-
 ## Contributions 🤝
 
 Feedback, Bug Reports, Feature- und Pull Requests aus der Community sind jederzeit willkommen! Dazu einfach ein Issue oder einen Pull Request gemeinsam mit einer kurzen Beschreibung auf dem GitHub Repository erstellen.
-
 
 ## English Description 🇺🇸🇬🇧
 

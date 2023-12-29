@@ -1,3 +1,35 @@
+# Javascript
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Auto-generated files
+node_modules/
+web/dist/
+
+# IDE settings
+.vscode/
+.VSCodeCounter/
+.idea/
+
+# dotenv
+.env
+
+# mkdocs documentation
+/site
+
+# MacOS
+.DS_Store
+
+
+# Go
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -23,22 +55,5 @@ go.work
 # sourcery
 .sourcery.yaml
 
-# IDE settings
-.vscode/
-.VSCodeCounter/
-.idea/
-
-# MacOS
-.DS_Store
-
-# Image Files
-*.png
-*.jpeg
-*.jpg
-*.svg
-*.gif
-
-# Presentation Files
-*.pptx
-*.ppt
-*.key
+# air
+tmp/

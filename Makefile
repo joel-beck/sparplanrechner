@@ -6,13 +6,30 @@ start:
 	@echo "Starting the app..."
 	go run main.go
 
-test:
-	@echo "Running tests..."
-	gotestsum --format testname
+watch:
+	@echo "Starting the app in watch mode..."
+	air
 
 build:
 	@echo "Building the app..."
 	go build -o $(BINARY_PATH) && chmod +x $(BINARY_PATH)
+
+format:
+	@echo "Running go fmt..."
+	go fmt ./...
+
+test:
+	@echo "Running tests..."
+	gotestsum --format testname
+
+prettier:
+	@echo "Running prettier..."
+	prettier --write .
+
+pre:
+	@echo "Running pre-commit..."
+	pre-commit run --all-files
+
 
 docker-build:
 	@echo "Building Docker image..."
@@ -26,4 +43,3 @@ docker-run: docker-build
 docker-push: docker-build
 	@echo "Pushing Docker image to Docker Hub..."
 	docker push $(DOCKER_IMAGE_NAME)
-

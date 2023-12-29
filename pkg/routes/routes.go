@@ -43,7 +43,7 @@ func executeTemplate(c echo.Context) error {
 
 // ParseAndExecuteTemplate parses the HTML template and executes it with the given data
 func ParseAndExecuteTemplate(templateData map[string]interface{}) (string, error) {
-	t, err := template.ParseFiles("templates/results.html")
+	t, err := template.ParseFiles("web/results.html")
 	if err != nil {
 		return "", err
 	}
@@ -100,7 +100,7 @@ func SendResponse(c echo.Context) error {
 }
 
 func InitRoutes(e *echo.Echo) {
-	tmpl = template.Must(template.ParseFiles("web/index.html", "templates/results.html"))
+	tmpl = template.Must(template.ParseFiles("web/index.html", "web/results.html"))
 
 	e.Use(middleware.ZerologMiddleware())
 
