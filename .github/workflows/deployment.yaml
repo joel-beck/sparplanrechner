@@ -12,6 +12,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          echo "$HOME/.bun/bin" >> $GITHUB_PATH
+
+      - name: Install TailwindCSS
+        run: bun add tailwindcss
+
+      - name: Build the dist/ directory
+        run: |
+          bun tailwindcss -i ./web/src/styles.css -o ./web/dist/styles.css
+          bun build web/src/main.ts --outdir web/dist
+
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
