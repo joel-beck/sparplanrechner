@@ -20,10 +20,8 @@ format:
 test:
 	gotestsum --format testname
 
-
 pre:
 	pre-commit run --all-files
-
 
 docker-build:
 	docker build --platform linux/amd64 -t $(DOCKER_IMAGE_NAME) .
