@@ -11,7 +11,10 @@ module.exports = {
                 // "color-bg-dark": "#193549",
                 "color-bg-dark": "#112534",
                 // "color-accent-light": "#F56565",
-                "color-accent-light": "#E05C5D",
+                // "color-accent-light": "#E05C5D",
+                "color-accent-light": "#89689E",
+                // TODO: Header Background: #89689E
+                // TODO: Slider Background: #A17AB9
                 // "color-accent-dark": "#F49608",
                 "color-accent-dark": "#DB8910",
                 "color-hover-light": "#CD5456",

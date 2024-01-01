@@ -1,0 +1,18 @@
+extends:
+  - eslint:recommended # Uses the recommended rules from @eslint-plugin-react
+  - plugin:@typescript-eslint/strict-type-checked # Uses the recommended rules from @typescript-eslint/eslint-plugin
+  - plugin:@typescript-eslint/stylistic-type-checked
+
+parser: "@typescript-eslint/parser" # Specifies the ESLint parser
+
+parserOptions:
+  project: ./tsconfig.json # Required to have rules that rely on Typescript information
+  ecmaVersion: 2020 # Allows for the parsing of modern ECMAScript features
+  sourceType: module # Allows for the use of imports
+  ecmaFeatures:
+    jsx: true # Allows for the parsing of JSX
+
+plugins:
+  - "@typescript-eslint" # Specifies ESLint plugins
+
+root: true # Make sure eslint picks up the config at the root of the directory

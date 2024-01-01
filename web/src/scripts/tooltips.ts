@@ -4,7 +4,12 @@
  * @param tooltip - The tooltip element.
  */
 export function showTooltip(tooltip: HTMLElement): void {
-    const tooltipText = tooltip.querySelector(".tooltip-text") as HTMLElement;
+    const tooltipText = tooltip.querySelector(".tooltip-text");
+
+    if (!(tooltipText instanceof HTMLElement)) {
+        throw new Error(".tooltip-text not found");
+    }
+
     tooltipText.classList.remove("hidden");
 }
 
@@ -14,6 +19,11 @@ export function showTooltip(tooltip: HTMLElement): void {
  * @param tooltip - The tooltip element.
  */
 export function hideTooltip(tooltip: HTMLElement): void {
-    const tooltipText = tooltip.querySelector(".tooltip-text") as HTMLElement;
+    const tooltipText = tooltip.querySelector(".tooltip-text");
+
+    if (!(tooltipText instanceof HTMLElement)) {
+        throw new Error(".tooltip-text not found");
+    }
+
     tooltipText.classList.add("hidden");
 }

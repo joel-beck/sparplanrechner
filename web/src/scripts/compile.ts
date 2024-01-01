@@ -35,9 +35,9 @@ function setElementHTML(elem: HTMLElement, html: string): void {
 function processScripts(elem: HTMLElement): void {
     elem.querySelectorAll("script").forEach((script) => {
         const newScript = document.createElement("script");
-        Array.from(script.attributes).forEach((attr) =>
-            newScript.setAttribute(attr.name, attr.value),
-        );
+        Array.from(script.attributes).forEach((attr) => {
+            newScript.setAttribute(attr.name, attr.value);
+        });
         newScript.appendChild(document.createTextNode(script.innerHTML));
         script.parentNode?.replaceChild(newScript, script);
     });

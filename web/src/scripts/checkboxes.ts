@@ -16,9 +16,7 @@ export function initializeCheckboxToggle(
     const toggleDisabledState = (): void => {
         const isChecked = checkbox.checked;
         controlledElements.forEach((el) => {
-            if (el) {
-                el.disabled = !isChecked;
-            }
+            el.disabled = !isChecked;
         });
     };
 
@@ -56,9 +54,9 @@ export function initializeCheckboxBooleanValue(
 
     // Update checkbox value on change and form submission
     checkboxes.forEach((checkbox) => {
-        checkbox.addEventListener("change", () =>
-            setCheckboxBooleanValue(checkbox),
-        );
+        checkbox.addEventListener("change", () => {
+            setCheckboxBooleanValue(checkbox);
+        });
     });
 
     form.addEventListener("submit", () => {

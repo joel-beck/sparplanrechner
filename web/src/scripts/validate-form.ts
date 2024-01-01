@@ -40,7 +40,7 @@ function validateGermanNumberInRange(
  * @param min - The minimum acceptable value for the element.
  * @param max - The maximum acceptable value for the element.
  */
-function validateForm(
+export function validateForm(
     formId: string,
     elementId: string,
     min: number,
