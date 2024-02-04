@@ -39,7 +39,7 @@
     <body
         class="min-h-screen bg-color-bg-light font-body text-color-text-light dark:bg-color-bg-dark dark:text-color-text-dark"
     >
-        <header class="sticky top-0 z-10 bg-color-accent-light text-white dark:bg-color-accent-dark" id="header">
+        <header class="bg-color-header-light dark:bg-color-header-dark sticky top-0 z-10 text-white" id="header">
             <section class="mx-auto flex max-w-2xl items-center justify-between p-4 md:max-w-2xl lg:max-w-3xl">
                 <h1 class="pl-2 text-3xl font-medium">
                     <a href="#" class="hover:text-black"> Sparplanrechner </a>
@@ -73,14 +73,14 @@
         </header>
 
         <article
-            class="mx-auto max-w-xl pb-2 pt-6 text-center text-lg text-color-text-light md:max-w-2xl lg:max-w-3xl dark:text-color-text-dark"
+            class="mx-auto max-w-xl pb-2 pt-6 text-center text-lg text-color-text-light dark:text-color-text-dark md:max-w-2xl lg:max-w-3xl"
         >
             Berechne den zukünftigen Wert deines Depots (nominal & real) basierend auf deinem Startkapital, deiner
             monatlichen Sparrate und der Dauer des Anlagezeitraums.
         </article>
 
         <hr
-            class="mx-auto mb-4 mt-4 max-w-xs border-color-text-light pb-4 md:max-w-md lg:max-w-lg dark:border-color-text-dark"
+            class="mx-auto mb-4 mt-4 max-w-xs border-color-text-light pb-4 dark:border-color-text-dark md:max-w-md lg:max-w-lg"
         />
 
         <main class="mx-auto flex max-w-lg flex-col justify-center md:max-w-2xl lg:max-w-3xl" id="main">
@@ -213,7 +213,7 @@
                 </fieldset>
 
                 <fieldset
-                    class="mb-3 mt-4 grid w-full grid-cols-1 rounded border bg-color-form-light px-1 py-2 md:grid-cols-2 dark:bg-color-form-dark"
+                    class="mb-3 mt-4 grid w-full grid-cols-1 rounded border bg-color-form-light px-1 py-2 dark:bg-color-form-dark md:grid-cols-2"
                     id="returnRateInflationRateSection"
                 >
                     <article class="flex flex-col px-4" id="returnRateSection">
@@ -315,7 +315,7 @@
                 </fieldset>
 
                 <fieldset
-                    class="mb-3 mt-4 grid w-full grid-cols-1 rounded border bg-color-form-light px-1 pb-3 pt-2 md:grid-cols-2 dark:bg-color-form-dark"
+                    class="mb-3 mt-4 grid w-full grid-cols-1 rounded border bg-color-form-light px-1 pb-3 pt-2 dark:bg-color-form-dark md:grid-cols-2"
                     id="takeoutTaxSection"
                 >
                     <article class="flex flex-col px-4" id="takeoutSection">
@@ -423,7 +423,7 @@
                 <section class="mx-auto mb-4 flex w-1/2 justify-center" id="submitSection">
                     <button
                         type="submit"
-                        class="rounded-xl bg-color-accent-light px-10 py-2 text-lg font-bold text-white hover:bg-color-hover-light focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-color-accent-dark hover:dark:bg-color-hover-dark"
+                        class="bg-color-header-light dark:bg-color-header-dark rounded-xl px-10 py-2 text-lg font-bold text-white hover:bg-color-hover-light focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hover:dark:bg-color-hover-dark"
                     >
                         Berechnen
                     </button>
