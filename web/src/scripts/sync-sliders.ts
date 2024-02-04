@@ -10,9 +10,9 @@ function syncValues(id: string, isSlider: boolean): void {
         `${id}Slider`,
     ) as HTMLInputElement;
 
-    if (isSlider && numberInput) {
+    if (isSlider) {
         numberInput.value = sliderInput.value;
-    } else if (sliderInput) {
+    } else {
         sliderInput.value = numberInput.value;
     }
 }
@@ -29,16 +29,12 @@ export function syncSliders(formFields: string[]): void {
             `${field}Slider`,
         ) as HTMLInputElement;
 
-        if (numberInput) {
-            numberInput.addEventListener("input", function () {
-                syncValues(field, false);
-            });
-        }
+        numberInput.addEventListener("input", function () {
+            syncValues(field, false);
+        });
 
-        if (sliderInput) {
-            sliderInput.addEventListener("input", function () {
-                syncValues(field, true);
-            });
-        }
+        sliderInput.addEventListener("input", function () {
+            syncValues(field, true);
+        });
     });
 }

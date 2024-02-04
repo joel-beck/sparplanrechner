@@ -2,12 +2,10 @@
   "name": "sparplanrechner",
   "type": "module",
   "scripts": {
-    "tailwind": "bun tailwindcss -i ./web/src/styles.css -o ./web/dist/styles.css --watch",
-    "build": "bun build web/src/main.ts --outdir web/dist --watch",
-    "start": "bun run tailwind & bun run build"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "lint": "eslint . --ext .ts,.tsx --fix",
+    "format": "prettier --write '**/*.{js,jsx,ts,tsx,css,html,yml,yaml,json,md}'",
+    "css": "bun tailwindcss -i ./web/src/styles.css -o ./web/dist/styles.css --watch",
+    "ts": "bun build web/src/main.ts --outdir web/dist --watch"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -15,9 +13,13 @@
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.10",
     "@types/web": "^0.0.131",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
     "bun-types": "latest",
+    "eslint": "^8.56.0",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
-    "tailwindcss": "^3.3.5"
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.3.3"
   }
 }
