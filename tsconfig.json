@@ -15,5 +15,6 @@
     "strict": true,
     "target": "esnext",
     "types": ["web", "bun-types"]
-  }
+  },
+  "include": ["web/src/**/*.ts"]
 }

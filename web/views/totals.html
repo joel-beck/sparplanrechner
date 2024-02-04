@@ -1,0 +1,25 @@
+{{ define "totals" }}
+
+<div id="finalAmount" class="flex justify-between">
+    <strong>Endbetrag:</strong>
+    <strong>{{.Totals.Total}}</strong>
+</div>
+
+<br />
+
+<div id="payments" class="flex justify-between">
+    <span>Einzahlungen:</span>
+    <span>{{.Totals.Payments}}</span>
+</div>
+
+<div id="returns" class="flex justify-between">
+    <span>Zinsen:</span>
+    <span>{{.Totals.Returns}}</span>
+</div>
+
+<div id="inflationDiscounted" class="flex justify-between">
+    <span>Inflationsbereinigt:</span>
+    <span>{{.Totals.InflationDiscountedTotal}}</span>
+</div>
+
+{{ end }}
