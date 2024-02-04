@@ -66,21 +66,28 @@ func FormatTakeouts(takeouts Takeouts) FormattedTakeouts {
 	}
 }
 
-func CollectTemplateData(
+type ResponseData struct {
+	Years              []int
+	IntermediateTotals FormattedIntermediateTotals
+	Totals             FormattedTotals
+	Takeouts           FormattedTakeouts
+}
+
+func CollectResponseData(
 	intermediateTotals AnnualIntermediateTotals,
 	totals Totals,
 	takeouts Takeouts,
-	startCapital int) map[string]interface{} {
+	startCapital int) ResponseData {
 
 	years := make([]int, len(intermediateTotals.AnnualTotals))
 	for i := range years {
 		years[i] = i + 1
 	}
 
-	return map[string]interface{}{
-		"Years":              years,
-		"IntermediateTotals": FormatIntermediateTotals(intermediateTotals),
-		"Totals":             FormatTotals(totals),
-		"Takeouts":           FormatTakeouts(takeouts),
+	return ResponseData{
+		Years:              years,
+		IntermediateTotals: FormatIntermediateTotals(intermediateTotals),
+		Totals:             FormatTotals(totals),
+		Takeouts:           FormatTakeouts(takeouts),
 	}
 }

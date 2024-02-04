@@ -1,3 +1,5 @@
+{{ define "index" }}
+
 <!doctype html>
 <html lang="en" class="sm:scroll-smooth">
     <head>
@@ -8,7 +10,7 @@
             name="description"
             content="Berechne den zukünftigen Wert deines Depots basierend auf deinem Startkapital, deiner monatlichen Sparrate und der Anlagedauer."
         />
-        <meta property="og:title" content="Sparplanrechner - Investment Calculator" />
+        <meta property="og:title" content="Sparplanrechner" />
         <meta
             property="og:description"
             content="Berechne den zukünftigen Wert deines Depots basierend auf deinem Startkapital, deiner monatlichen Sparrate und der Anlagedauer."
@@ -16,7 +18,7 @@
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://sparplanrechner.onrender.com" />
         <link rel="canonical" href="https://sparplanrechner.onrender.com" />
-        <title>Sparplanrechner - Investment Calculator</title>
+        <title>Sparplanrechner</title>
         <!-- HTMX -->
         <script
             defer
@@ -71,14 +73,14 @@
         </header>
 
         <article
-            class="mx-auto max-w-xl pb-2 pt-6 text-center text-lg text-color-text-light dark:text-color-text-dark md:max-w-2xl lg:max-w-3xl"
+            class="mx-auto max-w-xl pb-2 pt-6 text-center text-lg text-color-text-light md:max-w-2xl lg:max-w-3xl dark:text-color-text-dark"
         >
             Berechne den zukünftigen Wert deines Depots (nominal & real) basierend auf deinem Startkapital, deiner
             monatlichen Sparrate und der Dauer des Anlagezeitraums.
         </article>
 
         <hr
-            class="mx-auto mb-4 mt-4 max-w-xs border-color-text-light pb-4 dark:border-color-text-dark md:max-w-md lg:max-w-lg"
+            class="mx-auto mb-4 mt-4 max-w-xs border-color-text-light pb-4 md:max-w-md lg:max-w-lg dark:border-color-text-dark"
         />
 
         <main class="mx-auto flex max-w-lg flex-col justify-center md:max-w-2xl lg:max-w-3xl" id="main">
@@ -211,7 +213,7 @@
                 </fieldset>
 
                 <fieldset
-                    class="mb-3 mt-4 grid w-full grid-cols-1 rounded border bg-color-form-light px-1 py-2 dark:bg-color-form-dark md:grid-cols-2"
+                    class="mb-3 mt-4 grid w-full grid-cols-1 rounded border bg-color-form-light px-1 py-2 md:grid-cols-2 dark:bg-color-form-dark"
                     id="returnRateInflationRateSection"
                 >
                     <article class="flex flex-col px-4" id="returnRateSection">
@@ -313,7 +315,7 @@
                 </fieldset>
 
                 <fieldset
-                    class="mb-3 mt-4 grid w-full grid-cols-1 rounded border bg-color-form-light px-1 pb-3 pt-2 dark:bg-color-form-dark md:grid-cols-2"
+                    class="mb-3 mt-4 grid w-full grid-cols-1 rounded border bg-color-form-light px-1 pb-3 pt-2 md:grid-cols-2 dark:bg-color-form-dark"
                     id="takeoutTaxSection"
                 >
                     <article class="flex flex-col px-4" id="takeoutSection">
@@ -471,3 +473,5 @@
         </footer>
     </body>
 </html>
+
+{{ end }}
