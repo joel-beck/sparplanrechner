@@ -1,0 +1,16 @@
+{{ define "htmxResults" }}
+
+<!-- TODO: Still too wide for mobile screens, add padding left and right -->
+<section class="flex flex-col pt-4">
+    {{ template "totals" . }}
+
+    <br />
+
+    {{ template "takeouts" . }}
+
+    <br />
+
+    {{ template "intermediateAmounts" . }}
+</section>
+
+{{ end }}
