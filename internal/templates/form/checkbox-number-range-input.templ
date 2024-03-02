@@ -1,0 +1,45 @@
+package form
+
+import (
+	"fmt"
+)
+
+type CheckboxNumberRangeInputData struct {
+	Name              string
+	Min               string
+	Max               string
+	Step              string
+	Required          bool
+	Autofocus         bool
+	InputFormat       InputFormat
+	CheckboxAriaLabel string
+}
+
+templ CheckboxNumberRangeInput(value float64, include bool, d CheckboxNumberRangeInputData) {
+	<div x-data={ fmt.Sprintf("{ value: %f, include: %t }", value, include) }>
+		<div class="flex items-center space-x-2">
+			@CheckboxInput(CheckboxInputData{
+				Name:      d.Name,
+				AriaLabel: d.CheckboxAriaLabel,
+			})
+			@NumberInput(NumberInputData{
+				Name:           d.Name,
+				Min:            d.Min,
+				Max:            d.Max,
+				Step:           d.Step,
+				Required:       d.Required,
+				Autofocus:      d.Autofocus,
+				SyncedSlider:   true,
+				SyncedCheckbox: true,
+				InputFormat:    d.InputFormat,
+			})
+		</div>
+		@RangeInput(RangeInputData{
+			Min:            d.Min,
+			Max:            d.Max,
+			Step:           d.Step,
+			SyncedInput:    true,
+			SyncedCheckbox: true,
+		})
+	</div>
+}

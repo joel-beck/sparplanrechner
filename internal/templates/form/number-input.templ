@@ -1,0 +1,67 @@
+package form
+
+import (
+	"fmt"
+)
+
+type InputFormat string
+
+const (
+	FormatValue InputFormat = "FormatValue"
+	Integer     InputFormat = "Integer"
+	Float       InputFormat = "Float"
+)
+
+type NumberInputData struct {
+	Name           string
+	Min            string
+	Max            string
+	Step           string
+	Value          string
+	DefaultValue   string
+	Placeholder    string
+	Required       bool
+	Autofocus      bool
+	SyncedSlider   bool
+	SyncedCheckbox bool
+	InputFormat    InputFormat
+}
+
+templ NumberInput(d NumberInputData) {
+	<input
+		x-data
+		if d.SyncedSlider {
+			x-model="value"
+		} else {
+			value={ d.Value }
+		}
+		if d.InputFormat == Integer {
+			type="number"
+			inputmode="numeric"
+		}
+		if d.InputFormat == Float {
+			type="number"
+			inputmode="decimal"
+		}
+		if d.InputFormat == FormatValue {
+			x-mask:dynamic="$money($input, ',', '.')"
+			type="text"
+			inputmode="numeric"
+		}
+		if d.SyncedCheckbox {
+			x-bind:disabled="!include"
+		}
+		class="w-full rounded-md border-gray-300 px-4 py-2 text-black focus:ring-2 focus:ring-color-accent-light dark:focus:ring-color-accent-dark disabled:opacity-50"
+		name={ fmt.Sprintf("%sInput", d.Name) }
+		min={ d.Min }
+		max={ d.Max }
+		step={ d.Step }
+		placeholder={ d.Placeholder }
+		if d.Required {
+			required
+		}
+		if d.Autofocus {
+			autofocus
+		}
+	/>
+}

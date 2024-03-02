@@ -1,0 +1,19 @@
+package layouts
+
+templ Content() {
+	<!-- padding on the sides for narrow mobile screens -->
+	<div class="px-4 sm:px-0">
+		<article
+			class="mx-auto max-w-xl pb-2 pt-6 text-center text-lg text-color-text-light dark:text-color-text-dark md:max-w-2xl lg:max-w-3xl"
+		>
+			Berechne den zukünftigen Wert deines Depots (nominal & real) basierend auf deinem Startkapital, deiner
+			monatlichen Sparrate und der Dauer des Anlagezeitraums.
+		</article>
+		<hr
+			class="mx-auto mb-4 mt-4 max-w-xs border-color-text-light pb-4 dark:border-color-text-dark md:max-w-md lg:max-w-lg"
+		/>
+		<main class="mx-auto flex max-w-lg flex-col justify-center md:max-w-2xl lg:max-w-3xl">
+			{ children... }
+		</main>
+	</div>
+}

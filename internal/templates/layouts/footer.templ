@@ -1,0 +1,13 @@
+package layouts
+
+import "github.com/joel-beck/sparplanrechner/internal/templates/components"
+
+templ Footer() {
+	<footer class="mb-2 mt-4 text-center">
+		@components.Copyright()
+		<div class="flex justify-center">
+			@components.GitHub()
+			@components.LinkedIn()
+		</div>
+	</footer>
+}

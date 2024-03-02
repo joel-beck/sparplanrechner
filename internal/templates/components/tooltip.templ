@@ -1,0 +1,17 @@
+package components
+
+templ Tooltip() {
+	<div x-data="{ showTooltip: false}" class="relative flex items-center justify-center">
+		<i
+			x-on:mouseover="showTooltip = true"
+			x-on:mouseleave="showTooltip = false"
+			class="fa-solid fa-circle-info mb-2 cursor-pointer text-black"
+		></i>
+		<div
+			x-show="showTooltip"
+			class="absolute bottom-full left-1/2 m-2 -translate-x-full transform rounded-lg border border-black bg-gray-500 p-2 text-center text-xs text-white shadow-md transition-opacity duration-300 ease-in-out dark:bg-gray-100 dark:text-black w-48 lg:w-64 md:-translate-x-3/4 lg:-translate-x-1/2"
+		>
+			<p x-text="tooltipText"></p>
+		</div>
+	</div>
+}

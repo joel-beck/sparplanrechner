@@ -1,0 +1,17 @@
+package layouts
+
+import "github.com/joel-beck/sparplanrechner/internal/templates/form"
+
+templ Index() {
+	@HTML() {
+		@Head()
+		@Body() {
+			@Header()
+			@Content() {
+				@form.Form()
+				<div id="form-result"></div>
+			}
+			@Footer()
+		}
+	}
+}

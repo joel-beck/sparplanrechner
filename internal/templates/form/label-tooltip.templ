@@ -1,0 +1,14 @@
+package form
+
+import "fmt"
+import "github.com/joel-beck/sparplanrechner/internal/templates/components"
+
+templ LabelTooltip(labelData LabelData, tooltipText string) {
+	<div
+		x-data={ fmt.Sprintf("{ tooltipText: '%s' }", tooltipText) }
+		class="flex justify-between"
+	>
+		@Label(labelData)
+		@components.Tooltip()
+	</div>
+}

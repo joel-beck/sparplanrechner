@@ -1,0 +1,32 @@
+package layouts
+
+templ Head() {
+	<head>
+		<meta charset="UTF-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta
+			name="description"
+			content="Berechne den zukünftigen Wert deines Depots basierend auf deinem Startkapital, deiner monatlichen Sparrate und der Anlagedauer."
+		/>
+		<meta property="og:title" content="Sparplanrechner"/>
+		<meta
+			property="og:description"
+			content="Berechne den zukünftigen Wert deines Depots basierend auf deinem Startkapital, deiner monatlichen Sparrate und der Anlagedauer."
+		/>
+		<meta property="og:type" content="website"/>
+		<meta property="og:url" content="https://sparplanrechner.onrender.com"/>
+		<link rel="canonical" href="https://sparplanrechner.onrender.com"/>
+		<title>Sparplanrechner</title>
+		<!-- HTMX -->
+		<script defer src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+		<!-- Custom Javascript -->
+		<script defer src="/static/main.js" type="module"></script>
+		<!-- Tailwind CSS -->
+		<link href="/static/style.css" rel="stylesheet"/>
+		<!-- Font Awesome Icons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+		<!-- favicon is empty -->
+		<link rel="icon" href="data:;base64,iVBORw0KGgo="/>
+	</head>
+}

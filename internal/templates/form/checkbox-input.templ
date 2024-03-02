@@ -1,0 +1,22 @@
+package form
+
+import (
+	"fmt"
+)
+
+type CheckboxInputData struct {
+	Name      string
+	AriaLabel string
+}
+
+templ CheckboxInput(d CheckboxInputData) {
+	<input
+		x-model.boolean="include"
+		x-on:click="include = !include"
+		x-bind:checked="include"
+		class="form-checkbox h-5 w-5 cursor-pointer rounded-md border-gray-300  checked:bg-color-accent-light checked:hover:bg-color-hover-light dark:checked:bg-color-accent-dark dark:checked:hover:bg-color-hover-dark focus:ring-white focus:ring-offset-1"
+		type="checkbox"
+		name={ fmt.Sprintf("%sCheckbox", d.Name) }
+		aria-label={ d.AriaLabel }
+	/>
+}
