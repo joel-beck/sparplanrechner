@@ -34,7 +34,7 @@ func SetupLogger(level zerolog.Level) {
 }
 
 func LogRawUserInputs(c echo.Context, inputs types.RawUserInputs) {
-	log.Info().Interface("raw_inputs", inputs).Msg("Raw User Inputs")
+	log.Info().Object("raw_inputs", inputs).Msg("Raw User Inputs")
 }
 
 func LogUserInputs(c echo.Context, inputs types.UserInputs) {

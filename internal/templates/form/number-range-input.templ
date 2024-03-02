@@ -11,6 +11,7 @@ type NumberRangeInputData struct {
 	Step        string
 	Required    bool
 	Autofocus   bool
+	SyncedValue bool
 	FormatValue bool
 }
 
@@ -23,12 +24,14 @@ templ NumberRangeInput(value int, d NumberRangeInputData) {
 			Step:        d.Step,
 			Required:    d.Required,
 			Autofocus:   d.Autofocus,
+			SyncedValue: d.SyncedValue,
 			FormatValue: d.FormatValue,
 		})
 		@RangeInput(RangeInputData{
-			Min:  d.Min,
-			Max:  d.Max,
-			Step: d.Step,
+			Min:         d.Min,
+			Max:         d.Max,
+			Step:        d.Step,
+			SyncedValue: d.SyncedValue,
 		})
 	</div>
 }

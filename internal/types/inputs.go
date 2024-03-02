@@ -3,6 +3,8 @@ package types
 import (
 	"strconv"
 	"strings"
+
+	"github.com/rs/zerolog"
 )
 
 func NumberInputToInt(s string) int {
@@ -20,19 +22,19 @@ func CheckboxInputToBool(s string) bool {
 }
 
 type RawUserInputs struct {
-	StartCapital          string  `json:"startCapital"          form:"startCapital"`
-	SavingsRate           string  `json:"savingsRate"           form:"savingsRate"`
-	Years                 int     `json:"years"                 form:"years"`
-	AnnualReturnRate      float64 `json:"annualReturnRate"      form:"annualReturnRate"`
-	InflationRate         float64 `json:"inflationRate"         form:"inflationRate"`
-	InflationRateCheckbox string  `json:"inflationRateCheckbox" form:"inflationRateCheckbox"`
-	TakeoutRate           float64 `json:"takeoutRate"           form:"takeoutRate"`
-	TakeoutRateCheckbox   string  `json:"takeoutRateCheckbox"   form:"takeoutRateCheckbox"`
-	Tax                   float64 `json:"tax"                   form:"tax"`
-	TaxCheckbox           string  `json:"taxCheckbox"           form:"taxCheckbox"`
+	StartCapital          string  `json:"startCapitalInput"          form:"startCapitalInput"`
+	SavingsRate           string  `json:"savingsRateInput"           form:"savingsRateInput"`
+	Years                 int     `json:"yearsInput"                 form:"yearsInput"`
+	ReturnRate            float64 `json:"returnRateInput"            form:"returnRateInput"`
+	InflationRate         float64 `json:"inflationRateInput"         form:"inflationRateInput"`
+	InflationRateCheckbox string  `json:"inflationRateCheckbox"      form:"inflationRateCheckbox"`
+	TakeoutRate           float64 `json:"takeoutRateInput"           form:"takeoutRateInput"`
+	TakeoutRateCheckbox   string  `json:"takeoutRateCheckbox"        form:"takeoutRateCheckbox"`
+	Tax                   float64 `json:"taxInput"                   form:"taxInput"`
+	TaxCheckbox           string  `json:"taxCheckbox"                form:"taxCheckbox"`
 }
 
-func (r *RawUserInputs) ToUserInputs() UserInputs {
+func (r RawUserInputs) ToUserInputs() UserInputs {
 
 	startCapital := NumberInputToInt(r.StartCapital)
 	savingsRate := NumberInputToInt(r.SavingsRate)
@@ -44,7 +46,7 @@ func (r *RawUserInputs) ToUserInputs() UserInputs {
 		StartCapital:          startCapital,
 		SavingsRate:           savingsRate,
 		Years:                 r.Years,
-		AnnualReturnRate:      r.AnnualReturnRate,
+		ReturnRate:            r.ReturnRate,
 		InflationRate:         r.InflationRate,
 		InflationRateCheckbox: inflationRateCheckbox,
 		TakeoutRate:           r.TakeoutRate,
@@ -54,15 +56,42 @@ func (r *RawUserInputs) ToUserInputs() UserInputs {
 	}
 }
 
+func (r RawUserInputs) MarshalZerologObject(e *zerolog.Event) {
+	e.Str("startCapital", r.StartCapital).
+		Str("savingsRate", r.SavingsRate).
+		Int("years", r.Years).
+		Float64("returnRate", r.ReturnRate).
+		Float64("inflationRate", r.InflationRate).
+		Str("inflationRateCheckbox", r.InflationRateCheckbox).
+		Float64("takeoutRate", r.TakeoutRate).
+		Str("takeoutRateCheckbox", r.TakeoutRateCheckbox).
+		Float64("tax", r.Tax).
+		Str("taxCheckbox", r.TaxCheckbox)
+
+}
+
 type UserInputs struct {
 	StartCapital          int
 	SavingsRate           int
 	Years                 int
-	AnnualReturnRate      float64
+	ReturnRate            float64
 	InflationRate         float64
 	InflationRateCheckbox bool
 	TakeoutRate           float64
 	TakeoutRateCheckbox   bool
 	Tax                   float64
 	TaxCheckbox           bool
+}
+
+func (u UserInputs) MarshalZerologObject(e *zerolog.Event) {
+	e.Int("startCapital", u.StartCapital).
+		Int("savingsRate", u.SavingsRate).
+		Int("years", u.Years).
+		Float64("returnRate", u.ReturnRate).
+		Float64("inflationRate", u.InflationRate).
+		Bool("inflationRateCheckbox", u.InflationRateCheckbox).
+		Float64("takeoutRate", u.TakeoutRate).
+		Bool("takeoutRateCheckbox", u.TakeoutRateCheckbox).
+		Float64("tax", u.Tax).
+		Bool("taxCheckbox", u.TaxCheckbox)
 }

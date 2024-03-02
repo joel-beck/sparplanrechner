@@ -8,8 +8,8 @@ import (
 const MonthsInYear = 12
 
 // GrowthFactor calculates the growth factor for a given annual return rate. The annual return rate is provided in percent, not as a fraction.
-func GrowthFactor(annualReturnRate float64) float64 {
-	return 1 + (annualReturnRate / 100)
+func GrowthFactor(returnRate float64) float64 {
+	return 1 + (returnRate / 100)
 }
 
 func ComputeTakeout(total float64, takeoutRate float64) (float64, error) {
@@ -57,6 +57,6 @@ func ComputeInflationDiscountedTotal(
 	return SubtractInflation(currentTotal, inflationRate, float64(years))
 }
 
-func CalculateMonthlyReturn(annualReturnRate float64) float64 {
-	return (annualReturnRate / 100) / MonthsInYear
+func CalculateMonthlyReturn(returnRate float64) float64 {
+	return (returnRate / 100) / MonthsInYear
 }

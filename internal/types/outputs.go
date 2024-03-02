@@ -1,6 +1,9 @@
 package types
 
-import "github.com/joel-beck/sparplanrechner/internal/formatting"
+import (
+	"github.com/joel-beck/sparplanrechner/internal/formatting"
+	"github.com/rs/zerolog"
+)
 
 type FormattedIntermediateAmounts struct {
 	AnnualTotals                    []string
@@ -71,6 +74,13 @@ type ResponseData struct {
 	IntermediateAmounts FormattedIntermediateAmounts
 	Totals              FormattedTotals
 	Takeouts            FormattedTakeouts
+}
+
+func (u ResponseData) MarshalZerologObject(e *zerolog.Event) {
+	e.Interface("years", u.Years).
+		Interface("intermediateAmounts", u.IntermediateAmounts).
+		Interface("totals", u.Totals).
+		Interface("takeouts", u.Takeouts)
 }
 
 func CollectResponseData(

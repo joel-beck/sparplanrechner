@@ -1,5 +1,9 @@
 package form
 
+import (
+	"fmt"
+)
+
 type NumberInputData struct {
 	Name         string
 	Min          string
@@ -10,23 +14,27 @@ type NumberInputData struct {
 	Placeholder  string
 	Required     bool
 	Autofocus    bool
+	SyncedValue  bool
 	FormatValue  bool
 }
 
 templ NumberInput(d NumberInputData) {
 	<input
 		x-data
+		if d.SyncedValue {
+			x-model="value"
+		} else {
+			value={ d.Value }
+		}
 		if d.FormatValue {
 			x-mask:dynamic="$money($input, ',', '.')"
 		}
-		x-model="value"
 		class="form-input w-full rounded-md border-gray-300 px-4 py-2 text-black focus:ring-2 focus:ring-color-accent-light dark:focus:ring-color-accent-dark"
 		type="text"
-		name={ d.Name }
+		name={ fmt.Sprintf("%sInput", d.Name) }
 		min={ d.Min }
 		max={ d.Max }
 		step={ d.Step }
-		value={ d.Value }
 		placeholder={ d.Placeholder }
 		if d.Required {
 			required

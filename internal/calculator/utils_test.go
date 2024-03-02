@@ -12,30 +12,30 @@ func TestGrowthFactor(t *testing.T) {
 	tests := []struct {
 		name   string
 		inputs struct {
-			annualReturnRate float64
+			returnRate float64
 		}
 		expected float64
 	}{
 		{
 			name:     "Zero return rate",
-			inputs:   struct{ annualReturnRate float64 }{annualReturnRate: 0},
+			inputs:   struct{ returnRate float64 }{returnRate: 0},
 			expected: 1,
 		},
 		{
 			name:     "Positive return rate",
-			inputs:   struct{ annualReturnRate float64 }{annualReturnRate: 5.0},
+			inputs:   struct{ returnRate float64 }{returnRate: 5.0},
 			expected: 1.05,
 		},
 		{
 			name:     "Negative return rate",
-			inputs:   struct{ annualReturnRate float64 }{annualReturnRate: -1.0},
+			inputs:   struct{ returnRate float64 }{returnRate: -1.0},
 			expected: 0.99,
 		},
 	}
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			actual := calculator.GrowthFactor(test.inputs.annualReturnRate)
+			actual := calculator.GrowthFactor(test.inputs.returnRate)
 			assert.Equal(t, test.expected, actual)
 		})
 	}
@@ -343,30 +343,30 @@ func TestCalculateMonthlyReturn(t *testing.T) {
 	tests := []struct {
 		name   string
 		inputs struct {
-			annualReturnRate float64
+			returnRate float64
 		}
 		expected float64
 	}{
 		{
 			name:     "Zero return rate",
-			inputs:   struct{ annualReturnRate float64 }{annualReturnRate: 0},
+			inputs:   struct{ returnRate float64 }{returnRate: 0},
 			expected: 0,
 		},
 		{
 			name:     "Positive return rate",
-			inputs:   struct{ annualReturnRate float64 }{annualReturnRate: 12.0},
+			inputs:   struct{ returnRate float64 }{returnRate: 12.0},
 			expected: 0.01,
 		},
 		{
 			name:     "Negative return rate",
-			inputs:   struct{ annualReturnRate float64 }{annualReturnRate: -12.0},
+			inputs:   struct{ returnRate float64 }{returnRate: -12.0},
 			expected: -0.01,
 		},
 	}
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			actual := calculator.CalculateMonthlyReturn(test.inputs.annualReturnRate)
+			actual := calculator.CalculateMonthlyReturn(test.inputs.returnRate)
 			assert.Equal(t, test.expected, actual)
 		})
 	}

@@ -1,0 +1,23 @@
+package form
+
+import (
+	"fmt"
+)
+
+type CheckboxInputData struct {
+	Name      string
+	AriaLabel string
+	Checked   bool
+}
+
+templ CheckboxInput(d CheckboxInputData) {
+	<input
+		class="form-checkbox h-5 w-5 cursor-pointer rounded-md border-gray-300 checked:border-transparent checked:bg-color-accent-light checked:hover:bg-color-hover-light dark:checked:bg-color-accent-dark dark:checked:hover:bg-color-hover-dark"
+		type="checkbox"
+		name={ fmt.Sprintf("%sCheckbox", d.Name) }
+		aria-label={ d.AriaLabel }
+		if d.Checked {
+			checked
+		}
+	/>
+}

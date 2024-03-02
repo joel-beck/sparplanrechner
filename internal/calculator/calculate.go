@@ -97,7 +97,7 @@ func ComputeAnnualTotals(inputs types.UserInputs) types.AnnualIntermediateAmount
 	inputs = ProcessCheckboxes(inputs)
 
 	totalMonths := inputs.Years * MonthsInYear
-	monthlyReturn := CalculateMonthlyReturn(inputs.AnnualReturnRate)
+	monthlyReturn := CalculateMonthlyReturn(inputs.ReturnRate)
 
 	monthlyTotals, annualTotals := initializeTotals()
 	currentTotal := float64(inputs.StartCapital)

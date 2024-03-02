@@ -14,18 +14,20 @@ import (
 	"fmt"
 )
 
-type NumberRangeInputData struct {
-	Name        string
-	Min         string
-	Max         string
-	Step        string
-	Required    bool
-	Autofocus   bool
-	SyncedValue bool
-	FormatValue bool
+type CheckboxNumberRangeInputData struct {
+	Name              string
+	Min               string
+	Max               string
+	Step              string
+	Required          bool
+	Autofocus         bool
+	SyncedValue       bool
+	FormatValue       bool
+	Checked           bool
+	CheckboxAriaLabel string
 }
 
-func NumberRangeInput(value int, d NumberRangeInputData) templ.Component {
+func CheckboxNumberRangeInput(value float64, d CheckboxNumberRangeInputData) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -42,11 +44,19 @@ func NumberRangeInput(value int, d NumberRangeInputData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(fmt.Sprintf("{ value: %d }", value)))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(fmt.Sprintf("{ value: %f }", value)))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 2)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = CheckboxInput(CheckboxInputData{
+			Name:      d.Name,
+			Checked:   d.Checked,
+			AriaLabel: d.CheckboxAriaLabel,
+		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -63,6 +73,10 @@ func NumberRangeInput(value int, d NumberRangeInputData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 3)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		templ_7745c5c3_Err = RangeInput(RangeInputData{
 			Min:         d.Min,
 			Max:         d.Max,
@@ -72,7 +86,7 @@ func NumberRangeInput(value int, d NumberRangeInputData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 3)
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 4)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
