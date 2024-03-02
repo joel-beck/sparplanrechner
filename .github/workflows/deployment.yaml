@@ -22,7 +22,7 @@ jobs:
 
       - name: Build the dist/ directory
         run: |
-          bun tailwindcss -i ./web/src/styles.css -o ./web/dist/styles.css
+          bun tailwindcss -i ./web/src/style.css -o ./web/dist/style.css
           bun build web/src/main.ts --outdir web/dist
 
       - name: Login to Docker Hub
