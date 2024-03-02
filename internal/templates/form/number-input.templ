@@ -51,7 +51,7 @@ templ NumberInput(d NumberInputData) {
 		if d.SyncedCheckbox {
 			x-bind:disabled="!include"
 		}
-		class="w-full rounded-md border-gray-300 px-4 py-2 text-black focus:ring-2 focus:ring-color-accent-light dark:focus:ring-color-accent-dark disabled:opacity-50 invalid:border-red-500 invalid:ring-red-500"
+		class="w-full rounded-md border-gray-300 px-4 py-2 text-black focus:ring-2 focus:ring-color-accent-light dark:focus:ring-color-accent-dark disabled:opacity-50"
 		name={ fmt.Sprintf("%sInput", d.Name) }
 		min={ d.Min }
 		max={ d.Max }
