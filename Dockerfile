@@ -17,7 +17,7 @@ RUN go mod download && go mod verify
 COPY . .
 
 # build the binary
-RUN go build -v -o /usr/local/bin/app .
+RUN go build -v -o /usr/local/bin/app ./cmd
 
 # run the binary
 CMD ["app"]

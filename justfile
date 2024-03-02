@@ -42,7 +42,7 @@ test:
 	gotestsum --format testname
 
 build:
-	go build -o $BINARY_PATH && chmod +x $BINARY_PATH
+	go build -o $BINARY_PATH ./cmd && chmod +x $BINARY_PATH
 
 docker-build:
 	docker build --platform linux/amd64 -t $DOCKER_IMAGE_NAME .
