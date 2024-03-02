@@ -1,0 +1,59 @@
+package results
+
+import "github.com/joel-beck/sparplanrechner/pkg/types"
+
+templ Takeouts(takeouts types.FormattedTakeouts) {
+	<div class="dropdown rounded border border-gray-200 bg-color-form-light dark:bg-color-form-dark" id="takeoutsDropdown">
+		<button
+			class="button align-items-center flex w-full justify-between px-4 pb-2 pt-2 focus:outline-none"
+			type="button"
+			id="takeoutsButton"
+		>
+			<h2 id="takeoutsHeading" class="text-left font-bold text-black">Auszahlungen</h2>
+			<i class="fas fa-chevron-up dropdown-icon text-black" id="takeoutsChevron" aria-hidden="true"></i>
+		</button>
+		<div class="table-container min-w-full overflow-x-auto px-4 pb-3 pt-1" id="takeoutsTableContainer">
+			<table
+				class="w-full table-auto border-separate divide-y divide-gray-200 overflow-hidden rounded-md pr-3 md:pr-0"
+				id="takeoutsTable"
+			>
+				<thead class="table-header-group bg-white">
+					<tr class="table-row">
+						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black"></th>
+						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">Brutto</th>
+						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">Netto</th>
+						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">
+							Inflationsbereinigt
+						</th>
+					</tr>
+				</thead>
+				<tbody class="table-row-group divide-y divide-gray-200 bg-white">
+					<tr class="table-row">
+						<td class="table-cell border border-gray-200 px-6 py-3 text-right font-bold text-black">Jahr</td>
+						<td class="table-cell border border-gray-200 px-6 py-3 text-right text-black">
+							{ takeouts.Annual.BeforeTax }
+						</td>
+						<td class="table-cell border border-gray-200 px-6 py-3 text-right text-black">
+							{ takeouts.Annual.AfterTax }
+						</td>
+						<td class="table-cell border border-gray-200 px-6 py-3 text-right text-black">
+							{ takeouts.Annual.InflationDiscountedAfterTax }
+						</td>
+					</tr>
+					<tr class="table-row">
+						<td class="table-cell border border-gray-200 px-6 py-3 text-right font-bold text-black">Monat</td>
+						<td class="table-cell border border-gray-200 px-6 py-3 text-right text-black">
+							{ takeouts.Monthly.BeforeTax }
+						</td>
+						<td class="table-cell border border-gray-200 px-6 py-3 text-right text-black">
+							{ takeouts.Monthly.AfterTax }
+						</td>
+						<td class="table-cell border border-gray-200 px-6 py-3 text-right text-black">
+							{ takeouts.Monthly.InflationDiscountedAfterTax }
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+}

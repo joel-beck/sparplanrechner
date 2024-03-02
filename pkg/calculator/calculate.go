@@ -4,8 +4,8 @@ import (
 	"github.com/joel-beck/sparplanrechner/pkg/types"
 )
 
-func ZeroYearsOutput() types.AnnualIntermediateTotals {
-	return types.AnnualIntermediateTotals{
+func ZeroYearsOutput() types.AnnualIntermediateAmounts {
+	return types.AnnualIntermediateAmounts{
 		AnnualTotals:                    types.AnnualTotals{},
 		InflationDiscountedAnnualTotals: types.AnnualTotals{},
 		AnnualPayments:                  types.AnnualPayments{},
@@ -13,12 +13,12 @@ func ZeroYearsOutput() types.AnnualIntermediateTotals {
 	}
 }
 
-func initializeTotals() (types.MonthlyIntermediateTotals, types.AnnualIntermediateTotals) {
-	return types.MonthlyIntermediateTotals{
+func initializeTotals() (types.MonthlyIntermediateAmounts, types.AnnualIntermediateAmounts) {
+	return types.MonthlyIntermediateAmounts{
 			MonthlyPayments: types.MonthlyPayments{},
 			MonthlyReturns:  types.MonthlyReturns{},
 		},
-		types.AnnualIntermediateTotals{
+		types.AnnualIntermediateAmounts{
 			AnnualTotals:                    types.AnnualTotals{},
 			InflationDiscountedAnnualTotals: types.AnnualTotals{},
 			AnnualPayments:                  types.AnnualPayments{},
@@ -26,10 +26,10 @@ func initializeTotals() (types.MonthlyIntermediateTotals, types.AnnualIntermedia
 		}
 }
 
-func UpdateIntermediateTotals(
+func UpdateIntermediateAmounts(
 	inputs types.UserInputs,
-	monthlyTotals *types.MonthlyIntermediateTotals,
-	annualTotals *types.AnnualIntermediateTotals,
+	monthlyTotals *types.MonthlyIntermediateAmounts,
+	annualTotals *types.AnnualIntermediateAmounts,
 	currentTotal *float64,
 	monthlyReturnRate float64,
 	month int,
@@ -60,10 +60,10 @@ func UpdateIntermediateTotals(
 func MonthlyToAnnualTotals(
 	annualTotals types.AnnualTotals,
 	inflationDiscountedAnnualTotals types.AnnualTotals,
-	monthlyIntermediates types.MonthlyIntermediateTotals,
+	monthlyIntermediates types.MonthlyIntermediateAmounts,
 	startCapital int,
-) types.AnnualIntermediateTotals {
-	return types.AnnualIntermediateTotals{
+) types.AnnualIntermediateAmounts {
+	return types.AnnualIntermediateAmounts{
 		AnnualTotals:                    annualTotals,
 		InflationDiscountedAnnualTotals: inflationDiscountedAnnualTotals,
 		AnnualPayments:                  monthlyIntermediates.MonthlyPayments.MonthlyToAnnual(startCapital),
@@ -89,7 +89,7 @@ func ProcessCheckboxes(inputs types.UserInputs) types.UserInputs {
 	return inputs
 }
 
-func ComputeAnnualTotals(inputs types.UserInputs) types.AnnualIntermediateTotals {
+func ComputeAnnualTotals(inputs types.UserInputs) types.AnnualIntermediateAmounts {
 	if inputs.Years == 0 {
 		return ZeroYearsOutput()
 	}
@@ -103,7 +103,7 @@ func ComputeAnnualTotals(inputs types.UserInputs) types.AnnualIntermediateTotals
 	currentTotal := float64(inputs.StartCapital)
 
 	for month := 1; month <= totalMonths; month++ {
-		UpdateIntermediateTotals(
+		UpdateIntermediateAmounts(
 			inputs,
 			&monthlyTotals,
 			&annualTotals,

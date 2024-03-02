@@ -14,28 +14,28 @@ func TestMonthlyToAnnualTotals(t *testing.T) {
 		inputs struct {
 			annualTotals                    types.AnnualTotals
 			inflationDiscountedAnnualTotals types.AnnualTotals
-			monthlyIntermediates            types.MonthlyIntermediateTotals
+			monthlyIntermediates            types.MonthlyIntermediateAmounts
 			startCapital                    int
 		}
-		expected types.AnnualIntermediateTotals
+		expected types.AnnualIntermediateAmounts
 	}{
 		{
 			name: "Empty inputs",
 			inputs: struct {
 				annualTotals                    types.AnnualTotals
 				inflationDiscountedAnnualTotals types.AnnualTotals
-				monthlyIntermediates            types.MonthlyIntermediateTotals
+				monthlyIntermediates            types.MonthlyIntermediateAmounts
 				startCapital                    int
 			}{
 				annualTotals:                    types.AnnualTotals{},
 				inflationDiscountedAnnualTotals: types.AnnualTotals{},
-				monthlyIntermediates: types.MonthlyIntermediateTotals{
+				monthlyIntermediates: types.MonthlyIntermediateAmounts{
 					MonthlyPayments: types.MonthlyPayments{},
 					MonthlyReturns:  types.MonthlyReturns{},
 				},
 				startCapital: 0,
 			},
-			expected: types.AnnualIntermediateTotals{
+			expected: types.AnnualIntermediateAmounts{
 				AnnualTotals:                    types.AnnualTotals{},
 				InflationDiscountedAnnualTotals: types.AnnualTotals{},
 				AnnualPayments:                  types.AnnualPayments{0},
@@ -47,12 +47,12 @@ func TestMonthlyToAnnualTotals(t *testing.T) {
 			inputs: struct {
 				annualTotals                    types.AnnualTotals
 				inflationDiscountedAnnualTotals types.AnnualTotals
-				monthlyIntermediates            types.MonthlyIntermediateTotals
+				monthlyIntermediates            types.MonthlyIntermediateAmounts
 				startCapital                    int
 			}{
 				annualTotals:                    types.AnnualTotals{3000, 4000},
 				inflationDiscountedAnnualTotals: types.AnnualTotals{2700, 3600},
-				monthlyIntermediates: types.MonthlyIntermediateTotals{
+				monthlyIntermediates: types.MonthlyIntermediateAmounts{
 					MonthlyPayments: types.MonthlyPayments{
 						10,
 						10,
@@ -107,7 +107,7 @@ func TestMonthlyToAnnualTotals(t *testing.T) {
 					}},
 				startCapital: 200,
 			},
-			expected: types.AnnualIntermediateTotals{
+			expected: types.AnnualIntermediateAmounts{
 				AnnualTotals:                    types.AnnualTotals{3000, 4000},
 				InflationDiscountedAnnualTotals: types.AnnualTotals{2700, 3600},
 				AnnualPayments:                  types.AnnualPayments{320, 560},
@@ -133,7 +133,7 @@ func TestComputeAnnualTotals(t *testing.T) {
 	tests := []struct {
 		name     string
 		inputs   types.UserInputs
-		expected types.AnnualIntermediateTotals
+		expected types.AnnualIntermediateAmounts
 	}{
 		{
 			name: "Zero Years",
@@ -149,7 +149,7 @@ func TestComputeAnnualTotals(t *testing.T) {
 				Tax:                   0,
 				TaxCheckbox:           true,
 			},
-			expected: types.AnnualIntermediateTotals{
+			expected: types.AnnualIntermediateAmounts{
 				AnnualTotals:                    types.AnnualTotals{},
 				InflationDiscountedAnnualTotals: types.AnnualTotals{},
 				AnnualPayments:                  types.AnnualPayments{},
@@ -170,7 +170,7 @@ func TestComputeAnnualTotals(t *testing.T) {
 				Tax:                   0,
 				TaxCheckbox:           true,
 			},
-			expected: types.AnnualIntermediateTotals{
+			expected: types.AnnualIntermediateAmounts{
 				AnnualTotals:                    types.AnnualTotals{1000},
 				InflationDiscountedAnnualTotals: types.AnnualTotals{1000},
 				AnnualPayments:                  types.AnnualPayments{1000},
@@ -191,7 +191,7 @@ func TestComputeAnnualTotals(t *testing.T) {
 				Tax:                   0,
 				TaxCheckbox:           true,
 			},
-			expected: types.AnnualIntermediateTotals{
+			expected: types.AnnualIntermediateAmounts{
 				AnnualTotals:                    types.AnnualTotals{2200},
 				InflationDiscountedAnnualTotals: types.AnnualTotals{2200},
 				AnnualPayments:                  types.AnnualPayments{2200},
@@ -212,7 +212,7 @@ func TestComputeAnnualTotals(t *testing.T) {
 				Tax:                   0,
 				TaxCheckbox:           true,
 			},
-			expected: types.AnnualIntermediateTotals{
+			expected: types.AnnualIntermediateAmounts{
 				AnnualTotals:                    types.AnnualTotals{1000},
 				InflationDiscountedAnnualTotals: types.AnnualTotals{980},
 				AnnualPayments:                  types.AnnualPayments{1000},
@@ -233,7 +233,7 @@ func TestComputeAnnualTotals(t *testing.T) {
 				Tax:                   0,
 				TaxCheckbox:           true,
 			},
-			expected: types.AnnualIntermediateTotals{
+			expected: types.AnnualIntermediateAmounts{
 				AnnualTotals:                    types.AnnualTotals{2200},
 				InflationDiscountedAnnualTotals: types.AnnualTotals{2156},
 				AnnualPayments:                  types.AnnualPayments{2200},
@@ -447,7 +447,7 @@ func TestComputeAnnualTotals_MultipleYears(t *testing.T) {
 	tests := []struct {
 		name     string
 		inputs   types.UserInputs
-		expected types.AnnualIntermediateTotals
+		expected types.AnnualIntermediateAmounts
 	}{
 		{
 			name: "Saving rate and inflation rate for two years",
@@ -463,7 +463,7 @@ func TestComputeAnnualTotals_MultipleYears(t *testing.T) {
 				Tax:                   0,
 				TaxCheckbox:           true,
 			},
-			expected: types.AnnualIntermediateTotals{
+			expected: types.AnnualIntermediateAmounts{
 				AnnualTotals:                    types.AnnualTotals{2200, 3400},
 				InflationDiscountedAnnualTotals: types.AnnualTotals{2156, 3265.36},
 				AnnualPayments:                  types.AnnualPayments{2200, 3400},

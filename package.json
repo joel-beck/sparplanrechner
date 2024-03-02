@@ -1,12 +1,6 @@
 {
   "name": "sparplanrechner",
   "type": "module",
-  "scripts": {
-    "lint": "eslint . --ext .ts,.tsx --fix",
-    "format": "prettier --write '**/*.{js,jsx,ts,tsx,css,html,yml,yaml,json,md}'",
-    "css": "bun tailwindcss -i ./web/src/styles.css -o ./web/dist/styles.css --watch",
-    "ts": "bun build web/src/main.ts --outdir web/dist --watch"
-  },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/container-queries": "^0.1.1",

@@ -55,5 +55,5 @@ go.work
 # sourcery
 .sourcery.yaml
 
-# air
-tmp/
+# templ
+*_templ.txt

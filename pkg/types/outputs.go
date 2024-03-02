@@ -2,19 +2,19 @@ package types
 
 import "github.com/joel-beck/sparplanrechner/pkg/formatting"
 
-type FormattedIntermediateTotals struct {
+type FormattedIntermediateAmounts struct {
 	AnnualTotals                    []string
 	InflationDiscountedAnnualTotals []string
 	AnnualPayments                  []string
 	AnnualReturns                   []string
 }
 
-func FormatIntermediateTotals(intermediateTotals AnnualIntermediateTotals) FormattedIntermediateTotals {
-	return FormattedIntermediateTotals{
-		AnnualTotals:                    formatting.FormatAmounts(intermediateTotals.AnnualTotals),
-		InflationDiscountedAnnualTotals: formatting.FormatAmounts(intermediateTotals.InflationDiscountedAnnualTotals),
-		AnnualPayments:                  formatting.FormatAmounts(intermediateTotals.AnnualPayments),
-		AnnualReturns:                   formatting.FormatAmounts(intermediateTotals.AnnualReturns),
+func FormatIntermediateAmounts(intermediateAmounts AnnualIntermediateAmounts) FormattedIntermediateAmounts {
+	return FormattedIntermediateAmounts{
+		AnnualTotals:                    formatting.FormatAmounts(intermediateAmounts.AnnualTotals),
+		InflationDiscountedAnnualTotals: formatting.FormatAmounts(intermediateAmounts.InflationDiscountedAnnualTotals),
+		AnnualPayments:                  formatting.FormatAmounts(intermediateAmounts.AnnualPayments),
+		AnnualReturns:                   formatting.FormatAmounts(intermediateAmounts.AnnualReturns),
 	}
 }
 
@@ -67,27 +67,27 @@ func FormatTakeouts(takeouts Takeouts) FormattedTakeouts {
 }
 
 type ResponseData struct {
-	Years              []int
-	IntermediateTotals FormattedIntermediateTotals
-	Totals             FormattedTotals
-	Takeouts           FormattedTakeouts
+	Years               []int
+	IntermediateAmounts FormattedIntermediateAmounts
+	Totals              FormattedTotals
+	Takeouts            FormattedTakeouts
 }
 
 func CollectResponseData(
-	intermediateTotals AnnualIntermediateTotals,
+	intermediateAmounts AnnualIntermediateAmounts,
 	totals Totals,
 	takeouts Takeouts,
 	startCapital int) ResponseData {
 
-	years := make([]int, len(intermediateTotals.AnnualTotals))
+	years := make([]int, len(intermediateAmounts.AnnualTotals))
 	for i := range years {
 		years[i] = i + 1
 	}
 
 	return ResponseData{
-		Years:              years,
-		IntermediateTotals: FormatIntermediateTotals(intermediateTotals),
-		Totals:             FormatTotals(totals),
-		Takeouts:           FormatTakeouts(takeouts),
+		Years:               years,
+		IntermediateAmounts: FormatIntermediateAmounts(intermediateAmounts),
+		Totals:              FormatTotals(totals),
+		Takeouts:            FormatTakeouts(takeouts),
 	}
 }

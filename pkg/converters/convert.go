@@ -5,12 +5,12 @@ import (
 	"github.com/joel-beck/sparplanrechner/pkg/types"
 )
 
-func TotalsFromIntermediates(annualIntermediateTotals types.AnnualIntermediateTotals) types.Totals {
+func TotalsFromIntermediates(annualIntermediateAmounts types.AnnualIntermediateAmounts) types.Totals {
 	return types.Totals{
-		Total:                    annualIntermediateTotals.AnnualTotals.ComputeTotal(),
-		InflationDiscountedTotal: annualIntermediateTotals.InflationDiscountedAnnualTotals.ComputeTotal(),
-		Payments:                 annualIntermediateTotals.AnnualPayments.ComputeTotal(),
-		Returns:                  annualIntermediateTotals.AnnualReturns.ComputeTotal(),
+		Total:                    annualIntermediateAmounts.AnnualTotals.ComputeTotal(),
+		InflationDiscountedTotal: annualIntermediateAmounts.InflationDiscountedAnnualTotals.ComputeTotal(),
+		Payments:                 annualIntermediateAmounts.AnnualPayments.ComputeTotal(),
+		Returns:                  annualIntermediateAmounts.AnnualReturns.ComputeTotal(),
 	}
 }
 

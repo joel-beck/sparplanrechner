@@ -4,25 +4,45 @@ default:
   just --list
 
 start:
-    go run main.go
+    wgo run pkg/cmd/main.go
 
-watch:
-    air
+templ:
+	templ generate --watch
+
+css:
+	bun tailwindcss -i ./web/src/style.css -o ./web/dist/style.css --watch
+
+ts:
+	bun build web/src/main.ts --outdir web/dist --watch
 
 build:
 	go build -o $BINARY_PATH && chmod +x $BINARY_PATH
 
-lint:
-	golangci-lint run
-
-format:
-	gofmt -w -l .
+pre:
+	pre-commit run --all-files
 
 test:
 	gotestsum --format testname
 
-pre:
-	pre-commit run --all-files
+lint-ts:
+	eslint . --ext .ts,.tsx --fix
+
+lint-go:
+	golangci-lint run
+
+lint:
+	lint-ts
+	lint-go
+
+format-ts:
+	prettier --write '**/*.{js,jsx,ts,tsx,css,html,yml,yaml,json,md}'
+
+format-go:
+	gofmt -w -l .
+
+format:
+	format-ts
+	format-go
 
 docker-build:
 	docker build --platform linux/amd64 -t $DOCKER_IMAGE_NAME .

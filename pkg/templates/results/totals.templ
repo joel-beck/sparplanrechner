@@ -1,0 +1,23 @@
+package results
+
+import "github.com/joel-beck/sparplanrechner/pkg/types"
+
+templ Totals(totals types.FormattedTotals) {
+	<div id="finalAmount" class="flex justify-between">
+		<strong>Endbetrag:</strong>
+		<strong>{ totals.Total }</strong>
+	</div>
+	<br/>
+	<div id="payments" class="flex justify-between">
+		<span>Einzahlungen:</span>
+		<span>{ totals.Payments }</span>
+	</div>
+	<div id="returns" class="flex justify-between">
+		<span>Zinsen:</span>
+		<span>{ totals.Returns }</span>
+	</div>
+	<div id="inflationDiscounted" class="flex justify-between">
+		<span>Inflationsbereinigt:</span>
+		<span>{ totals.InflationDiscountedTotal }</span>
+	</div>
+}

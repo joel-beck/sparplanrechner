@@ -11,12 +11,12 @@ import (
 func TestTotalsFromIntermediates(t *testing.T) {
 	tests := []struct {
 		name     string
-		input    types.AnnualIntermediateTotals
+		input    types.AnnualIntermediateAmounts
 		expected types.Totals
 	}{
 		{
 			name: "Empty inputs",
-			input: types.AnnualIntermediateTotals{
+			input: types.AnnualIntermediateAmounts{
 				AnnualTotals:                    types.AnnualTotals{},
 				InflationDiscountedAnnualTotals: types.AnnualTotals{},
 				AnnualPayments:                  types.AnnualPayments{},
@@ -31,7 +31,7 @@ func TestTotalsFromIntermediates(t *testing.T) {
 		},
 		{
 			name: "Five years of inputs",
-			input: types.AnnualIntermediateTotals{
+			input: types.AnnualIntermediateAmounts{
 				AnnualTotals:                    types.AnnualTotals{1000, 2000, 3000, 4000, 5000},
 				InflationDiscountedAnnualTotals: types.AnnualTotals{900, 1800, 2700, 3600, 4500},
 				AnnualPayments:                  types.AnnualPayments{100, 200, 300, 400, 500},

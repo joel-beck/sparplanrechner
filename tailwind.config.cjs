@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     darkMode: "class",
-    content: ["./web/**/*.{ts,tsx,js,jsx,html}"],
+    content: ["./pkg/**/*.templ"],
     theme: {
         extend: {
             colors: {
@@ -18,9 +18,9 @@ module.exports = {
                 "color-hover-dark": "#C07941", // Hover color in dark mode
                 "color-form-dark": "#E5E4E2", // Form field background in dark mode
             },
-            fontFamily: {
-                body: ["Nunito"],
-            },
+            // fontFamily: {
+            //     body: ["Nunito"],
+            // },
         },
     },
     plugins: [

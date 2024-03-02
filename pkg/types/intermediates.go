@@ -87,12 +87,12 @@ func (a AnnualReturns) ComputeTotal() float64 {
 	return ComputeTotal(a)
 }
 
-type MonthlyIntermediateTotals struct {
+type MonthlyIntermediateAmounts struct {
 	MonthlyPayments MonthlyPayments
 	MonthlyReturns  MonthlyReturns
 }
 
-type AnnualIntermediateTotals struct {
+type AnnualIntermediateAmounts struct {
 	AnnualTotals                    AnnualTotals
 	InflationDiscountedAnnualTotals AnnualTotals
 	AnnualPayments                  AnnualPayments
