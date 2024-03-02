@@ -2,13 +2,12 @@ package form
 
 templ Form() {
 	<form
-		id="form"
 		hx-post="/calculate"
 		hx-swap="innerHTML"
 		hx-target="#form-result"
-		enctype="application/x-www-form-urlencoded"
-		class="needs-validation flex flex-wrap gap-3"
 		hx-trigger="submit"
+		enctype="application/x-www-form-urlencoded"
+		class="needs-validation flex flex-wrap gap-6"
 	>
 		@SingleFormField() {
 			@LabelTooltip(LabelData{Name: "startCapital", Text: "Startkapital", Unit: "€"}, "Startkapital zu Beginn des Anlagezeitraums.")

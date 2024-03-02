@@ -3,19 +3,28 @@ package results
 import "github.com/joel-beck/sparplanrechner/internal/types"
 
 templ Takeouts(takeouts types.FormattedTakeouts) {
-	<div class="dropdown rounded border border-gray-200 bg-color-form-light dark:bg-color-form-dark" id="takeoutsDropdown">
+	<div
+		x-data="{show: true}"
+		class="dropdown rounded border border-gray-200 bg-color-form-light dark:bg-color-form-dark"
+	>
 		<button
-			class="button align-items-center flex w-full justify-between px-4 pb-2 pt-2 focus:outline-none"
+			x-on:click="show = !show"
 			type="button"
-			id="takeoutsButton"
+			class="button items-center flex w-full justify-between px-4 py-3 focus:outline-none"
 		>
-			<h2 id="takeoutsHeading" class="text-left font-bold text-black">Auszahlungen</h2>
-			<i class="fas fa-chevron-up dropdown-icon text-black" id="takeoutsChevron" aria-hidden="true"></i>
+			<h2 class="text-left font-bold text-black">Auszahlungen</h2>
+			<i
+				x-bind:class="show ? 'fas fa-chevron-up' : 'fas fa-chevron-down'"
+				class="text-black"
+				aria-hidden="true"
+			></i>
 		</button>
-		<div class="table-container min-w-full overflow-x-auto px-4 pb-3 pt-1" id="takeoutsTableContainer">
+		<div
+			x-show="show"
+			class="table-container min-w-full overflow-x-auto px-4 pb-4 pt-1"
+		>
 			<table
 				class="w-full table-auto border-separate divide-y divide-gray-200 overflow-hidden rounded-md pr-3 md:pr-0"
-				id="takeoutsTable"
 			>
 				<thead class="table-header-group bg-white">
 					<tr class="table-row">

@@ -5,32 +5,27 @@ import "strconv"
 
 templ IntermediateAmounts(years []int, intermediateAmounts types.FormattedIntermediateAmounts) {
 	<div
-		x-data="{show: true}"
+		x-data="{show: false}"
 		class="dropdown rounded border border-gray-200 bg-color-form-light dark:bg-color-form-dark"
-		id="intermediateAmountsDropdown"
 	>
 		<button
 			x-on:click="show = !show"
-			class="button align-items-center flex w-full justify-between px-4 pb-2 pt-2 focus:outline-none"
 			type="button"
-			id="intermediateAmountsButton"
+			class="button align-items-center flex w-full justify-between px-4 py-3 focus:outline-none"
 		>
-			<h2 id="intermediateAmountsHeading" class="text-left font-bold text-black">Zwischenbeträge</h2>
+			<h2 class="text-left font-bold text-black">Zwischenbeträge</h2>
 			<i
 				x-bind:class="show ? 'fas fa-chevron-up' : 'fas fa-chevron-down'"
 				class="text-black"
-				id="takeoutsChevron"
 				aria-hidden="true"
 			></i>
 		</button>
 		<div
 			x-show="show"
-			class="table-container hidden min-w-full overflow-x-auto px-4 pb-3 pt-1"
-			id="intermediateAmountsTableContainer"
+			class="min-w-full overflow-x-auto px-4 pb-4"
 		>
 			<table
 				class="w-full table-auto border-separate divide-y divide-gray-200 overflow-hidden rounded-md pr-3 lg:pr-0"
-				id="intermediateAmountsTable"
 			>
 				<thead class="table-header-group bg-white">
 					<tr class="table-row">
