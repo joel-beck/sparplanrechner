@@ -12,26 +12,28 @@ type NumberRangeInputData struct {
 	Required    bool
 	Autofocus   bool
 	SyncedValue bool
-	FormatValue bool
+	InputFormat InputFormat
 }
 
 templ NumberRangeInput(value int, d NumberRangeInputData) {
 	<div x-data={ fmt.Sprintf("{ value: %d }", value) }>
 		@NumberInput(NumberInputData{
-			Name:        d.Name,
-			Min:         d.Min,
-			Max:         d.Max,
-			Step:        d.Step,
-			Required:    d.Required,
-			Autofocus:   d.Autofocus,
-			SyncedValue: d.SyncedValue,
-			FormatValue: d.FormatValue,
+			Name:           d.Name,
+			Min:            d.Min,
+			Max:            d.Max,
+			Step:           d.Step,
+			Required:       d.Required,
+			Autofocus:      d.Autofocus,
+			SyncedSlider:   true,
+			SyncedCheckbox: false,
+			InputFormat:    d.InputFormat,
 		})
 		@RangeInput(RangeInputData{
-			Min:         d.Min,
-			Max:         d.Max,
-			Step:        d.Step,
-			SyncedValue: d.SyncedValue,
+			Min:            d.Min,
+			Max:            d.Max,
+			Step:           d.Step,
+			SyncedInput:    true,
+			SyncedCheckbox: false,
 		})
 	</div>
 }

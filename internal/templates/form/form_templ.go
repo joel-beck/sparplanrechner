@@ -41,7 +41,7 @@ func Form() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = NumberInput(NumberInputData{Name: "startCapital", Min: "0", Placeholder: "z.B. 10000", Required: true, Autofocus: true, SyncedValue: false, FormatValue: true}).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = NumberInput(NumberInputData{Name: "startCapital", Min: "0", Placeholder: "z.B. 10000", Required: true, Autofocus: true, SyncedSlider: false, SyncedCheckbox: false, InputFormat: FormatValue}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -68,7 +68,7 @@ func Form() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = NumberRangeInput(500, NumberRangeInputData{Name: "savingsRate", Min: "0", Max: "5000", Step: "50", Required: true, SyncedValue: true, FormatValue: false}).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = NumberRangeInput(500, NumberRangeInputData{Name: "savingsRate", Min: "0", Max: "5000", Step: "50", Required: true, SyncedValue: true, InputFormat: Integer}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -95,7 +95,7 @@ func Form() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = NumberRangeInput(10, NumberRangeInputData{Name: "years", Min: "1", Max: "80", Step: "1", Required: true, SyncedValue: true, FormatValue: false}).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = NumberRangeInput(10, NumberRangeInputData{Name: "years", Min: "1", Max: "80", Step: "1", Required: true, SyncedValue: true, InputFormat: Integer}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -128,7 +128,7 @@ func Form() templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = NumberRangeInput(5, NumberRangeInputData{Name: "returnRate", Min: "0", Max: "15", Step: "0.1", Required: true, SyncedValue: true, FormatValue: false}).Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = NumberRangeInput(5, NumberRangeInputData{Name: "returnRate", Min: "0", Max: "15", Step: "0.1", Required: true, SyncedValue: true, InputFormat: Float}).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -159,16 +159,14 @@ func Form() templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = CheckboxNumberRangeInput(2, CheckboxNumberRangeInputData{
+				templ_7745c5c3_Err = CheckboxNumberRangeInput(2, true, CheckboxNumberRangeInputData{
 					Name:              "inflationRate",
 					Min:               "0",
 					Max:               "10",
 					Step:              "0.1",
 					Required:          true,
 					Autofocus:         false,
-					SyncedValue:       true,
-					FormatValue:       false,
-					Checked:           true,
+					InputFormat:       Float,
 					CheckboxAriaLabel: "Enable inflation rate input",
 				}).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
@@ -212,16 +210,14 @@ func Form() templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = CheckboxNumberRangeInput(3.5, CheckboxNumberRangeInputData{
+				templ_7745c5c3_Err = CheckboxNumberRangeInput(3.5, true, CheckboxNumberRangeInputData{
 					Name:              "takeoutRate",
 					Min:               "0",
 					Max:               "10",
 					Step:              "0.1",
 					Required:          true,
 					Autofocus:         false,
-					SyncedValue:       true,
-					FormatValue:       false,
-					Checked:           true,
+					InputFormat:       Float,
 					CheckboxAriaLabel: "Enable takeout input",
 				}).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
@@ -254,16 +250,14 @@ func Form() templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = CheckboxNumberRangeInput(18.5, CheckboxNumberRangeInputData{
+				templ_7745c5c3_Err = CheckboxNumberRangeInput(18.5, true, CheckboxNumberRangeInputData{
 					Name:              "tax",
 					Min:               "0",
 					Max:               "30",
 					Step:              "0.5",
 					Required:          true,
 					Autofocus:         false,
-					SyncedValue:       true,
-					FormatValue:       false,
-					Checked:           true,
+					InputFormat:       Float,
 					CheckboxAriaLabel: "Enable tax input",
 				}).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {

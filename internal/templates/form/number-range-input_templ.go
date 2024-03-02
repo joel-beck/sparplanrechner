@@ -22,7 +22,7 @@ type NumberRangeInputData struct {
 	Required    bool
 	Autofocus   bool
 	SyncedValue bool
-	FormatValue bool
+	InputFormat InputFormat
 }
 
 func NumberRangeInput(value int, d NumberRangeInputData) templ.Component {
@@ -51,23 +51,25 @@ func NumberRangeInput(value int, d NumberRangeInputData) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = NumberInput(NumberInputData{
-			Name:        d.Name,
-			Min:         d.Min,
-			Max:         d.Max,
-			Step:        d.Step,
-			Required:    d.Required,
-			Autofocus:   d.Autofocus,
-			SyncedValue: d.SyncedValue,
-			FormatValue: d.FormatValue,
+			Name:           d.Name,
+			Min:            d.Min,
+			Max:            d.Max,
+			Step:           d.Step,
+			Required:       d.Required,
+			Autofocus:      d.Autofocus,
+			SyncedSlider:   true,
+			SyncedCheckbox: false,
+			InputFormat:    d.InputFormat,
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = RangeInput(RangeInputData{
-			Min:         d.Min,
-			Max:         d.Max,
-			Step:        d.Step,
-			SyncedValue: d.SyncedValue,
+			Min:            d.Min,
+			Max:            d.Max,
+			Step:           d.Step,
+			SyncedInput:    true,
+			SyncedCheckbox: false,
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

@@ -18,6 +18,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@alpinejs/collapse": "^3.13.5",
     "@alpinejs/mask": "^3.13.5",
     "alpinejs": "^3.13.5"
   }

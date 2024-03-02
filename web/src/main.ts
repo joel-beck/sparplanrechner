@@ -1,4 +1,5 @@
 import mask from "@alpinejs/mask";
+import collapse from "@alpinejs/collapse";
 import Alpine from "alpinejs";
 
 
@@ -21,6 +22,7 @@ function initAlpine() {
 	});
 
 	Alpine.plugin(mask);
+	Alpine.plugin(collapse);
 	Alpine.start();
 }
 

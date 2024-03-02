@@ -9,7 +9,10 @@ templ IntermediateAmounts(years []int, intermediateAmounts types.FormattedInterm
 		class="dropdown rounded border border-gray-200 bg-color-form-light dark:bg-color-form-dark"
 	>
 		<button
-			x-on:click="show = !show"
+			x-on:click="
+			show = !show;
+			$nextTick(() => window.scrollTo(0, document.body.scrollHeight))
+			"
 			type="button"
 			class="button align-items-center flex w-full justify-between px-4 py-3 focus:outline-none"
 		>
@@ -22,6 +25,7 @@ templ IntermediateAmounts(years []int, intermediateAmounts types.FormattedInterm
 		</button>
 		<div
 			x-show="show"
+			x-collapse.duration.1000ms
 			class="min-w-full overflow-x-auto px-4 pb-4"
 		>
 			<table

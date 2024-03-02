@@ -21,13 +21,11 @@ type CheckboxNumberRangeInputData struct {
 	Step              string
 	Required          bool
 	Autofocus         bool
-	SyncedValue       bool
-	FormatValue       bool
-	Checked           bool
+	InputFormat       InputFormat
 	CheckboxAriaLabel string
 }
 
-func CheckboxNumberRangeInput(value float64, d CheckboxNumberRangeInputData) templ.Component {
+func CheckboxNumberRangeInput(value float64, include bool, d CheckboxNumberRangeInputData) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -44,7 +42,7 @@ func CheckboxNumberRangeInput(value float64, d CheckboxNumberRangeInputData) tem
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(fmt.Sprintf("{ value: %f }", value)))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(fmt.Sprintf("{ value: %f, include: %t }", value, include)))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -54,21 +52,21 @@ func CheckboxNumberRangeInput(value float64, d CheckboxNumberRangeInputData) tem
 		}
 		templ_7745c5c3_Err = CheckboxInput(CheckboxInputData{
 			Name:      d.Name,
-			Checked:   d.Checked,
 			AriaLabel: d.CheckboxAriaLabel,
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = NumberInput(NumberInputData{
-			Name:        d.Name,
-			Min:         d.Min,
-			Max:         d.Max,
-			Step:        d.Step,
-			Required:    d.Required,
-			Autofocus:   d.Autofocus,
-			SyncedValue: d.SyncedValue,
-			FormatValue: d.FormatValue,
+			Name:           d.Name,
+			Min:            d.Min,
+			Max:            d.Max,
+			Step:           d.Step,
+			Required:       d.Required,
+			Autofocus:      d.Autofocus,
+			SyncedSlider:   true,
+			SyncedCheckbox: true,
+			InputFormat:    d.InputFormat,
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -78,10 +76,11 @@ func CheckboxNumberRangeInput(value float64, d CheckboxNumberRangeInputData) tem
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = RangeInput(RangeInputData{
-			Min:         d.Min,
-			Max:         d.Max,
-			Step:        d.Step,
-			SyncedValue: d.SyncedValue,
+			Min:            d.Min,
+			Max:            d.Max,
+			Step:           d.Step,
+			SyncedInput:    true,
+			SyncedCheckbox: true,
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

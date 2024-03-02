@@ -1,22 +1,26 @@
 package form
 
 type RangeInputData struct {
-	Min         string
-	Max         string
-	Step        string
-	Value       string
-	SyncedValue bool
+	Min            string
+	Max            string
+	Step           string
+	Value          string
+	SyncedInput    bool
+	SyncedCheckbox bool
 }
 
 templ RangeInput(d RangeInputData) {
 	<div class="mt-auto">
 		<input
-			if d.SyncedValue {
+			if d.SyncedInput {
 				x-model="value"
 			} else {
 				value={ d.Value }
 			}
-			class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-color-accent-light dark:bg-color-accent-dark"
+			if d.SyncedCheckbox {
+				x-bind:disabled="!include"
+			}
+			class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-color-accent-light dark:bg-color-accent-dark disabled:opacity-50"
 			type="range"
 			min={ d.Min }
 			max={ d.Max }
