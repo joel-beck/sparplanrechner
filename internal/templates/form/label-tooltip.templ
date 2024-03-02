@@ -1,6 +1,7 @@
 package form
 
 import "fmt"
+import "github.com/joel-beck/sparplanrechner/internal/templates/components"
 
 templ LabelTooltip(labelData LabelData, tooltipText string) {
 	<div
@@ -8,6 +9,6 @@ templ LabelTooltip(labelData LabelData, tooltipText string) {
 		class="flex justify-between"
 	>
 		@Label(labelData)
-		@Tooltip()
+		@components.Tooltip()
 	</div>
 }
