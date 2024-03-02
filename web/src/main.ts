@@ -11,14 +11,6 @@ function initAlpine() {
                 this.on = !this.on;
             },
         });
-
-        Alpine.store("formula1", {
-            items: {
-                Ferrari: "Charles Leclerc",
-                Mercedes: "Lewis Hamilton",
-                RedBull: "Max Verstappen",
-            },
-        });
     });
 
     Alpine.plugin(mask); // eslint-disable-line
