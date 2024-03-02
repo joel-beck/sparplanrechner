@@ -30,6 +30,7 @@ Dazu sollen kontinuierlich neue Features hinzugefügt und die User Experience st
 ## Development & Deployment 👨‍💻
 
 Der Tech-Stack des Sparplanrechners besteht aus Go für das Backend mit dem [Templ](https://templ.guide) Paket für typsichere Templates, [Tailwind CSS](https://tailwindcss.com) und [Alpine JS](https://alpinejs.dev) für das Frontend und [HTMX](https://htmx.org/docs/) für die Kommunikation zwischen Frontend und Backend.
+
 Die Web Applikation wird als Docker Container auf [Render](https://render.com/) gehostet.
 Bei jedem Pull Request auf den `main` Branch wird mit GitHub Actions automatisch ein neues Docker Image auf Docker Hub gepusht.
 Das Update des Docker Images triggert anschließend ein neues Deployment auf Render.
