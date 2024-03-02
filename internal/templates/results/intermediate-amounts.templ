@@ -1,0 +1,70 @@
+package results
+
+import "github.com/joel-beck/sparplanrechner/internal/types"
+import "strconv"
+
+templ IntermediateAmounts(years []int, intermediateAmounts types.FormattedIntermediateAmounts) {
+	<div
+		x-data="{show: true}"
+		class="dropdown rounded border border-gray-200 bg-color-form-light dark:bg-color-form-dark"
+		id="intermediateAmountsDropdown"
+	>
+		<button
+			x-on:click="show = !show"
+			class="button align-items-center flex w-full justify-between px-4 pb-2 pt-2 focus:outline-none"
+			type="button"
+			id="intermediateAmountsButton"
+		>
+			<h2 id="intermediateAmountsHeading" class="text-left font-bold text-black">Zwischenbeträge</h2>
+			<i
+				x-bind:class="show ? 'fas fa-chevron-up' : 'fas fa-chevron-down'"
+				class="text-black"
+				id="takeoutsChevron"
+				aria-hidden="true"
+			></i>
+		</button>
+		<div
+			x-show="show"
+			class="table-container hidden min-w-full overflow-x-auto px-4 pb-3 pt-1"
+			id="intermediateAmountsTableContainer"
+		>
+			<table
+				class="w-full table-auto border-separate divide-y divide-gray-200 overflow-hidden rounded-md pr-3 lg:pr-0"
+				id="intermediateAmountsTable"
+			>
+				<thead class="table-header-group bg-white">
+					<tr class="table-row">
+						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">Jahr</th>
+						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">Total</th>
+						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">
+							Einzahlungen
+						</th>
+						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">Zinsen</th>
+						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">
+							Inflationsbereinigt
+						</th>
+					</tr>
+				</thead>
+				<tbody class="table-row-group divide-y divide-gray-200 bg-white">
+					for i, year := range years {
+						<tr class="table-row">
+							<td class="table-cell border border-gray-200 px-6 py-2 text-right text-black">{ strconv.Itoa(year) }</td>
+							<td class="table-cell border border-gray-200 px-6 py-2 text-right text-black">
+								{ intermediateAmounts.AnnualTotals[i] }
+							</td>
+							<td class="table-cell border border-gray-200 px-6 py-2 text-right text-black">
+								{ intermediateAmounts.AnnualPayments[i] }
+							</td>
+							<td class="table-cell border border-gray-200 px-6 py-2 text-right text-black">
+								{ intermediateAmounts.AnnualReturns[i] }
+							</td>
+							<td class="table-cell border border-gray-200 px-6 py-2 text-right text-black">
+								{ intermediateAmounts.InflationDiscountedAnnualTotals[i] }
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+}

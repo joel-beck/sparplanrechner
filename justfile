@@ -13,7 +13,7 @@ templ:
 	templ generate --watch
 
 start:
-    wgo run pkg/cmd/main.go
+    wgo run cmd/main.go
 
 format-ts:
 	prettier --write '**/*.{js,jsx,ts,tsx,css,html,yml,yaml,json,md}'

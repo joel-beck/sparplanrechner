@@ -1,0 +1,13 @@
+package results
+
+import "github.com/joel-beck/sparplanrechner/internal/types"
+
+templ FormResults(responseData types.ResponseData) {
+	<section class="flex flex-col pt-4">
+		@Totals(responseData.Totals)
+		<br/>
+		@Takeouts(responseData.Takeouts)
+		<br/>
+		@IntermediateAmounts(responseData.Years, responseData.IntermediateAmounts)
+	</section>
+}

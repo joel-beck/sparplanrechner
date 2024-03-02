@@ -1,0 +1,13 @@
+package form
+
+import "fmt"
+
+templ LabelTooltip(labelData LabelData, tooltipText string) {
+	<div
+		x-data={ fmt.Sprintf("{ tooltipText: '%s' }", tooltipText) }
+		class="flex justify-between"
+	>
+		@Label(labelData)
+		@Tooltip()
+	</div>
+}

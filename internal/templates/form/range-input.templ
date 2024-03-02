@@ -1,0 +1,20 @@
+package form
+
+type RangeInputData struct {
+	Min   string
+	Max   string
+	Step  string
+	Value string
+}
+
+templ RangeInput(d RangeInputData) {
+	<input
+		x-model="value"
+		class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-color-accent-light dark:bg-color-accent-dark"
+		type="range"
+		min={ d.Min }
+		max={ d.Max }
+		step={ d.Step }
+		value={ d.Value }
+	/>
+}

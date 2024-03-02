@@ -1,0 +1,20 @@
+package form
+
+templ Tooltip() {
+	<div
+		x-data="{ showTooltip: false}"
+		class="relative flex items-center justify-center"
+	>
+		<i
+			x-on:mouseover="showTooltip = true"
+			x-on:mouseleave="showTooltip = false"
+			class="fa-solid fa-circle-info cursor-pointer text-black mb-2"
+		></i>
+		<div
+			x-show="showTooltip"
+			class="absolute bottom-full w-32 p-2 transform -translate-x-1/2 left-1/2 text-white text-xs rounded-lg shadow-md transition-opacity duration-300 ease-in-out text-center m-2 border border-black bg-black dark:bg-color-form-dark dark:text-black"
+		>
+			<p x-text="tooltipText"></p>
+		</div>
+	</div>
+}

@@ -1,0 +1,13 @@
+package layouts
+
+templ HTML() {
+	<!DOCTYPE html>
+	<html
+		lang="en"
+		x-data
+		x-bind:class="$store.darkMode.on ? 'dark' : ''"
+		class="sm:scroll-smooth"
+	>
+		{ children... }
+	</html>
+}

@@ -1,0 +1,225 @@
+package form
+
+templ Form() {
+	<form
+		id="form"
+		hx-post="/calculate"
+		hx-swap="innerHTML"
+		hx-target="#form-result"
+		enctype="application/x-www-form-urlencoded"
+		class="needs-validation flex flex-wrap gap-3"
+		hx-trigger="submit"
+	>
+		@SingleFormField() {
+			@LabelTooltip(LabelData{Name: "startCapital", Text: "Startkapital", Unit: "€"}, "Startkapital zu Beginn des Anlagezeitraums.")
+			@NumberInput(NumberInputData{Name: "startCapital", Min: "0", Placeholder: "z.B. 10000", Required: true, Autofocus: true, FormatValue: true})
+		}
+		@SingleFormField() {
+			@LabelTooltip(LabelData{Name: "savingsRate", Text: "Monatliche Sparrate", Unit: "€"}, "Monatlicher Sparbetrag über den Anlagezeitraum.")
+			// TODO: Can I keep the synchronization between the input and the range input with `x-model` while keeping the formatting with `x-mask`?
+			@NumberRangeInput(500, NumberRangeInputData{Name: "savingsRate", Min: "0", Max: "5000", Step: "50", Required: true, FormatValue: false})
+		}
+		@SingleFormField() {
+			@LabelTooltip(LabelData{Name: "years", Text: "Anlagezeitraum", Unit: "Jahre"}, "Startkapital und Sparplanrate werden über den gesamten Anlagezeitraum investiert.")
+			@NumberRangeInput(10, NumberRangeInputData{Name: "years", Min: "1", Max: "80", Step: "1", Required: true, FormatValue: false})
+		}
+		<fieldset
+			class="mb-3 mt-4 grid w-full grid-cols-1 rounded border bg-color-form-light px-1 py-2 dark:bg-color-form-dark md:grid-cols-2"
+			id="returnRateInflationRateSection"
+		>
+			<article class="flex flex-col px-4" id="returnRateSection">
+				<div class="flex justify-between">
+					<label for="annualReturnRate" class="mb-1 pl-2 font-bold text-black">
+						Jährliche Rendite
+						<span class="font-normal">(%)</span>
+					</label>
+					<div class="tooltip relative flex items-center justify-center pr-2">
+						<div
+							class="tooltip-text absolute bottom-full hidden w-max max-w-fit rounded-md bg-black px-2 py-1 text-xs text-white lg:max-w-xs"
+							id="annualReturnRateTooltip"
+						>
+							Durchschnittliche jährliche Rendite über den Anlagezeitraum.
+						</div>
+						<i class="tooltip-icon fa-solid fa-circle-info cursor-pointer text-black"></i>
+					</div>
+				</div>
+				<input
+					type="number"
+					id="annualReturnRate"
+					name="annualReturnRate"
+					class="form-input w-full rounded-md border-gray-300 px-4 py-2 text-black focus:ring-2 focus:ring-color-accent-light dark:focus:ring-color-accent-dark"
+					min="0"
+					max="15"
+					step="0.1"
+					value="5"
+					required
+				/>
+				<div class="mt-auto">
+					<input
+						type="range"
+						id="annualReturnRateSlider"
+						min="0"
+						max="15"
+						step="0.1"
+						value="5"
+						class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-color-accent-light dark:bg-color-accent-dark"
+					/>
+				</div>
+			</article>
+			<article class="flex flex-col px-4" id="inflationRateSection">
+				<div class="flex justify-between">
+					<label for="inflationRate" class="mb-1 pl-8 font-bold text-black">
+						Jährliche Inflation
+						<span class="font-normal">(%)</span>
+					</label>
+					<div class="tooltip relative flex items-center justify-center pr-2">
+						<div
+							class="tooltip-text absolute bottom-full hidden w-max max-w-fit rounded-md bg-black px-2 py-1 text-xs text-white lg:max-w-xs"
+							id="inflationRateTooltip"
+						>
+							Durchschnittliche jährliche Inflation über den Anlagezeitraum. Diese betrug in
+							den letzten 20 Jahren (2004-2023) in Deutschland ca. 2%.
+						</div>
+						<i class="tooltip-icon fa-solid fa-circle-info cursor-pointer text-black"></i>
+					</div>
+				</div>
+				<div class="flex items-center space-x-2">
+					<input
+						type="checkbox"
+						id="inflationRateCheckbox"
+						name="inflationRateCheckbox"
+						class="form-checkbox h-5 w-5 cursor-pointer rounded-md border-gray-300 checked:border-transparent checked:bg-color-accent-light checked:hover:bg-color-hover-light dark:checked:bg-color-accent-dark dark:checked:hover:bg-color-hover-dark"
+						aria-label="Enable inflation rate input"
+						checked
+					/>
+					<input
+						type="number"
+						id="inflationRate"
+						name="inflationRate"
+						class="form-input w-full rounded-md border-gray-300 px-4 py-2 text-black focus:ring-2 focus:ring-color-accent-light dark:focus:ring-color-accent-dark"
+						min="0"
+						max="10"
+						step="0.1"
+						value="2"
+						required
+					/>
+				</div>
+				<div class="mt-auto">
+					<input
+						type="range"
+						id="inflationRateSlider"
+						min="0"
+						max="10"
+						step="0.1"
+						value="2"
+						class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-color-accent-light dark:bg-color-accent-dark"
+					/>
+				</div>
+			</article>
+		</fieldset>
+		<fieldset
+			class="mb-3 mt-4 grid w-full grid-cols-1 rounded border bg-color-form-light px-1 pb-3 pt-2 dark:bg-color-form-dark md:grid-cols-2"
+			id="takeoutTaxSection"
+		>
+			<article class="flex flex-col px-4" id="takeoutSection">
+				<div class="flex justify-between">
+					<label for="takeoutRate" class="mb-1 pl-8 font-bold text-black">
+						Jährliche Entnahmerate
+						<span class="font-normal">(%)</span>
+					</label>
+					<div class="tooltip relative flex items-center justify-center pr-2">
+						<div
+							class="tooltip-text absolute bottom-full hidden w-max max-w-fit rounded-md bg-black px-2 py-1 text-xs text-white lg:max-w-xs"
+							id="takeoutRateTooltip"
+						>
+							Jährliche prozentuale Auszahlung des Gesamtkapitals nach der Ansparphase.
+						</div>
+						<i class="tooltip-icon fa-solid fa-circle-info cursor-pointer text-black"></i>
+					</div>
+				</div>
+				<div class="flex items-center space-x-2">
+					<input
+						type="checkbox"
+						id="takeoutRateCheckbox"
+						name="takeoutRateCheckbox"
+						class="form-checkbox h-5 w-5 cursor-pointer rounded-md border-gray-300 checked:border-transparent checked:bg-color-accent-light checked:hover:bg-color-hover-light dark:checked:bg-color-accent-dark dark:checked:hover:bg-color-hover-dark"
+						aria-label="Enable takeout input"
+						checked
+					/>
+					<input
+						type="number"
+						id="takeoutRate"
+						name="takeoutRate"
+						class="form-input w-full rounded-md border-gray-300 px-4 py-2 text-black focus:ring-2 focus:ring-color-accent-light dark:focus:ring-color-accent-dark"
+						min="0"
+						max="10"
+						step="0.1"
+						value="3.5"
+						required
+					/>
+				</div>
+				<input
+					type="range"
+					id="takeoutRateSlider"
+					min="0"
+					max="10"
+					step="0.1"
+					value="3.5"
+					class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-color-accent-light dark:bg-color-accent-dark"
+				/>
+			</article>
+			<article class="flex flex-col px-4" id="taxSection">
+				<div class="flex justify-between">
+					<label for="tax" class="mb-1 pl-8 font-bold text-black">
+						Steuer
+						<span class="font-normal">(%)</span>
+					</label>
+					<div class="tooltip relative flex items-center justify-center pr-2">
+						<div
+							class="tooltip-text absolute bottom-full hidden w-max max-w-fit rounded-md bg-black px-2 py-1 text-xs text-white lg:max-w-xs"
+							id="taxTooltip"
+						>
+							Durchschnittliche jährliche Steuerlast während des Entnahmezeitraums. Vereint
+							Kapitalertragssteuer, Solidaritätszuschlag und Kirchensteuer abzüglich der
+							Teilfreistellung für Aktienfonds. Wird vereinfacht für den gesamten
+							Entnahmebetrag (inklusive des Eigenanteils) und ohne Sparerpauschbeträge
+							berechnet.
+						</div>
+						<i class="tooltip-icon fa-solid fa-circle-info cursor-pointer text-black"></i>
+					</div>
+				</div>
+				<div class="flex items-center space-x-2">
+					<input
+						type="checkbox"
+						id="taxCheckbox"
+						name="taxCheckbox"
+						class="form-checkbox h-5 w-5 cursor-pointer rounded-md border-gray-300 checked:border-transparent checked:bg-color-accent-light checked:hover:bg-color-hover-light dark:checked:bg-color-accent-dark dark:checked:hover:bg-color-hover-dark"
+						aria-label="Enable tax input"
+						checked
+					/>
+					<input
+						type="number"
+						id="tax"
+						name="tax"
+						class="form-input w-full rounded-md border-gray-300 px-4 py-2 text-black focus:ring-2 focus:ring-color-accent-light dark:focus:ring-color-accent-dark"
+						min="0"
+						max="30"
+						step="0.5"
+						value="18.5"
+						required
+					/>
+				</div>
+				<input
+					type="range"
+					id="taxSlider"
+					min="0"
+					max="30"
+					step="0.5"
+					value="18.5"
+					class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-color-accent-light dark:bg-color-accent-dark"
+				/>
+			</article>
+		</fieldset>
+		@SubmitButton("Berechnen")
+	</form>
+}

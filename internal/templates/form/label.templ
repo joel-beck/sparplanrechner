@@ -1,0 +1,17 @@
+package form
+
+type LabelData struct {
+	Name string
+	Text string
+	Unit string
+}
+
+templ Label(data LabelData) {
+	<label
+		class="mb-1 pl-2 font-bold text-black"
+		for={ data.Name }
+	>
+		{ data.Text }
+		<span class="font-normal">{ data.Unit }</span>
+	</label>
+}
