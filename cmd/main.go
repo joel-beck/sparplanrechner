@@ -10,7 +10,7 @@ import (
 )
 
 func setPort() string {
-	port := os.Getenv("PORT")
+	port := os.Getenv("HOST_PORT")
 	if port == "" {
 		port = "8080"
 	}

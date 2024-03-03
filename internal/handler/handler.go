@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"net/http"
+
 	"github.com/joel-beck/sparplanrechner/internal/templates"
 	"github.com/joel-beck/sparplanrechner/internal/templates/layouts"
 	"github.com/joel-beck/sparplanrechner/internal/templates/results"
@@ -12,7 +14,7 @@ func HandleIndex(c echo.Context) error {
 }
 
 func HandleHealthCheck(c echo.Context) error {
-	return c.String(200, "OK")
+	return c.String(http.StatusOK, "OK")
 }
 
 func HandleFormResults(c echo.Context) error {
