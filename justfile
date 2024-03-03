@@ -45,10 +45,10 @@ build:
 	go build -o $BINARY_PATH ./cmd && chmod +x $BINARY_PATH
 
 docker-build:
-	docker build --platform linux/amd64 -t $DOCKER_IMAGE_NAME .
+	docker-compose build
 
-docker-run: docker-build
-	docker run -p $PORT:$PORT $DOCKER_IMAGE_NAME
+docker-run:
+	docker-compose up
 
-docker-push: docker-build
-	docker push $DOCKER_IMAGE_NAME
+docker-push:
+	docker-compose push
