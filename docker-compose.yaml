@@ -9,5 +9,3 @@ services:
     platform: linux/amd64
     ports:
       - ${HOST_PORT}:${CONTAINER_PORT}
-    volumes:
-      - .:/app
