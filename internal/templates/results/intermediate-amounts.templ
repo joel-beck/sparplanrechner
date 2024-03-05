@@ -9,10 +9,7 @@ templ IntermediateAmounts(years []int, intermediateAmounts types.FormattedInterm
 		class="dropdown rounded border border-gray-200 bg-color-form-light dark:bg-color-form-dark"
 	>
 		<button
-			x-on:click="
-			show = !show;
-			$nextTick(() => window.scrollTo(0, document.body.scrollHeight))
-			"
+			x-on:click="show = !show"
 			type="button"
 			class="button items-center flex w-full justify-between px-4 py-3 focus:outline-none"
 		>

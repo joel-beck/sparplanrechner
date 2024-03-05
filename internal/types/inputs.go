@@ -23,7 +23,7 @@ func CheckboxInputToBool(s string) bool {
 
 type RawUserInputs struct {
 	StartCapital          string  `json:"startCapitalInput"          form:"startCapitalInput"`
-	SavingsRate           string  `json:"savingsRateInput"           form:"savingsRateInput"`
+	SavingsRate           int     `json:"savingsRateInput"           form:"savingsRateInput"`
 	Years                 int     `json:"yearsInput"                 form:"yearsInput"`
 	ReturnRate            float64 `json:"returnRateInput"            form:"returnRateInput"`
 	InflationRate         float64 `json:"inflationRateInput"         form:"inflationRateInput"`
@@ -37,14 +37,13 @@ type RawUserInputs struct {
 func (r RawUserInputs) ToUserInputs() UserInputs {
 
 	startCapital := NumberInputToInt(r.StartCapital)
-	savingsRate := NumberInputToInt(r.SavingsRate)
 	inflationRateCheckbox := CheckboxInputToBool(r.InflationRateCheckbox)
 	takeoutRateCheckbox := CheckboxInputToBool(r.TakeoutRateCheckbox)
 	taxCheckbox := CheckboxInputToBool(r.TaxCheckbox)
 
 	return UserInputs{
 		StartCapital:          startCapital,
-		SavingsRate:           savingsRate,
+		SavingsRate:           r.SavingsRate,
 		Years:                 r.Years,
 		ReturnRate:            r.ReturnRate,
 		InflationRate:         r.InflationRate,
@@ -58,7 +57,7 @@ func (r RawUserInputs) ToUserInputs() UserInputs {
 
 func (r RawUserInputs) MarshalZerologObject(e *zerolog.Event) {
 	e.Str("startCapital", r.StartCapital).
-		Str("savingsRate", r.SavingsRate).
+		Int("savingsRate", r.SavingsRate).
 		Int("years", r.Years).
 		Float64("returnRate", r.ReturnRate).
 		Float64("inflationRate", r.InflationRate).

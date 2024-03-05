@@ -1,0 +1,38 @@
+# See https://fly.io/docs/reference/configuration/ for all configuration options
+app = "sparplanrechner"
+primary_region = "cdg" # Paris/France
+kill_signal = "SIGINT"
+kill_timeout = 5
+
+[build]
+dockerfile = "./Dockerfile"
+ignorefile = "./.dockerignore"
+strategy = "rolling"
+max_unavailable = 1
+wait_timeout = "5m"
+
+[http_service]
+internal_port = 8080
+force_https = true
+auto_stop_machines = true
+auto_start_machines = true
+min_machines_running = 0
+
+[http_service.concurrency]
+type = "requests"
+soft_limit = 200
+hard_limit = 250
+
+[[http_service.checks]]
+grace_period = "10s"
+interval = "60s"
+timeout = "5s"
+method = "GET"
+path = "/health"
+protocol = "https"
+
+[[vm]]
+size = "shared-cpu-2x"
+memory = "512mb"
+cpus = 1
+cpu_kind = "shared"
