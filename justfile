@@ -52,3 +52,6 @@ docker-run:
 
 docker-push:
 	docker-compose push
+
+deploy:
+	flyctl deploy
