@@ -1,6 +1,6 @@
 # Sparplanrechner 💰
 
-Dieses Projekt enthält den Source Code für einen deutschsprachigen Sparplanrechner. Der Sparplanrechner kann kostenfrei über die Website [https://sparplanrechner.onrender.com](https://sparplanrechner.onrender.com) genutzt werden.
+Dieses Projekt enthält den Source Code für einen deutschsprachigen Sparplanrechner. Der Sparplanrechner kann kostenfrei über die Website [https://sparplanrechner.fly.dev](https://sparplanrechner.fly.dev) genutzt werden.
 
 Nutzer können die Berechnung anhand der folgenden Parameter individualisieren:
 
@@ -31,9 +31,8 @@ Dazu sollen kontinuierlich neue Features hinzugefügt und die User Experience st
 
 Der Tech-Stack des Sparplanrechners besteht aus Go für das Backend mit dem [Templ](https://templ.guide) Paket für typsichere Templates, [Tailwind CSS](https://tailwindcss.com) und [Alpine JS](https://alpinejs.dev) für das Frontend und [HTMX](https://htmx.org/docs/) für die Kommunikation zwischen Frontend und Backend.
 
-Die Web Applikation wird als Docker Container auf [Render](https://render.com/) gehostet.
-Bei jedem Pull Request auf den `main` Branch wird mit GitHub Actions automatisch ein neues Docker Image auf Docker Hub gepusht.
-Das Update des Docker Images triggert anschließend ein neues Deployment auf Render.
+Die Web Applikation wird als Docker Container auf [Fly.io](https://fly.io) gehostet.
+Bei jedem Merge auf den `main` Branch wird mit GitHub Actions automatisch ein neues Docker Image gebaut und auf Fly.io deployed. Zudem wird das Docker Image in die Container Registry Docker Hub gepusht.
 
 ## Contributions 🤝
 
@@ -43,7 +42,7 @@ Dazu einfach ein Issue oder einen Pull Request gemeinsam mit einer kurzen Beschr
 ## English Description 🇺🇸🇬🇧
 
 This project contains the source code for a German investment calculator.
-The investment calculator can be accessed for free as a web application at [https://sparplanrechner.onrender.com](https://sparplanrechner.onrender.com).
+The investment calculator can be accessed for free as a web application at [https://sparplanrechner.fly.dev](https://sparplanrechner.fly.dev).
 
 Users can specify the starting capital, the monthly savings rate, the expected annual return, the investment period, the expected annual inflation rate, the desired annual takeout rate at the end of the investment period and the tax rate on the capital gains.
 
