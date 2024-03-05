@@ -1,0 +1,43 @@
+name: Docker Hub
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
+      DOCKER_IMAGE_TAG: ${{ secrets.DOCKER_IMAGE_TAG }}
+      HOST_PORT: ${{ secrets.HOST_PORT }}
+      CONTAINER_PORT: ${{ secrets.CONTAINER_PORT }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          echo "$HOME/.bun/bin" >> $GITHUB_PATH
+
+      - name: Install TailwindCSS
+        run: bun add tailwindcss
+
+      - name: Build CSS and JavaScript
+        run: |
+          bun tailwindcss -i ./web/src/style.css -o ./web/dist/style.css
+          bun build web/src/main.ts --outdir web/dist
+
+      - name: Login to Docker Hub
+        run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+      - name: Build Docker Image
+        run: docker-compose -f docker-compose.yaml build
+
+      - name: Push Docker Image to Docker Hub
+        run: docker-compose -f docker-compose.yaml push
