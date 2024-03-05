@@ -1,0 +1,39 @@
+# fly.toml app configuration file generated for sparplanrechner on 2024-03-05T17:43:55+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+app = 'sparplanrechner'
+primary_region = 'cdg'
+kill_signal = 'SIGINT'
+kill_timeout = '5s'
+
+[build]
+dockerfile = './Dockerfile'
+ignorefile = './.dockerignore'
+strategy = "rolling"
+max_unavailable = 1
+wait_timeout = "5m"
+
+[http_service]
+internal_port = 8080
+auto_stop_machines = true
+auto_start_machines = true
+min_machines_running = 0
+
+[http_service.concurrency]
+type = 'requests'
+hard_limit = 250
+soft_limit = 200
+
+[[http_service.checks]]
+interval = '1m0s'
+timeout = '5s'
+grace_period = '10s'
+method = 'GET'
+path = '/health'
+
+[[vm]]
+size = 'shared-cpu-2x'
+memory = '512mb'
+cpu_kind = 'shared'
+cpus = 1

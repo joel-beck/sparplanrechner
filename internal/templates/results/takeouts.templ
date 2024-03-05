@@ -8,10 +8,7 @@ templ Takeouts(takeouts types.FormattedTakeouts) {
 		class="dropdown rounded border border-gray-200 bg-color-form-light dark:bg-color-form-dark"
 	>
 		<button
-			x-on:click="
-			show = !show;
-			$nextTick(() => window.scrollTo(0, document.body.scrollHeight))
-			"
+			x-on:click="show = !show; $nextTick(() => $refs.takeoutsTable.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'start'}))"
 			type="button"
 			class="button items-center flex w-full justify-between px-4 py-3 focus:outline-none"
 		>
@@ -24,7 +21,7 @@ templ Takeouts(takeouts types.FormattedTakeouts) {
 		</button>
 		<div
 			x-show="show"
-			x-collapse.duration.1000ms
+			x-ref="takeoutsTable"
 			class="table-container min-w-full overflow-x-auto px-4 pb-4 pt-1"
 		>
 			<table
@@ -32,38 +29,23 @@ templ Takeouts(takeouts types.FormattedTakeouts) {
 			>
 				<thead class="table-header-group bg-white">
 					<tr class="table-row">
-						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black"></th>
-						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">Brutto</th>
-						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">Netto</th>
-						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">
-							Inflationsbereinigt
-						</th>
+						for _, header := range []string{"", "Brutto", "Netto", "Inflationsbereinigt"} {
+							<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">{ header }</th>
+						}
 					</tr>
 				</thead>
 				<tbody class="table-row-group divide-y divide-gray-200 bg-white">
 					<tr class="table-row">
 						<td class="table-cell border border-gray-200 px-6 py-3 text-right font-bold text-black">Jahr</td>
-						<td class="table-cell border border-gray-200 px-6 py-3 text-right text-black">
-							{ takeouts.Annual.BeforeTax }
-						</td>
-						<td class="table-cell border border-gray-200 px-6 py-3 text-right text-black">
-							{ takeouts.Annual.AfterTax }
-						</td>
-						<td class="table-cell border border-gray-200 px-6 py-3 text-right text-black">
-							{ takeouts.Annual.InflationDiscountedAfterTax }
-						</td>
+						for _, takeoutValue := range []string{takeouts.Annual.BeforeTax, takeouts.Annual.AfterTax, takeouts.Annual.InflationDiscountedAfterTax} {
+							<td class="table-cell border border-gray-200 px-6 py-3 text-right text-black">{ takeoutValue }</td>
+						}
 					</tr>
 					<tr class="table-row">
 						<td class="table-cell border border-gray-200 px-6 py-3 text-right font-bold text-black">Monat</td>
-						<td class="table-cell border border-gray-200 px-6 py-3 text-right text-black">
-							{ takeouts.Monthly.BeforeTax }
-						</td>
-						<td class="table-cell border border-gray-200 px-6 py-3 text-right text-black">
-							{ takeouts.Monthly.AfterTax }
-						</td>
-						<td class="table-cell border border-gray-200 px-6 py-3 text-right text-black">
-							{ takeouts.Monthly.InflationDiscountedAfterTax }
-						</td>
+						for _, takeoutValue := range []string{takeouts.Monthly.BeforeTax, takeouts.Monthly.AfterTax, takeouts.Monthly.InflationDiscountedAfterTax} {
+							<td class="table-cell border border-gray-200 px-6 py-3 text-right text-black">{ takeoutValue }</td>
+						}
 					</tr>
 				</tbody>
 			</table>

@@ -6,13 +6,10 @@ import "strconv"
 templ IntermediateAmounts(years []int, intermediateAmounts types.FormattedIntermediateAmounts) {
 	<div
 		x-data="{show: false}"
-		class="dropdown rounded border border-gray-200 bg-color-form-light dark:bg-color-form-dark"
+		class="rounded border border-gray-200 bg-color-form-light dark:bg-color-form-dark"
 	>
 		<button
-			x-on:click="
-			show = !show;
-			$nextTick(() => window.scrollTo(0, document.body.scrollHeight))
-			"
+			x-on:click="show = !show; $nextTick(() => $refs.intermediateAmountsTable.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'start'}))"
 			type="button"
 			class="button items-center flex w-full justify-between px-4 py-3 focus:outline-none"
 		>
@@ -25,7 +22,7 @@ templ IntermediateAmounts(years []int, intermediateAmounts types.FormattedInterm
 		</button>
 		<div
 			x-show="show"
-			x-collapse.duration.1000ms
+			x-ref="intermediateAmountsTable"
 			class="min-w-full overflow-x-auto px-4 pb-4"
 		>
 			<table
@@ -33,33 +30,17 @@ templ IntermediateAmounts(years []int, intermediateAmounts types.FormattedInterm
 			>
 				<thead class="table-header-group bg-white">
 					<tr class="table-row">
-						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">Jahr</th>
-						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">Total</th>
-						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">
-							Einzahlungen
-						</th>
-						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">Zinsen</th>
-						<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">
-							Inflationsbereinigt
-						</th>
+						for _, header := range []string{"Jahr", "Total", "Einzahlungen", "Zinsen", "Inflationsbereinigt"} {
+							<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">{ header }</th>
+						}
 					</tr>
 				</thead>
 				<tbody class="table-row-group divide-y divide-gray-200 bg-white">
 					for i, year := range years {
 						<tr class="table-row">
-							<td class="table-cell border border-gray-200 px-6 py-2 text-right text-black">{ strconv.Itoa(year) }</td>
-							<td class="table-cell border border-gray-200 px-6 py-2 text-right text-black">
-								{ intermediateAmounts.AnnualTotals[i] }
-							</td>
-							<td class="table-cell border border-gray-200 px-6 py-2 text-right text-black">
-								{ intermediateAmounts.AnnualPayments[i] }
-							</td>
-							<td class="table-cell border border-gray-200 px-6 py-2 text-right text-black">
-								{ intermediateAmounts.AnnualReturns[i] }
-							</td>
-							<td class="table-cell border border-gray-200 px-6 py-2 text-right text-black">
-								{ intermediateAmounts.InflationDiscountedAnnualTotals[i] }
-							</td>
+							for _, tableCell := range []string{strconv.Itoa(year), intermediateAmounts.AnnualTotals[i], intermediateAmounts.AnnualPayments[i], intermediateAmounts.AnnualReturns[i], intermediateAmounts.InflationDiscountedAnnualTotals[i]} {
+								<td class="table-cell border border-gray-200 px-6 py-2 text-right text-black">{ tableCell }</td>
+							}
 						</tr>
 					}
 				</tbody>

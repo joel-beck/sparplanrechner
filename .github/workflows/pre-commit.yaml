@@ -1,4 +1,4 @@
-name: Pre-Commit Checks
+name: Pre-Commit
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Go for golangci-lint
         uses: actions/setup-go@v4
