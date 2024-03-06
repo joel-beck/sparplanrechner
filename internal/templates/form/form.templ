@@ -11,7 +11,7 @@ templ Form() {
 	>
 		@SingleFormField() {
 			@LabelTooltip(LabelData{Name: "startCapital", Text: "Startkapital", Unit: "€"}, "Startkapital zu Beginn des Anlagezeitraums.")
-			@NumberInput(NumberInputData{Name: "startCapital", Min: "0", Placeholder: "z.B. 10000", Required: true, Autofocus: true, SyncedSlider: false, SyncedCheckbox: false, InputFormat: FormatValue})
+			@NumberInput(NumberInputData{Name: "startCapital", Min: "0", Placeholder: "z.B. 10.000", Required: true, Autofocus: true, SyncedSlider: false, SyncedCheckbox: false, InputFormat: FormatValue})
 		}
 		@SingleFormField() {
 			@LabelTooltip(LabelData{Name: "savingsRate", Text: "Monatliche Sparrate", Unit: "€"}, "Monatlicher Sparbetrag über den Anlagezeitraum.")

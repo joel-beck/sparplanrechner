@@ -41,7 +41,7 @@ func Form() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = NumberInput(NumberInputData{Name: "startCapital", Min: "0", Placeholder: "z.B. 10000", Required: true, Autofocus: true, SyncedSlider: false, SyncedCheckbox: false, InputFormat: FormatValue}).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = NumberInput(NumberInputData{Name: "startCapital", Min: "0", Placeholder: "z.B. 10.000", Required: true, Autofocus: true, SyncedSlider: false, SyncedCheckbox: false, InputFormat: FormatValue}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
