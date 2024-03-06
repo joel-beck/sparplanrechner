@@ -1,21 +1,18 @@
-# FIXME: Automatic deployment by GitHub Actions is not working yet, thus deploy manually
-# via the flyctl CLI
+# FIXME: Automatic deployment by GitHub Actions is not working yet, thus deploy manually via the flyctl CLI
+name: Fly Deployment
 
-# name: Fly Deployment
+on:
+  push:
+    branches:
+      - main
 
-# on:
-#   push:
-#     branches:
-#       - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - name: Checkout Repository
-#         uses: actions/checkout@v4
-
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 #       - name: Set up flyctl
 #         uses: superfly/flyctl-actions/setup-flyctl@master
 

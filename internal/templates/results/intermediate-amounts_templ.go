@@ -38,7 +38,7 @@ func IntermediateAmounts(years []int, intermediateAmounts types.FormattedInterme
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(header)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/results/intermediate-amounts.templ`, Line: 33, Col: 103}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/results/intermediate-amounts.templ`, Line: 36, Col: 92}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -66,7 +66,7 @@ func IntermediateAmounts(years []int, intermediateAmounts types.FormattedInterme
 				var templ_7745c5c3_Var3 string
 				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(tableCell)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/results/intermediate-amounts.templ`, Line: 41, Col: 97}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/results/intermediate-amounts.templ`, Line: 44, Col: 86}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 				if templ_7745c5c3_Err != nil {

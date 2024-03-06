@@ -9,9 +9,12 @@ templ IntermediateAmounts(years []int, intermediateAmounts types.FormattedInterm
 		class="rounded border border-gray-200 bg-color-form-light dark:bg-color-form-dark"
 	>
 		<button
-			x-on:click="show = !show; $nextTick(() => $refs.intermediateAmountsTable.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'start'}))"
+			x-on:click="
+			show = !show;
+			$nextTick(() => show ? $refs.intermediateAmountsTable.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'start'}) : '')
+			"
 			type="button"
-			class="button items-center flex w-full justify-between px-4 py-3 focus:outline-none"
+			class="items-center flex w-full justify-between px-4 py-3 focus:outline-none"
 		>
 			<h2 class="text-left font-bold text-black">Zwischenbeträge</h2>
 			<i
@@ -23,23 +26,23 @@ templ IntermediateAmounts(years []int, intermediateAmounts types.FormattedInterm
 		<div
 			x-show="show"
 			x-ref="intermediateAmountsTable"
-			class="min-w-full overflow-x-auto px-4 pb-4"
+			class="min-w-full overflow-x-auto px-4 pb-4 scroll-mt-32"
 		>
 			<table
 				class="w-full table-auto border-separate divide-y divide-gray-200 overflow-hidden rounded-md pr-3 lg:pr-0"
 			>
-				<thead class="table-header-group bg-white">
-					<tr class="table-row">
+				<thead class="bg-white">
+					<tr>
 						for _, header := range []string{"Jahr", "Total", "Einzahlungen", "Zinsen", "Inflationsbereinigt"} {
-							<th class="table-cell border border-gray-200 px-6 py-2 text-right font-bold text-black">{ header }</th>
+							<th class="border border-gray-200 px-6 py-2 text-right font-bold text-black">{ header }</th>
 						}
 					</tr>
 				</thead>
-				<tbody class="table-row-group divide-y divide-gray-200 bg-white">
+				<tbody class="divide-y divide-gray-200 bg-white">
 					for i, year := range years {
-						<tr class="table-row">
+						<tr>
 							for _, tableCell := range []string{strconv.Itoa(year), intermediateAmounts.AnnualTotals[i], intermediateAmounts.AnnualPayments[i], intermediateAmounts.AnnualReturns[i], intermediateAmounts.InflationDiscountedAnnualTotals[i]} {
-								<td class="table-cell border border-gray-200 px-6 py-2 text-right text-black">{ tableCell }</td>
+								<td class="border border-gray-200 px-6 py-2 text-right text-black">{ tableCell }</td>
 							}
 						</tr>
 					}
